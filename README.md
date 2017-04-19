@@ -5,12 +5,20 @@
 
 ## Dev Setup
 
-you don't need to use `brew` -- but please do use [yarn](https://yarnpkg.com)
+install
+* [yarn](https://yarnpkg.com) -- required for yarn.lock sanity
+* [nvm](https://github.com/creationix/nvm) -- recommended
 
 ```
-brew install yarn
+nvm use v6.9.1
 npm install -g @angular/cli
 ng set --global packageManager=yarn
 cd webapp
 yarn
+```
+
+Deploy webapp
+```
+cd webapp
+npm run deploy
 ```
