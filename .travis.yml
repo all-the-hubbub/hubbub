@@ -1,0 +1,27 @@
+sudo: false
+language: node_js
+node_js:
+  - 6.9.1
+
+cache: yarn
+addons:
+  apt:
+    sources:
+      - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
+        key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+    packages:
+      - yarn
+
+install:
+  - (cd webapp; yarn)
+  - (cd functions; yarn)
+
+script:
+  - (cd webapp; ng build)
+
+deploy:
+  skip_cleanup: true
+  provider: firebase
+  token:
+    secure: "$FIREBASE_TOKEN"
+  project: hubbub-159904
