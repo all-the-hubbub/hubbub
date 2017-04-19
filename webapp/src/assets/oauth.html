@@ -1,0 +1,17 @@
+<html>
+  <body>
+    <script type="text/javascript">
+      var userAgent = window.navigator.userAgent.toLowerCase();
+      var ios = /iphone|ipod|ipad/.test(userAgent);
+
+      var endpoint;
+      if (ios) {
+          endpoint = 'hubbub://oauth/callback';
+      } else {
+          endpoint = 'https://hubbub-159904.firebaseapp.com/__/auth/handler';
+      }
+
+      window.location = endpoint + window.location.search + window.location.hash;
+    </script>
+  </body>
+</html>
