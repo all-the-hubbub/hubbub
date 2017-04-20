@@ -13,7 +13,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var oauthCallback: ((URL) -> Void)?
+    let oauthClient = GitHubOAuthClient()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let rootViewController = UINavigationController()
@@ -24,9 +24,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Handle auth state changes:
         // If not logged in, show the login screen. Otherwise show the home screen.
         FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
-            let ident:String = (user == nil) ? "LoginViewController" : "HomeViewController"
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: ident)
+            var vc:UIViewController
+            if (user == nil) {
+                let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                loginVC.oauthClient = self.oauthClient
+                vc = loginVC
+            } else {
+                let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                homeVC.user = user
+                homeVC.oauthClient = self.oauthClient
+                vc = homeVC
+            }
             rootViewController.setViewControllers([vc], animated: false)
         })
         
@@ -41,10 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if url.scheme == "hubbub" {
-            self.oauthCallback?(url)
+            self.oauthClient.handleRedirectURL(url)
             return true
         }
         return false
     }
 }
-

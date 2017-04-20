@@ -10,6 +10,10 @@ import Firebase
 import UIKit
 
 class HomeViewController: UIViewController {
+    
+    var user:FIRUser?
+    var oauthClient:OAuthClient?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
