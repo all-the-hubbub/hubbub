@@ -26,11 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
             var vc:UIViewController
             if (user == nil) {
-                let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                let loginVC = LoginViewController()
                 loginVC.oauthClient = self.oauthClient
                 vc = loginVC
             } else {
-                let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                let homeVC = HomeViewController()
                 homeVC.user = user
                 homeVC.oauthClient = self.oauthClient
                 vc = homeVC

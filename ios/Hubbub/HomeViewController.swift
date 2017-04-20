@@ -7,6 +7,7 @@
 //
 
 import Firebase
+import SnapKit
 import UIKit
 
 class HomeViewController: UIViewController {
@@ -16,9 +17,18 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Logout Action
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(doLogout))
+        
+        // Nav Bar
+        navigationItem.title = "Hubbub"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(doLogout))
+        
+        // Placeholder
+        let label = UILabel()
+        label.text = "Logged in!"
+        view.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
     }
 
     func doLogout() {

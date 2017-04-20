@@ -28,11 +28,13 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
   - p2.OAuth2 (3.0.3)
+  - SnapKit (3.2.0)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - p2.OAuth2 (~> 3.0)
+  - SnapKit (~> 3.0)
 
 SPEC CHECKSUMS:
   Firebase: 2b1cdfba1cda8589f32904a697cc753322bff9d8
@@ -43,7 +45,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   p2.OAuth2: 63d8d3e366ac2c43bfe8bfa13b42cfeb908c314e
+  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
 
-PODFILE CHECKSUM: 9a44f130c2b4913f42852b79ff35d96fe9a0b05b
+PODFILE CHECKSUM: 217509c8d2977fc3ab0db8fe59465b231e3cf440
 
 COCOAPODS: 1.2.0

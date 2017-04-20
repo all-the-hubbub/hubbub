@@ -9,6 +9,7 @@ target 'Hubbub' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'p2.OAuth2', '~> 3.0'
+  pod 'SnapKit', '~> 3.0'
 
   target 'HubbubTests' do
     inherit! :search_paths

@@ -7,20 +7,30 @@
 //
 
 import Firebase
+import SnapKit
 import UIKit
-
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var loginButton:UIButton!
+    var loginButton:UIButton!
     
     var oauthClient:OAuthClient?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loginButton.addTarget(self, action: #selector(doLogin), for: UIControlEvents.touchUpInside)
+        // Nav Bar
+        navigationItem.title = "Hubbub Login"
+        
+        // Login
+        loginButton = UIButton(type: .system)
+        loginButton.setTitle("Login to GitHub", for: .normal)
         loginButton.setTitle("Logging in...", for: .disabled)
+        loginButton.addTarget(self, action: #selector(doLogin), for: UIControlEvents.touchUpInside)
+        view.addSubview(loginButton)
+        loginButton.snp.makeConstraints { (make) -> Void in
+            make.center.equalToSuperview()
+        }
     }
     
     func doLogin() {
