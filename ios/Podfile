@@ -6,8 +6,11 @@ target 'Hubbub' do
   use_frameworks!
 
   # Pods for Hubbub
-  pod 'Firebase/Core'
+  pod 'Alamofire', '~> 4.4'
+  pod 'AlamofireImage', '~> 3.1'
   pod 'Firebase/Auth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
   pod 'p2.OAuth2', '~> 3.0'
   pod 'SnapKit', '~> 3.0'
 

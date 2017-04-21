@@ -12,9 +12,20 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    // UI
     var loginButton:UIButton!
     
-    var oauthClient:OAuthClient?
+    // Internal Properties
+    internal var oauthClient:OAuthClient
+    
+    required init(oauthClient:OAuthClient) {
+        self.oauthClient = oauthClient
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +45,7 @@ class LoginViewController: UIViewController {
     }
     
     func doLogin() {
-        oauthClient?.authorize(from: self, callback: { (accessToken, error) in
+        oauthClient.authorize(from: self, callback: { [unowned self] (accessToken, error) in
             if (error != nil) {
                 print("OAuth was cancelled or failed: \(error)")
                 return

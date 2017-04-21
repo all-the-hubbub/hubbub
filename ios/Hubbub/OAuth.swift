@@ -29,14 +29,18 @@ class GitHubOAuthClient: OAuthClient {
         "secret_in_body": true,
         "verbose": true,
         "keychain": false,
-        ] as OAuth2JSON)
+    ] as OAuth2JSON)
     
     func authorize(from context: AnyObject, callback: @escaping ((_ accessToken: String?, _ error: Error?) -> Void)) {
-        oauth2.authorizeEmbedded(from: context) { (authParams, error) in
+        oauth2.authorizeEmbedded(from: context) { [unowned self] (authParams, error) in
+            // Break retain cycle
+            self.oauth2.authConfig.authorizeContext = nil
+            
             if (error != nil) {
                 callback(nil, error)
                 return
             }
+            
             callback(self.oauth2.accessToken, nil)
         }
     }

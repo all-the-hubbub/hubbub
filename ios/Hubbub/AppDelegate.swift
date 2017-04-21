@@ -26,14 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
             var vc:UIViewController
             if (user == nil) {
-                let loginVC = LoginViewController()
-                loginVC.oauthClient = self.oauthClient
-                vc = loginVC
+                vc = LoginViewController(oauthClient: self.oauthClient)
             } else {
-                let homeVC = HomeViewController()
-                homeVC.user = user
-                homeVC.oauthClient = self.oauthClient
-                vc = homeVC
+                vc = HomeViewController(user: user!, oauthClient: self.oauthClient)
             }
             rootViewController.setViewControllers([vc], animated: false)
         })
