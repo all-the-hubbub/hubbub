@@ -8,7 +8,7 @@ import { Profile } from './models/profile'
 // TODO: the following is temporary -- check with deast@
 import * as firebase from 'firebase/app';
 
-Profile
+type AuthStatus = "Unknown"|"LoggedIn"|"LoggedOut";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ Profile
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  loginStatus: "loggedIn"|"loggedOut"|"loading" = "loading";
+  loginStatus: AuthStatus = "Unknown";
   title = 'vanilla ng app works!';
   profile$: FirebaseObjectObservable<Profile>;
   db: firebase.database.Database;
@@ -26,7 +26,7 @@ export class AppComponent {
       this.ngZone.run(() => {
         console.log('user', user);
         if (user) {
-          this.loginStatus = "loggedIn";
+          this.loginStatus = "LoggedIn";
           firebase.auth().getRedirectResult().then(result => {
             console.log('result', result);
             if (result.user) {
@@ -44,7 +44,7 @@ export class AppComponent {
           })
           this.profile$ = afDB.object(`profile/${user.uid}`);
         } else {
-          this.loginStatus = "loggedOut";
+          this.loginStatus = "LoggedOut";
         }
       })
     })
@@ -55,7 +55,7 @@ export class AppComponent {
     this.afAuth.auth.signInWithRedirect(provider);
   }
   logout() {
-    this.loginStatus = "loggedOut";
+    this.loginStatus = "LoggedOut";
     this.afAuth.auth.signOut();
   }
 }

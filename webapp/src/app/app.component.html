@@ -2,15 +2,15 @@
   {{title}}
 </h1>
 
-<div *ngIf="loginStatus == 'loading'">
+<div *ngIf="loginStatus == 'Unknown'">
   <p>loading...</p>
 </div>
 
-<div *ngIf="loginStatus == 'loggedOut'">
+<div *ngIf="loginStatus == 'LoggedOut'">
   <button (click)="login()" md-button>Log In</button>
 </div>
 
-<div *ngIf="loginStatus == 'loggedIn'">
+<div *ngIf="loginStatus == 'LoggedIn'">
   <div *ngIf="(profile$ | async)">
     Profile Info: {{ (profile$ | async) | json }}
   </div>
