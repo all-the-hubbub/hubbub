@@ -4,7 +4,7 @@ Ever go to a conference and feel like you haven't connected to the people you wo
 This app doesn't do much yet, but it will!
 
 ## App Concept
-You authenticate with Github, which triggers a function that grabs a lot of data from the Github API.  The initial data fills out a basic profile (e.g. languages you code in) and creates a list of connections based on your pull request history (if we can get that) or the committers on projects that you have contributed to.
+You authenticate with Github, which triggers a [Cloud Function](https://cloud.google.com/functions/docs/) that grabs a lot of data from the [Github API](https://developer.github.com/v3/).  The initial data fills out your basic profile (e.g. [languages you code in](https://developer.github.com/v3/repos/#list-languages)) and creates a list of connections based on your pull request history or the other committers on projects that you have contributed to.
 
 
 ## Dev Setup
