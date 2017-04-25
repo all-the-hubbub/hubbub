@@ -63,13 +63,22 @@ class HomeViewController: UIViewController {
             make.left.equalTo(profileImageView.snp.right).offset(20)
         }
         
+        // Your Slots
+        let yourSlotsLabel = UILabel()
+        yourSlotsLabel.text = "Your Lunches:"
+        view.addSubview(yourSlotsLabel)
+        yourSlotsLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(profileImageView.snp.left)
+            make.top.equalTo(profileImageView.snp.bottom).offset(20)
+        }
+        
         // Slots
         slotsTableView = UITableView(frame: .zero, style: .plain)
         view.addSubview(slotsTableView)
         slotsTableView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
+            make.left.equalTo(yourSlotsLabel.snp.left).offset(10)
             make.right.equalToSuperview()
-            make.top.equalTo(profileImageView.snp.bottom).offset(20)
+            make.top.equalTo(yourSlotsLabel.snp.bottom)
             make.bottom.equalToSuperview()
         }
         slotsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "slotsCell")
@@ -89,10 +98,12 @@ class HomeViewController: UIViewController {
     }
     
     internal func bindSlots() {
-        slotsQuery = FIRDatabase.database().reference().child("slots").queryOrdered(byChild: "state").queryEqual(toValue: "open")
+        slotsQuery = FIRDatabase.database().reference().child("account").child(user.uid).child("slots")
         slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { (tableView, indexPath, snapshot) -> UITableViewCell in
             let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
-            cell.textLabel?.text = snapshot.key
+            if let slot = AccountSlot(snapshot: snapshot) {
+                cell.textLabel?.text = "\(slot.date) @ \(slot.time)"
+            }
             return cell
         })
     }
@@ -104,8 +115,8 @@ class HomeViewController: UIViewController {
             if let photo = (data["photo"] as? String), let photoURL = URL(string: photo) {
                 self.profileImageView.af_setImage(withURL: photoURL)
             }
-            if let username = data["handle"] {
-                self.usernameLabel.text = (username as! String)
+            if let username = data["handle"] as? String {
+                self.usernameLabel.text = username
             }
         })
     }
