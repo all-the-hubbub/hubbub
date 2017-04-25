@@ -19,6 +19,8 @@
 		87A177E71E8ACA9000D61E2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */; };
 		87A177E81E8ACA9000D61E2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */; };
 		87A177E91E8ACA9000D61E2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */; };
+		87F1B8431EAFEB4B00AE5535 /* AccountSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F1B8421EAFEB4B00AE5535 /* AccountSlot.swift */; };
+		87F1B8451EAFED2800AE5535 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F1B8441EAFED2800AE5535 /* Account.swift */; };
 		87FD3DD71EA82FEC00B1D8E3 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD3DD61EA82FEC00B1D8E3 /* OAuth.swift */; };
 		E014FCFD227AB106ACE7099D /* Pods_Hubbub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86728761E00FA08F6F980B9A /* Pods_Hubbub.framework */; };
 		FCFFE0D92827E02C3E0BB762 /* Pods_HubbubUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40EDE3F4BDD6F8B5DC57D8AA /* Pods_HubbubUITests.framework */; };
@@ -62,6 +64,8 @@
 		875D85601EA6B70A00DEAE5A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		876B48171E8D5425006C8005 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		87F1B8421EAFEB4B00AE5535 /* AccountSlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSlot.swift; sourceTree = "<group>"; };
+		87F1B8441EAFED2800AE5535 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		87FD3DD61EA82FEC00B1D8E3 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		BE0F3AF5892040063893147C /* Pods-HubbubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HubbubTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HubbubTests/Pods-HubbubTests.release.xcconfig"; sourceTree = "<group>"; };
 		D2DE68E23402674767E52B46 /* Pods-Hubbub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hubbub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hubbub/Pods-Hubbub.debug.xcconfig"; sourceTree = "<group>"; };
@@ -146,9 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				871818C11E8AC81F00CF0B44 /* Assets.xcassets */,
+				87F1B8461EAFF7CD00AE5535 /* Models */,
+				87F1B8471EAFF7E100AE5535 /* ViewControllers */,
 				871818BA1E8AC81F00CF0B44 /* AppDelegate.swift */,
-				875D85601EA6B70A00DEAE5A /* HomeViewController.swift */,
-				876B48171E8D5425006C8005 /* LoginViewController.swift */,
 				87FD3DD61EA82FEC00B1D8E3 /* OAuth.swift */,
 				871818BE1E8AC81F00CF0B44 /* Main.storyboard */,
 				871818C31E8AC81F00CF0B44 /* LaunchScreen.storyboard */,
@@ -174,6 +178,24 @@
 				871818DC1E8AC81F00CF0B44 /* Info.plist */,
 			);
 			path = HubbubUITests;
+			sourceTree = "<group>";
+		};
+		87F1B8461EAFF7CD00AE5535 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87F1B8441EAFED2800AE5535 /* Account.swift */,
+				87F1B8421EAFEB4B00AE5535 /* AccountSlot.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		87F1B8471EAFF7E100AE5535 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				875D85601EA6B70A00DEAE5A /* HomeViewController.swift */,
+				876B48171E8D5425006C8005 /* LoginViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,6 +486,8 @@
 				871818BB1E8AC81F00CF0B44 /* AppDelegate.swift in Sources */,
 				875D85611EA6B70A00DEAE5A /* HomeViewController.swift in Sources */,
 				87FD3DD71EA82FEC00B1D8E3 /* OAuth.swift in Sources */,
+				87F1B8431EAFEB4B00AE5535 /* AccountSlot.swift in Sources */,
+				87F1B8451EAFED2800AE5535 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
