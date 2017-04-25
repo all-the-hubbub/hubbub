@@ -8,6 +8,7 @@
 
 import AlamofireImage
 import Firebase
+import FirebaseDatabaseUI
 import SnapKit
 import UIKit
 
@@ -16,11 +17,14 @@ class HomeViewController: UIViewController {
     // UI
     var profileImageView:UIImageView!
     var usernameLabel:UILabel!
+    var slotsTableView:UITableView!
     
     // Internal Properties
     internal var user:FIRUser
     internal var oauthClient:OAuthClient
     internal var profileRef:FIRDatabaseReference?
+    internal var slotsQuery:FIRDatabaseQuery?
+    internal var slotsDatasource:FUITableViewDataSource?
     
     required init(user:FIRUser, oauthClient:OAuthClient) {
         self.user = user
@@ -59,16 +63,19 @@ class HomeViewController: UIViewController {
             make.left.equalTo(profileImageView.snp.right).offset(20)
         }
         
-        profileRef = FIRDatabase.database().reference().child("profile").child(user.uid)
-        profileRef!.observe(.value, with: { [unowned self] (snapshot) in
-            let data = snapshot.value as? [String : AnyObject] ?? [:]
-            if let photo = (data["photo"] as? String), let photoURL = URL(string: photo) {
-                self.profileImageView.af_setImage(withURL: photoURL)
-            }
-            if let username = data["handle"] {
-                self.usernameLabel.text = (username as! String)
-            }
-        })
+        // Slots
+        slotsTableView = UITableView(frame: .zero, style: .plain)
+        view.addSubview(slotsTableView)
+        slotsTableView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalTo(profileImageView.snp.bottom).offset(20)
+            make.bottom.equalToSuperview()
+        }
+        slotsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "slotsCell")
+        
+        bindSlots()
+        bindProfile()
     }
     
     deinit {
@@ -79,5 +86,27 @@ class HomeViewController: UIViewController {
 
     func doLogout() {
         try? FIRAuth.auth()?.signOut()
+    }
+    
+    internal func bindSlots() {
+        slotsQuery = FIRDatabase.database().reference().child("slots").queryOrdered(byChild: "state").queryEqual(toValue: "open")
+        slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { (tableView, indexPath, snapshot) -> UITableViewCell in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
+            cell.textLabel?.text = snapshot.key
+            return cell
+        })
+    }
+    
+    internal func bindProfile() {
+        profileRef = FIRDatabase.database().reference().child("profile").child(user.uid)
+        profileRef!.observe(.value, with: { [unowned self] (snapshot) in
+            let data = snapshot.value as? [String : AnyObject] ?? [:]
+            if let photo = (data["photo"] as? String), let photoURL = URL(string: photo) {
+                self.profileImageView.af_setImage(withURL: photoURL)
+            }
+            if let username = data["handle"] {
+                self.usernameLabel.text = (username as! String)
+            }
+        })
     }
 }

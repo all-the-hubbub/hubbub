@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Initialize Firebase
         FIRApp.configure()
+        FIRDatabase.setLoggingEnabled(true)
         
         // Handle auth state changes:
         // If not logged in, show the login screen. Otherwise show the home screen.

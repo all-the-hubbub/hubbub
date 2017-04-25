@@ -11,6 +11,7 @@ target 'Hubbub' do
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'FirebaseUI/Database'
   pod 'p2.OAuth2', '~> 3.0'
   pod 'SnapKit', '~> 3.0'
 
