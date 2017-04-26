@@ -8,6 +8,8 @@
 
 import Firebase
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let rootViewController = UINavigationController()
-        
+
+        Fabric.sharedSDK().debug = true
+        Fabric.with([Crashlytics.self])
+
         // Initialize Firebase
         FIRApp.configure()
         FIRDatabase.setLoggingEnabled(true)
