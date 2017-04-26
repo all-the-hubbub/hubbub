@@ -1,12 +1,15 @@
 import { TestBed, async } from '@angular/core/testing';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-
+import { UserService, AuthStatus } from './user.service';
 import { AppComponent } from './app.component';
-import { config } from './app.module'
+import { Profile } from './types'
 
+import { Observable } from 'rxjs/Observable';
+
+class MockUserService {
+  public loginStatus: AuthStatus = "Unknown";
+  public profile$: Observable<Profile>;
+}
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -14,10 +17,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      imports: [
-        AngularFireModule.initializeApp(config),
-        AngularFireAuthModule,
-        AngularFireDatabaseModule,
+      providers: [
+          { provide: UserService, useClass: MockUserService },
       ]
     }).compileComponents();
   }));
