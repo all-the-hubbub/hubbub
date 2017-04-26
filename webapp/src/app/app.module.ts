@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { UserService } from './user.service';
 import { AppComponent } from './app.component';
 
 import 'hammerjs';      // for Material gestures
@@ -39,7 +40,7 @@ export const config = {
     MdButtonModule,
     MdCheckboxModule,
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
