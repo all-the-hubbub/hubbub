@@ -9,7 +9,7 @@ import * as firebase from 'firebase/app';
 
 // these need to be strings, because we can't use enum in template
 // see details: https://github.com/angular/angular/issues/2885
-type AuthStatus = "Unknown"|"LoggedIn"|"LoggedOut";
+export type AuthStatus = "Unknown"|"LoggedIn"|"LoggedOut";
 
 @Injectable()
 export class UserService {

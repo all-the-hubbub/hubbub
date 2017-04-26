@@ -1,5 +1,4 @@
 
-
 export class Profile {
     uid: string;
     photo: string;
