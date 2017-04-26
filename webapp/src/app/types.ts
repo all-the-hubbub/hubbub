@@ -1,3 +1,5 @@
+
+
 export class Profile {
     uid: string;
     photo: string;
@@ -9,3 +11,4 @@ export class Account {
     uid: string;
     githubToken: string;
 }
+
