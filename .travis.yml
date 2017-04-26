@@ -1,7 +1,15 @@
-sudo: false
+sudo: required  # because we're using apt
+dist: trusty
+
 language: node_js
 node_js:
   - 6.9.1
+
+apt:
+  sources:
+    - google-chrome
+  packages:
+    - google-chrome-stable
 
 cache: yarn
 addons:
@@ -12,12 +20,22 @@ addons:
     packages:
       - yarn
 
+before_install:
+ - export CHROME_BIN=/usr/bin/google-chrome
+ - export DISPLAY=:99.0
+ - sh -e /etc/init.d/xvfb start
+ - sudo apt-get update
+ - sudo apt-get install -y libappindicator1 fonts-liberation
+ - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+ - sudo dpkg -i google-chrome*.deb
+ - rm google-chrome*.deb
+
 install:
   - (cd webapp; yarn)
   - (cd functions; yarn)
 
 script:
-  - (cd webapp; ng build)
+  - (cd webapp; ng test --watch false && ng build)
 
 deploy:
   skip_cleanup: true
