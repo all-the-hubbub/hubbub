@@ -57,16 +57,6 @@ function mockAFDatabase(object) {
   } as AngularFireDatabase;
 }
 
-// seems like we should be able to use this:
-// https://github.com/angular/angular/blob/bebedfed24d6fbfa492e97f071e1d1b41e411280/packages/core/testing/src/ng_zone_mock.ts
-function mockNgZone() {
-  return {
-      run: function(callback) {
-        callback();
-      }
-    } as NgZone;
-}
-
 describe('UserService', () => {
   let service: UserService;
     let profile = new Profile({
@@ -80,7 +70,7 @@ describe('UserService', () => {
     service = new UserService(
       mockAFAuth({uid: profile.uid, email: profile.email}),
       mockAFDatabase(profile),
-      mockNgZone());
+      new NgZone({}));
   });
 
   it('should have a profile', () => {
