@@ -12,7 +12,7 @@ import FirebaseDatabaseUI
 import SnapKit
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UITableViewDelegate {
     
     // UI
     var profileImageView:UIImageView!
@@ -22,6 +22,8 @@ class HomeViewController: UIViewController {
     // Internal Properties
     internal var user:FIRUser
     internal var oauthClient:OAuthClient
+    internal var account:Account?
+    internal var accountRef:FIRDatabaseReference?
     internal var profileRef:FIRDatabaseReference?
     internal var slotsQuery:FIRDatabaseQuery?
     internal var slotsDatasource:FUITableViewDataSource?
@@ -65,7 +67,7 @@ class HomeViewController: UIViewController {
         
         // Your Slots
         let yourSlotsLabel = UILabel()
-        yourSlotsLabel.text = "Your Lunches:"
+        yourSlotsLabel.text = "Upcoming Lunches:"
         view.addSubview(yourSlotsLabel)
         yourSlotsLabel.snp.makeConstraints { (make) in
             make.left.equalTo(profileImageView.snp.left)
@@ -74,6 +76,7 @@ class HomeViewController: UIViewController {
         
         // Slots
         slotsTableView = UITableView(frame: .zero, style: .plain)
+        slotsTableView.delegate = self
         view.addSubview(slotsTableView)
         slotsTableView.snp.makeConstraints { (make) in
             make.left.equalTo(yourSlotsLabel.snp.left).offset(10)
@@ -83,6 +86,9 @@ class HomeViewController: UIViewController {
         }
         slotsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "slotsCell")
         
+        // TODO: Shouldn't be listening to the entire account object because /slots can get large
+        bindAccount()
+        
         bindSlots()
         bindProfile()
     }
@@ -91,18 +97,35 @@ class HomeViewController: UIViewController {
         if let ref = profileRef {
             ref.removeAllObservers()
         }
+        if let ref = accountRef {
+            ref.removeAllObservers()
+        }
+        if let query = slotsQuery {
+            query.removeAllObservers()
+        }
     }
 
-    func doLogout() {
+    // MARK: Internal
+    
+    internal func doLogout() {
         try? FIRAuth.auth()?.signOut()
     }
     
     internal func bindSlots() {
-        slotsQuery = FIRDatabase.database().reference().child("account").child(user.uid).child("slots")
-        slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { (tableView, indexPath, snapshot) -> UITableViewCell in
+        // Fetch the next 10 slots (including up to an hour ago to account for ongoing slots)
+        let startTime = Date().timeIntervalSince1970 - (60*60)
+        slotsQuery = FIRDatabase.database().reference().child("slots")
+            .queryOrdered(byChild: "timestamp")
+            .queryStarting(atValue: startTime)
+            .queryLimited(toFirst: 10)
+        
+        slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { [unowned self] (tableView, indexPath, snapshot) -> UITableViewCell in
             let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
-            if let slot = AccountSlot(snapshot: snapshot) {
-                cell.textLabel?.text = "\(slot.date) @ \(slot.time)"
+            if let slot = Slot(snapshot: snapshot), var name = slot.name {
+                if (self.account?.hasRequestForSlot(id: slot.id) ?? false) {
+                    name += " \u{2611}"
+                }
+                cell.textLabel?.text = name
             }
             return cell
         })
@@ -119,5 +142,57 @@ class HomeViewController: UIViewController {
                 self.usernameLabel.text = username
             }
         })
+    }
+    
+    internal func bindAccount() {
+        accountRef = FIRDatabase.database().reference().child("account").child(user.uid)
+        accountRef!.observe(.value, with: { [unowned self] (snapshot) in
+            self.account = Account(snapshot: snapshot)
+            self.slotsTableView.reloadData()
+        })
+    }
+    
+    internal func toggleSlot(slot:Slot) {
+        // Capture some data so the block below doesn't need self
+        let userID = user.uid
+
+        // Start by fetching the user's existing request for the given day, if any
+        let rootRef = FIRDatabase.database().reference()
+        rootRef.child("account/\(userID)/slots/\(slot.id)").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Build a set of updates
+            var updates = [String:Any?]()
+
+            if let existingSlot = Slot(snapshot: snapshot) {
+                // If a topic has already been assigned, the user can't leave the slot!
+                if existingSlot.topicID != nil {
+                    return
+                }
+
+                // Leave the slot by deleting the request and the account entry
+                let val:Any? = nil
+                updates["requests/\(existingSlot.id)/\(userID)"] = val
+                updates["account/\(userID)/slots/\(existingSlot.id)"] = val
+            } else {
+                // Create a new request
+                updates["requests/\(slot.id)/\(userID)"] = true
+                
+                // Create or update an account slot
+                updates["account/\(userID)/slots/\(slot.id)"] = ["timestamp": slot.timestamp]
+            }
+
+            // Apply all updates atomically
+            rootRef.updateChildValues(updates)
+        })
+    }
+    
+    // MARK: UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let slotSnapshot = slotsDatasource?.items[indexPath.row] {
+            if let slot = Slot(snapshot: slotSnapshot) {
+                toggleSlot(slot: slot)
+            }
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
