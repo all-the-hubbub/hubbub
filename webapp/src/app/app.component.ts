@@ -11,15 +11,9 @@ import { Profile } from './types'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'vanilla ng app works!';
+  title = 'All the Hubbub';
 
   constructor(private userService: UserService) {
   }
 
-  login() {
-    this.userService.login();
-  }
-  logout() {
-    this.userService.logout();
-  }
 }
