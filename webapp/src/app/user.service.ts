@@ -24,7 +24,7 @@ export class UserService {
         console.log('user', user);
         if (user) {
           this.loginStatus = "LoggedIn";
-          firebase.auth().getRedirectResult().then(result => {
+            this.afAuth.auth.getRedirectResult().then(result => {
             console.log('result', result);
             if (result.user) {
               // Firebase performed a re-direct, let's grab the token
