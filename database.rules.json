@@ -1,6 +1,9 @@
 {
   "rules": {
     ".read": true, // "auth != null",
-    ".write": "auth != null"
+    ".write": "auth != null",
+    "slots": {
+      ".indexOn": "timestamp"
+    }
   }
 }
