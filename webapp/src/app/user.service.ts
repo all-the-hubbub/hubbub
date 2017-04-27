@@ -31,10 +31,9 @@ export class UserService {
               const token = result['credential']['accessToken'];
               if (token) {
                 this.db.ref(`account/${user.uid}`).set({
-                  provider: 'github',
-                  token: token,
+                  githubToken: token,
                   email: user.email,
-                  timestamp: firebase.database.ServerValue.TIMESTAMP   // just for our reference
+                  updatedAt: firebase.database.ServerValue.TIMESTAMP   // just for our reference
                 })
               }
             }

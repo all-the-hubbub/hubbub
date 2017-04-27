@@ -2,13 +2,16 @@
 ```
 /account
     /<USER-ID>
-        token = {string}
+        githubToken = {string}
+        email = {string}
+        updatedAt = {server timestamp}
         /slots
             /<SLOT-ID>
                 timestamp = {int: epoch seconds}
                 topicId = {null|string}
 /profile
     /<USER-ID>
+        uid = {string}
         name = {string}
         handle = {string}
         photo = {null|string}
