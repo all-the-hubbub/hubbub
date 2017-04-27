@@ -8,12 +8,16 @@ import { MdButtonModule, MdCheckboxModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
-import { UserService } from './user.service';
-import { AppComponent } from './app.component';
+import 'hammerjs';   // for Material gestures
+import { routes } from        './app.router';
+import { AppComponent } from  './app.component';
+import { UserService } from   './user.service';
 
-import 'hammerjs';
-import { ProfileComponent } from './profile/profile.component';      // for Material gestures
+import { AdminModule } from './admin/admin.module';
+import { LunchComponent } from './lunch/lunch.component';
+import { ProfileComponent } from './profile/profile.component';
 
 // For AoT compatibility, this needs to be exported so that Angular
 // can statically analyze the NgModule declaration
@@ -29,9 +33,11 @@ export const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent
+    ProfileComponent,
+    LunchComponent
   ],
   imports: [
+    AdminModule,
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
@@ -41,6 +47,7 @@ export const config = {
     HttpModule,
     MdButtonModule,
     MdCheckboxModule,
+    routes
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
