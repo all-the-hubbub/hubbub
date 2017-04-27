@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { UserService, AuthStatus } from './user.service';
 import { AppComponent } from './app.component';
+import { ProfileComponent } from './profile/profile.component';
 import { Profile } from './types'
 
 import { Observable } from 'rxjs/Observable';
@@ -15,7 +16,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent, ProfileComponent
       ],
       providers: [
           { provide: UserService, useClass: MockUserService },

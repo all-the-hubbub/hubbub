@@ -12,7 +12,8 @@ import { HttpModule } from '@angular/http';
 import { UserService } from './user.service';
 import { AppComponent } from './app.component';
 
-import 'hammerjs';      // for Material gestures
+import 'hammerjs';
+import { ProfileComponent } from './profile/profile.component';      // for Material gestures
 
 // For AoT compatibility, this needs to be exported so that Angular
 // can statically analyze the NgModule declaration
@@ -27,7 +28,8 @@ export const config = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProfileComponent
   ],
   imports: [
     AngularFireModule.initializeApp(config),
