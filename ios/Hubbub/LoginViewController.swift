@@ -7,13 +7,14 @@
 //
 
 import Firebase
+import MaterialComponents
 import SnapKit
 import UIKit
 
 class LoginViewController: UIViewController {
     
     // UI
-    var loginButton:UIButton!
+    var loginButton:MDCRaisedButton!
     
     // Internal Properties
     internal var oauthClient:OAuthClient
@@ -29,18 +30,51 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
         
         // Nav Bar
         navigationItem.title = "Hubbub Login"
         
+        let container = UIView()
+        view.addSubview(container)
+        container.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
+        // Hero Icon
+        let hero = UIImageView(image: #imageLiteral(resourceName: "hubbub-icon"))
+        container.addSubview(hero)
+        hero.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+        }
+        
+        // Title
+        let title = UILabel()
+        title.text = "What's all this hubbub about?"
+        title.textAlignment = .center
+        title.textColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4274509804, alpha: 1)
+        container.addSubview(title)
+        title.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalTo(hero.snp.bottom).offset(10)
+        }
+        
         // Login
-        loginButton = UIButton(type: .system)
-        loginButton.setTitle("Login to GitHub", for: .normal)
+        loginButton = MDCRaisedButton()
+        loginButton.setElevation(2, for: .normal)
+        loginButton.setTitle("Login with GitHub", for: .normal)
         loginButton.setTitle("Logging in...", for: .disabled)
+        loginButton.setTitleColor(.white, for: .normal)
         loginButton.addTarget(self, action: #selector(doLogin), for: UIControlEvents.touchUpInside)
-        view.addSubview(loginButton)
+        container.addSubview(loginButton)
         loginButton.snp.makeConstraints { (make) -> Void in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalTo(title.snp.bottom).offset(40)
+            make.bottom.equalToSuperview()
         }
     }
     

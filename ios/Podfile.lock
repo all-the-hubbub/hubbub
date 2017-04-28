@@ -37,6 +37,19 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
+  - MaterialComponents/Buttons (23.0.1):
+    - MaterialComponents/Ink
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFTextAccessibility
+  - MaterialComponents/Ink (23.0.1)
+  - MaterialComponents/private/Application (23.0.1)
+  - MaterialComponents/ShadowElevations (23.0.1)
+  - MaterialComponents/ShadowLayer (23.0.1)
+  - MaterialComponents/Typography (23.0.1):
+    - MaterialComponents/private/Application
+  - MDFTextAccessibility (1.2.0)
   - p2.OAuth2 (3.0.3)
   - SnapKit (3.2.0)
 
@@ -47,6 +60,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - FirebaseUI/Database
+  - MaterialComponents/Buttons
   - p2.OAuth2 (~> 3.0)
   - SnapKit (~> 3.0)
 
@@ -62,9 +76,11 @@ SPEC CHECKSUMS:
   FirebaseUI: 6e99ff95e369f5858232e4f65bff215458fe8469
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
+  MaterialComponents: 8666bde1128660f2a3525d03d6b460d2bc34dc3b
+  MDFTextAccessibility: 94098925e0853551c5a311ce7c1ecefbe297cdb6
   p2.OAuth2: 63d8d3e366ac2c43bfe8bfa13b42cfeb908c314e
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
 
-PODFILE CHECKSUM: 41ddc9e82fd69c44d44cb4a17165cd179ff2f768
+PODFILE CHECKSUM: f9ebfb9d98b44677473c60dc9eb0c42d27f012e6
 
 COCOAPODS: 1.2.0
