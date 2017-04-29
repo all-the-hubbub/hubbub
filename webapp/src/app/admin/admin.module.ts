@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { MdButtonModule, MdListModule, MdMenuModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
@@ -15,6 +16,7 @@ export const routes: ModuleWithProviders = RouterModule.forChild(adminRoutes);
 @NgModule({
   imports: [
     CommonModule,
+    MdButtonModule, MdListModule, MdMenuModule,
     routes
   ],
   declarations: [AdminComponent],

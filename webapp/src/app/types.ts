@@ -2,9 +2,11 @@
 // when they are open, people can sign up
 // closing them triggers the matching algorithm via Cloud Function
 export class Slot {
+  id: string;
   name: string;
   state: "open" | "closed";
-  timestamp: Date;
+  startAt: Date;
+  endAt: Date;
 }
 
 

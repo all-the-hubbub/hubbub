@@ -11,6 +11,7 @@ import { Slot } from '../types';
 })
 export class AdminComponent implements OnInit {
   slotList$: Observable<Slot[]>;
+  selected: Slot;
 
   constructor(adminService: AdminService) {
     this.slotList$ = adminService.slotList$;
@@ -20,4 +21,12 @@ export class AdminComponent implements OnInit {
     console.log('AdminComponent loaded');
   }
 
+  select(item: Slot) {
+    console.log('selected item:', item);
+    this.selected = item;
+  }
+
+  close(slot: Slot) {
+    console.log('close item:', slot);
+  }
 }
