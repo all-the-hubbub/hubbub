@@ -92,7 +92,7 @@ exports.leave = function(req, res) {
       }
 
       // TODO: Allow leaving a slot after you've been assigned a topic?
-      if (accountSlot.topicId) {
+      if (accountSlot.topic) {
         throw new errors.HTTPError(400, 'topic already assigned');
       }
 
@@ -156,19 +156,24 @@ exports.close = function(req, res) {
       const updates = {};
 
       // Create a new topic
-      const topicId = 'firebase-001';
       const topic = {
+        id: 'firebase-001',
         name: 'Firebase',
-        members: {},
       };
-      updates[`/topics/${slotId}/${topicId}`] = topic;
 
-      // Add every user to the topic
+      // Add the topic to each member's account slot
       const uids = Object.keys(snapshot.val())
       uids.forEach(uid => {
-        topic.members[uid] = true;
-        updates[`/account/${uid}/slots/${slotId}/topicId`] = topicId;
+        updates[`/account/${uid}/slots/${slotId}/topic`] = topic;
       });
+
+      // Add the topic members
+      const topicWithMembers = cloneDeep(topic);
+      topicWithMembers.members = {};
+      uids.forEach(uid => {
+        topicWithMembers.members[uid] = true;
+      });
+      updates[`/topics/${slotId}/${topic.id}`] = topicWithMembers;
 
       // Apply all updates atomically
       return rootRef.update(updates);
