@@ -3,12 +3,13 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+
 
 import 'hammerjs';   // for Material gestures
 import { routes } from        './app.router';
@@ -47,6 +48,8 @@ export const config = {
     HttpModule,
     MdButtonModule,
     MdCheckboxModule,
+    MdSidenavModule,
+    MdToolbarModule,
     routes
   ],
   providers: [UserService],

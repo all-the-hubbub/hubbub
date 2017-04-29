@@ -1,4 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
+import { MdButtonModule, MdCheckboxModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
 
 import { UserService, AuthStatus } from './user.service';
 import { AppComponent } from './app.component';
@@ -27,7 +28,12 @@ describe('AppComponent', () => {
 
       ],
       imports: [
-        routes
+        routes,
+        MdButtonModule,
+        MdCheckboxModule,
+        MdSidenavModule,
+        MdToolbarModule,
+
       ]
     }).compileComponents();
   }));
@@ -44,10 +50,10 @@ describe('AppComponent', () => {
     expect(app.title).toContain('All the Hubbub');
   }));
 
-  it('should render title in a h1 tag', async(() => {
+  it('should render title', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('All the Hubbub');
+    expect(compiled.querySelector('md-toolbar').textContent).toContain('All the Hubbub');
   }));
 });
