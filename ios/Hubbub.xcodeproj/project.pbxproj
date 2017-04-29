@@ -19,6 +19,8 @@
 		87A177E71E8ACA9000D61E2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */; };
 		87A177E81E8ACA9000D61E2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */; };
 		87A177E91E8ACA9000D61E2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */; };
+		87DD0B7B1EB3F7240037A1E0 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DD0B7A1EB3F7240037A1E0 /* HomeHeaderView.swift */; };
+		87DD0B7E1EB3F74E0037A1E0 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DD0B7D1EB3F74E0037A1E0 /* Profile.swift */; };
 		87F1B8431EAFEB4B00AE5535 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F1B8421EAFEB4B00AE5535 /* Slot.swift */; };
 		87F1B8451EAFED2800AE5535 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F1B8441EAFED2800AE5535 /* Account.swift */; };
 		87FD3DD71EA82FEC00B1D8E3 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD3DD61EA82FEC00B1D8E3 /* OAuth.swift */; };
@@ -64,6 +66,8 @@
 		875D85601EA6B70A00DEAE5A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		876B48171E8D5425006C8005 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		87DD0B7A1EB3F7240037A1E0 /* HomeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		87DD0B7D1EB3F74E0037A1E0 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		87F1B8421EAFEB4B00AE5535 /* Slot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
 		87F1B8441EAFED2800AE5535 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		87FD3DD61EA82FEC00B1D8E3 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 				871818C11E8AC81F00CF0B44 /* Assets.xcassets */,
 				87F1B8461EAFF7CD00AE5535 /* Models */,
 				87F1B8471EAFF7E100AE5535 /* ViewControllers */,
+				87DD0B7C1EB3F72B0037A1E0 /* Views */,
 				871818BA1E8AC81F00CF0B44 /* AppDelegate.swift */,
 				87FD3DD61EA82FEC00B1D8E3 /* OAuth.swift */,
 				871818BE1E8AC81F00CF0B44 /* Main.storyboard */,
@@ -180,10 +185,19 @@
 			path = HubbubUITests;
 			sourceTree = "<group>";
 		};
+		87DD0B7C1EB3F72B0037A1E0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				87DD0B7A1EB3F7240037A1E0 /* HomeHeaderView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		87F1B8461EAFF7CD00AE5535 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				87F1B8441EAFED2800AE5535 /* Account.swift */,
+				87DD0B7D1EB3F74E0037A1E0 /* Profile.swift */,
 				87F1B8421EAFEB4B00AE5535 /* Slot.swift */,
 			);
 			name = Models;
@@ -483,10 +497,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				876B48181E8D5425006C8005 /* LoginViewController.swift in Sources */,
+				87DD0B7E1EB3F74E0037A1E0 /* Profile.swift in Sources */,
 				871818BB1E8AC81F00CF0B44 /* AppDelegate.swift in Sources */,
 				875D85611EA6B70A00DEAE5A /* HomeViewController.swift in Sources */,
 				87FD3DD71EA82FEC00B1D8E3 /* OAuth.swift in Sources */,
 				87F1B8431EAFEB4B00AE5535 /* Slot.swift in Sources */,
+				87DD0B7B1EB3F7240037A1E0 /* HomeHeaderView.swift in Sources */,
 				87F1B8451EAFED2800AE5535 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

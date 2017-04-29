@@ -32,9 +32,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
         
-        // Nav Bar
-        navigationItem.title = "Hubbub Login"
-        
         let container = UIView()
         view.addSubview(container)
         container.snp.makeConstraints { (make) in

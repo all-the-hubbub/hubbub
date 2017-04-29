@@ -37,14 +37,40 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
+  - MaterialComponents/AppBar (23.0.1):
+    - MaterialComponents/FlexibleHeader
+    - MaterialComponents/HeaderStackView
+    - MaterialComponents/NavigationBar
+    - MaterialComponents/private/Icons/ic_arrow_back
+    - MaterialComponents/private/RTL
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+  - MaterialComponents/ButtonBar (23.0.1):
+    - MaterialComponents/Buttons
+    - MaterialComponents/private/RTL
   - MaterialComponents/Buttons (23.0.1):
     - MaterialComponents/Ink
     - MaterialComponents/ShadowElevations
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
     - MDFTextAccessibility
+  - MaterialComponents/FlexibleHeader (23.0.1):
+    - MaterialComponents/private/Application
+    - MDFTextAccessibility
+  - MaterialComponents/HeaderStackView (23.0.1)
   - MaterialComponents/Ink (23.0.1)
+  - MaterialComponents/NavigationBar (23.0.1):
+    - MaterialComponents/ButtonBar
+    - MaterialComponents/private/RTL
+    - MaterialComponents/Typography
+    - MDFTextAccessibility
+  - MaterialComponents/Palettes (23.0.1)
   - MaterialComponents/private/Application (23.0.1)
+  - MaterialComponents/private/Icons/Base (23.0.1)
+  - MaterialComponents/private/Icons/ic_arrow_back (23.0.1):
+    - MaterialComponents/private/Icons/Base
+  - MaterialComponents/private/RTL (23.0.1)
   - MaterialComponents/ShadowElevations (23.0.1)
   - MaterialComponents/ShadowLayer (23.0.1)
   - MaterialComponents/Typography (23.0.1):
@@ -60,7 +86,10 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - FirebaseUI/Database
+  - MaterialComponents/AppBar
   - MaterialComponents/Buttons
+  - MaterialComponents/Palettes
+  - MaterialComponents/ShadowLayer
   - p2.OAuth2 (~> 3.0)
   - SnapKit (~> 3.0)
 
@@ -81,6 +110,6 @@ SPEC CHECKSUMS:
   p2.OAuth2: 63d8d3e366ac2c43bfe8bfa13b42cfeb908c314e
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
 
-PODFILE CHECKSUM: f9ebfb9d98b44677473c60dc9eb0c42d27f012e6
+PODFILE CHECKSUM: f36f8cea64b1924139d302bd95c5baa756c14189
 
 COCOAPODS: 1.2.0

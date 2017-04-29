@@ -6,17 +6,18 @@
 //  Copyright © 2017 All The Hubbub. All rights reserved.
 //
 
-import AlamofireImage
 import Firebase
 import FirebaseDatabaseUI
+import MaterialComponents
+import MaterialComponents.MaterialPalettes
 import SnapKit
 import UIKit
 
 class HomeViewController: UIViewController, UITableViewDelegate {
     
     // UI
-    var profileImageView:UIImageView!
-    var usernameLabel:UILabel!
+    let appBar = MDCAppBar()
+    let headerView = HomeHeaderView()
     var slotsTableView:UITableView!
     
     // Internal Properties
@@ -31,7 +32,10 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     required init(user:FIRUser, oauthClient:OAuthClient) {
         self.user = user
         self.oauthClient = oauthClient
+        
         super.init(nibName: nil, bundle: nil)
+        
+        addChildViewController(appBar.headerViewController)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,29 +44,23 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        appBar.addSubviewsToParent()
+        appBar.headerViewController.headerView.backgroundColor = MDCPalette.blue().tint500
+        if let navShadowLayer = appBar.headerViewController.headerView.shadowLayer as? MDCShadowLayer {
+            navShadowLayer.elevation = 3
+        }
         
         // Nav Bar
         navigationItem.title = "Hubbub"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(doLogout))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_more_vert"), style: .plain, target: self, action: #selector(showActionMenu))
         
-        // Profile Image
-        profileImageView = UIImageView()
-        profileImageView.backgroundColor = UIColor.lightGray
-        view.addSubview(profileImageView)
-        profileImageView.snp.makeConstraints { (make) in
-            make.width.equalTo(150)
-            make.height.equalTo(150)
-            make.top.equalTo(topLayoutGuide.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(20)
-        }
-        
-        // Username
-        usernameLabel = UILabel()
-        usernameLabel.text = "Loading..."
-        view.addSubview(usernameLabel)
-        usernameLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(profileImageView.snp.top)
-            make.left.equalTo(profileImageView.snp.right).offset(20)
+        // Header
+        headerView.setElevation(points: 2)
+        view.insertSubview(headerView, at: 0)
+        headerView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalTo(appBar.headerViewController.headerView.snp.bottom)
         }
         
         // Your Slots
@@ -70,8 +68,8 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         yourSlotsLabel.text = "Upcoming Lunches:"
         view.addSubview(yourSlotsLabel)
         yourSlotsLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(profileImageView.snp.left)
-            make.top.equalTo(profileImageView.snp.bottom).offset(20)
+            make.left.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom).offset(20)
         }
         
         // Slots
@@ -107,6 +105,17 @@ class HomeViewController: UIViewController, UITableViewDelegate {
 
     // MARK: Internal
     
+    internal func showActionMenu() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let logout = UIAlertAction(title: "Sign out", style: .destructive) { [unowned self] (action) in
+            self.doLogout()
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(logout)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    
     internal func doLogout() {
         try? FIRAuth.auth()?.signOut()
     }
@@ -134,13 +143,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     internal func bindProfile() {
         profileRef = FIRDatabase.database().reference().child("profile").child(user.uid)
         profileRef!.observe(.value, with: { [unowned self] (snapshot) in
-            let data = snapshot.value as? [String : AnyObject] ?? [:]
-            if let photo = (data["photo"] as? String), let photoURL = URL(string: photo) {
-                self.profileImageView.af_setImage(withURL: photoURL)
-            }
-            if let username = data["handle"] as? String {
-                self.usernameLabel.text = username
-            }
+            self.headerView.profile = Profile(snapshot: snapshot)
         })
     }
     
