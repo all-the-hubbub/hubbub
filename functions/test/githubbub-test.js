@@ -22,9 +22,7 @@ describe('GitHubbub', function() {
     beforeEach(function () {
       oauthToken = process.env.GITHUB_OAUTH_TOKEN;
       if (!oauthToken) {
-        console.log('Skipping... no GITHUB_OAUTH_TOKEN environment variable')
-        this.skip();
-        return;
+        throw new Error("No GITHUB_OAUTH_TOKEN environment variable found; needed for github api")
       }
 
       client = new GitHubbub(oauthToken);

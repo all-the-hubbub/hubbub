@@ -4,7 +4,7 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "cors": "^2.8.3",
-    "firebase-admin": "~4.2.1",
+    "firebase-admin": "^4.2.1",
     "firebase-functions": "^0.5.5",
     "github": "^9.2.0",
     "lodash": "^4.17.4"

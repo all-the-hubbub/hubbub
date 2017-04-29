@@ -1,8 +1,14 @@
 const functions = require('firebase-functions');
-const slots = require('./slots');
+// Can only initialize firebase once, so doing here and passing where needed
+const admin = require('firebase-admin');
+admin.initializeApp(functions.config().firebase);
+
+const slots = require('./slots')(admin);
 
 // allow access from anywhere, since all functions will require authentication
 const cors = require('cors')({origin: true});
+
+const User = require("./user")(admin);
 
 exports.joinSlot = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
@@ -22,27 +28,10 @@ exports.closeSlot = functions.https.onRequest((req, res) => {
     });
 });
 
-// TODO: Temporary until a more formal, tested implementation is written
-const GitHubbub = require('./githubbub');
 exports.updateProfile = functions.database.ref("/accounts/{userId}/githubToken")
   .onWrite(event => {
-    const token = event.data.val();
-    if (!token) {
-      console.log('Token is missing');
-      return;
-    }
-
-    const github = new GitHubbub(token);
-    const userId = event.params.userId;
-    const profileRef = event.data.ref.root.child(`/profiles/${userId}`);
-
-    return github.profile()
-      .then(data => {
-        return profileRef.update({
-          uid: userId,
-          name: data.name,
-          handle: data.login,
-          photo: data.avatar_url,
-        });
-      });
+    console.log("updateProfile event ", event);
+    return User.findById(event.params.userId).then( (user) => {
+      return user.updateProfile();
+    });
   });

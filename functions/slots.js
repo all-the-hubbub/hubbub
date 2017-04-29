@@ -2,10 +2,9 @@ const _ = require('lodash');
 const errors = require('./errors');
 const functions = require('firebase-functions');
 
-const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
+module.exports = function (admin) {
 
-exports.join = function(req, res) {
+function join(req, res) {
   // TODO: replace with auth middleware
   const userId = req.body.userId;
   if (!userId) {
@@ -64,7 +63,7 @@ exports.join = function(req, res) {
     });
 };
 
-exports.leave = function(req, res) {
+function leave (req, res) {
   // TODO: replace with auth middleware
   const userId = req.body.userId;
   if (!userId) {
@@ -123,7 +122,7 @@ exports.leave = function(req, res) {
 
 // TODO: Implement the real matching algorithm.
 // This version always creates a single 'Firebase' topic and assigns everyone to it.
-exports.close = function(req, res) {
+function close (req, res) {
   const slotId = req.body.id;
   if (!slotId) {
     res.sendStatus(400);
@@ -189,4 +188,11 @@ exports.close = function(req, res) {
         res.sendStatus(500);
       }
     });
-};
+  };
+
+  return {
+    join: join,
+    leave: leave,
+    close: close
+  }
+}

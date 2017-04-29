@@ -44,3 +44,5 @@ Thumbs.db
 .alm
 **/test/fixtures
 .envrc
+Hubbub-832a008fa871.json
+firebase-debug.log

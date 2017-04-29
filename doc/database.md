@@ -5,6 +5,7 @@
         githubToken = {string}
         email = {string}
         updatedAt = {server timestamp}
+        githubCreatedAt = {server timestamp}
         /slots
             /<SLOT-ID>
                 name = {string}
