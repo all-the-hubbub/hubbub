@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from './admin.service';
+import { Observable } from 'rxjs/Observable';
+
+import { Slot } from '../types';
 
 @Component({
   selector: 'admin',
@@ -6,8 +10,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  slotList$: Observable<Slot[]>;
 
-  constructor() { }
+  constructor(adminService: AdminService) {
+    this.slotList$ = adminService.slotList$;
+  }
 
   ngOnInit() {
     console.log('AdminComponent loaded');

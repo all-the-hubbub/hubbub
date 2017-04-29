@@ -1,4 +1,14 @@
+// Admins create "slots" for lunches
+// when they are open, people can sign up
+// closing them triggers the matching algorithm via Cloud Function
+export class Slot {
+  name: string;
+  state: "open" | "closed";
+  timestamp: Date;
+}
 
+
+// User's public profile
 export type ProfileData = {
   uid: string,
   photo: string,
@@ -25,4 +35,5 @@ export class Account {
     githubToken: string;
     updatedAt: Object;    // server timestamp
 }
+
 
