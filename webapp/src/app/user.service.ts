@@ -30,7 +30,7 @@ export class UserService {
               // Firebase performed a re-direct, let's grab the token
               const token = result['credential']['accessToken'];
               if (token) {
-                this.db.ref(`account/${user.uid}`).set({
+                this.db.ref(`accounts/${user.uid}`).set({
                   githubToken: token,
                   email: user.email,
                   updatedAt: firebase.database.ServerValue.TIMESTAMP   // just for our reference
@@ -38,7 +38,7 @@ export class UserService {
               }
             }
           })
-          this.profile$ = afDB.object(`profile/${user.uid}`);
+          this.profile$ = afDB.object(`profiles/${user.uid}`);
         } else {
           this.loginStatus = "LoggedOut";
         }
