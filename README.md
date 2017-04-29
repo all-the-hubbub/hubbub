@@ -3,7 +3,7 @@ Ever go to a conference and feel like you haven't connected to the people you wo
 
 This app doesn't do much yet, but it will!
 
-App URL: https://hubbub-159904.firebaseapp.com/
+Staging server: https://hubbub-159904.firebaseapp.com/
 
 ## App Concept
 You authenticate with Github, which triggers a [Cloud Function](https://cloud.google.com/functions/docs/) that grabs a lot of data from the [Github API](https://developer.github.com/v3/).  The initial data fills out your basic profile (e.g. [languages you code in](https://developer.github.com/v3/repos/#list-languages)) and creates a list of connections based on your pull request history or the other committers on projects that you have contributed to.
@@ -18,7 +18,6 @@ install
 
 ```
 nvm use v6.9.1
-npm install -g @angular/cli
 ng set --global packageManager=yarn
 cd webapp
 yarn
