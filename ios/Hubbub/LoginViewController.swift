@@ -57,6 +57,11 @@ class LoginViewController: UIViewController {
             self.loginButton.isEnabled = false
             self.firebaseSignIn(accessToken: accessToken!)
         })
+        
+        // Fabric event tracking
+        Answers.logLogin(withMethod: "Github",
+                         success: true,
+                         customAttributes: [:])
     }
 
     func firebaseSignIn(accessToken: String) {
