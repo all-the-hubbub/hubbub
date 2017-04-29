@@ -1,0 +1,9 @@
+<h1>Admin Console</h1>
+
+
+
+<ul>
+  <li *ngFor="let item of slotList$ | async">
+    {{ item.name }}
+  </li>
+</ul>

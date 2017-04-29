@@ -59,16 +59,17 @@ function mockAFDatabase(object) {
 
 describe('UserService', () => {
   let service: UserService;
-    let profile = new Profile({
-      uid: '111',
-      photo: 'https://whatever.com/photo.jpg',
-      email: 'someone@whatever.com',
-      name: 'Maria Sanchez'
-    });
+  let profile = new Profile({
+    uid: '111',
+    photo: 'https://whatever.com/photo.jpg',
+    handle: '@whatever',
+    name: 'Maria Sanchez'
+  });
+  let email = 'someone@whatever.com';
 
   beforeEach(() => {
     service = new UserService(
-      mockAFAuth({uid: profile.uid, email: profile.email}),
+      mockAFAuth({uid: profile.uid, email: email}),
       mockAFDatabase(profile),
       new NgZone({}));
   });
@@ -77,7 +78,7 @@ describe('UserService', () => {
     service.profile$.subscribe(val => {
       expect(val.uid).toEqual(profile.uid);
       expect(val.name).toEqual(profile.name);
-      expect(val.email).toEqual(profile.email);
+      expect(val.handle).toEqual(profile.handle);
       expect(val.photo).toEqual(profile.photo);
     })
   });

@@ -1,11 +1,15 @@
 import { TestBed, async } from '@angular/core/testing';
+import { MdButtonModule, MdCheckboxModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
 
 import { UserService, AuthStatus } from './user.service';
 import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LunchComponent } from './lunch/lunch.component';
 import { Profile } from './types'
+import { routes } from        './app.router';
 
 import { Observable } from 'rxjs/Observable';
+import {APP_BASE_HREF} from '@angular/common';
 
 class MockUserService {
   public loginStatus: AuthStatus = "Unknown";
@@ -16,10 +20,20 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent, ProfileComponent
+        AppComponent, ProfileComponent, LunchComponent,
       ],
       providers: [
           { provide: UserService, useClass: MockUserService },
+          { provide: APP_BASE_HREF, useValue : '/' }
+
+      ],
+      imports: [
+        routes,
+        MdButtonModule,
+        MdCheckboxModule,
+        MdSidenavModule,
+        MdToolbarModule,
+
       ]
     }).compileComponents();
   }));
@@ -36,10 +50,10 @@ describe('AppComponent', () => {
     expect(app.title).toContain('All the Hubbub');
   }));
 
-  it('should render title in a h1 tag', async(() => {
+  it('should render title', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('All the Hubbub');
+    expect(compiled.querySelector('md-toolbar').textContent).toContain('All the Hubbub');
   }));
 });

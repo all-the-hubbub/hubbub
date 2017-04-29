@@ -1,6 +1,19 @@
-<h1>
-  {{title}}
-</h1>
+<md-sidenav-container>
+  <md-toolbar color="primary">
+
+    {{title}}
+
+    <span class="app-toolbar-filler"></span>
+    <button class="app-icon-button" (click)="sidenav.toggle()">
+      <i class="material-icons app-toolbar-menu">menu</i>
+    </button>
+  </md-toolbar>
+
+  <md-sidenav #sidenav mode="side" align="end" class="app-sidenav">
+    Sidenav
+  </md-sidenav>
+</md-sidenav-container>
+
 
 <div *ngIf="userService.loginStatus == 'Unknown'">
   <p>loading...</p>
@@ -16,5 +29,7 @@
   </div>
   <button (click)="userService.logout()" md-button>Log Out</button>
 </div>
+
+<router-outlet></router-outlet>
 
 
