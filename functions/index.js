@@ -1,4 +1,5 @@
 const functions = require('firebase-functions');
+const slots = require('./slots');
 
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
@@ -9,6 +10,8 @@ class HTTPError extends Error {
     this.code = code;
   }
 }
+
+exports.requestSlot = functions.https.onRequest(slots.join);
 
 // TODO: Implement the real matching algorithm.
 // This version always creates a single 'Firebase' topic and assigns everyone to it.
