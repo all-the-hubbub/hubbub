@@ -46,7 +46,64 @@ exports.join = function(req, res) {
       // Copy the slot data into the user's slots
       const slotCopy = cloneDeep(slot);
       delete slotCopy.state;
-      update[`/account/${userId}/slots/${slotId}`] = slotCopy;
+      updates[`/account/${userId}/slots/${slotId}`] = slotCopy;
+
+      // Apply all updates atomically
+      return rootRef.update(updates);
+    })
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.error(err);
+      if (err instanceof errors.HTTPError) {
+        res.sendStatus(err.code);
+      } else {
+        res.sendStatus(500);
+      }
+    });
+};
+
+exports.leave = function(req, res) {
+  // TODO: replace with auth middleware
+  const userId = req.body.userId;
+  if (!userId) {
+    res.sendStatus(401);
+    return;
+  }
+
+  const slotId = req.body.id;
+  if (!slotId) {
+    res.sendStatus(400);
+    return;
+  }
+
+  // Get a few refs for convenience
+  const db = admin.database();
+  const rootRef = db.ref();
+  const accountSlotRef = db.ref(`/account/${userId}/slots/${slotId}`);
+
+  return accountSlotRef.once('value')
+    .then(snapshot => {
+      // If the user hasn't joined the slot, there's nothing to do
+      const accountSlot = snapshot.val();
+      if (!accountSlot) {
+        return;
+      }
+
+      // TODO: Allow leaving a slot after you've been assigned a topic?
+      if (accountSlot.topicId) {
+        throw new errors.HTTPError(400, 'topic already assigned');
+      }
+
+      // Build a multi-key database update
+      const updates = {};
+
+      // Delete existing request
+      updates[`/requests/${slotId}/${userId}`] = null;
+
+      // Delete the account slot
+      updates[`/account/${userId}/slots/${slotId}`] = null;
 
       // Apply all updates atomically
       return rootRef.update(updates);
