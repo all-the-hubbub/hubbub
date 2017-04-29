@@ -1,4 +1,4 @@
-const cloneDeep = require('lodash.clonedeep');
+const _ = require('lodash');
 const errors = require('./errors');
 const functions = require('firebase-functions');
 
@@ -44,7 +44,7 @@ exports.join = function(req, res) {
       updates[`/requests/${slotId}/${userId}`] = true;
 
       // Copy the slot data into the user's slots
-      const slotCopy = cloneDeep(slot);
+      const slotCopy = _.cloneDeep(slot);
       delete slotCopy.state;
       updates[`/account/${userId}/slots/${slotId}`] = slotCopy;
 
@@ -168,7 +168,7 @@ exports.close = function(req, res) {
       });
 
       // Add the topic members
-      const topicWithMembers = cloneDeep(topic);
+      const topicWithMembers = _.cloneDeep(topic);
       topicWithMembers.members = {};
       uids.forEach(uid => {
         topicWithMembers.members[uid] = true;

@@ -36,6 +36,7 @@ install:
 
 script:
   - (cd webapp; ng test --watch false && ng build)
+  - (cd functions; yarn test)
 
 deploy:
   skip_cleanup: true
