@@ -46,7 +46,7 @@ exports.join = function(req, res) {
       // Copy the slot data into the user's slots
       const slotCopy = _.cloneDeep(slot);
       delete slotCopy.state;
-      updates[`/account/${userId}/slots/${slotId}`] = slotCopy;
+      updates[`/accounts/${userId}/slots/${slotId}`] = slotCopy;
 
       // Apply all updates atomically
       return rootRef.update(updates);
@@ -81,7 +81,7 @@ exports.leave = function(req, res) {
   // Get a few refs for convenience
   const db = admin.database();
   const rootRef = db.ref();
-  const accountSlotRef = db.ref(`/account/${userId}/slots/${slotId}`);
+  const accountSlotRef = db.ref(`/accounts/${userId}/slots/${slotId}`);
 
   return accountSlotRef.once('value')
     .then(snapshot => {
@@ -103,7 +103,7 @@ exports.leave = function(req, res) {
       updates[`/requests/${slotId}/${userId}`] = null;
 
       // Delete the account slot
-      updates[`/account/${userId}/slots/${slotId}`] = null;
+      updates[`/accounts/${userId}/slots/${slotId}`] = null;
 
       // Apply all updates atomically
       return rootRef.update(updates);
@@ -164,7 +164,7 @@ exports.close = function(req, res) {
       // Add the topic to each member's account slot
       const uids = Object.keys(snapshot.val())
       uids.forEach(uid => {
-        updates[`/account/${uid}/slots/${slotId}/topic`] = topic;
+        updates[`/accounts/${uid}/slots/${slotId}/topic`] = topic;
       });
 
       // Add the topic members
