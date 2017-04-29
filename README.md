@@ -8,21 +8,4 @@ You authenticate with Github, which triggers a [Cloud Function](https://cloud.go
 
 
 ## Dev Setup
-
-install
-* [yarn](https://yarnpkg.com) -- required for yarn.lock sanity
-* [nvm](https://github.com/creationix/nvm) -- recommended
-
-```
-nvm use v6.9.1
-npm install -g @angular/cli
-ng set --global packageManager=yarn
-cd webapp
-yarn
-```
-
-Deploy webapp
-```
-cd webapp
-npm run deploy
-```
+We've got our node app in `webapp/` and our ios app in `ios/`. Please navigate to their readme files for setup instructions.
