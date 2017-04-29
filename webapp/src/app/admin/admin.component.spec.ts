@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { MdButtonModule, MdListModule, MdMenuModule } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Slot } from '../types';
 
@@ -19,6 +20,9 @@ describe('AdminComponent', () => {
       declarations: [ AdminComponent ],
       providers: [
           { provide: AdminService, useClass: MockAdminService },
+      ],
+      imports: [
+          MdButtonModule, MdListModule, MdMenuModule,
       ]
     })
     .compileComponents();
