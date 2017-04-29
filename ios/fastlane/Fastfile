@@ -1,4 +1,4 @@
-fastlane_version "2.28.2"
+fastlane_version "2.28.7"
 
 default_platform :ios
 
@@ -11,7 +11,7 @@ platform :ios do
     # set 'export_method' to 'ad-hoc' if your Crashlytics Beta distribution uses ad-hoc provisioning
     gym(scheme: 'Hubbub', export_method: 'development')
 
-    emails = values[:test_email] ? values[:test_email] : ['judytuna@gmail.com', 'rosenthalj@google.com', 'sarah@ultrasaurus.com'] # You can list more emails here
+    emails = values[:test_email] ? values[:test_email] : ['judytuna@gmail.com'] # You can list more emails here
     groups = values[:test_email] ? nil : ['firebaes'] # You can define groups on the web and reference them here
 
     crashlytics(api_token: '796081d516e581059e1a154f6bbbd4a3d8b9416a',
