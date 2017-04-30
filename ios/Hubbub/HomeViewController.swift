@@ -141,14 +141,14 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     internal func bindProfile() {
-        profileRef = FIRDatabase.database().reference().child("profile").child(user.uid)
+        profileRef = FIRDatabase.database().reference().child("profiles").child(user.uid)
         profileRef!.observe(.value, with: { [unowned self] (snapshot) in
             self.headerView.profile = Profile(snapshot: snapshot)
         })
     }
     
     internal func bindAccount() {
-        accountRef = FIRDatabase.database().reference().child("account").child(user.uid)
+        accountRef = FIRDatabase.database().reference().child("accounts").child(user.uid)
         accountRef!.observe(.value, with: { [unowned self] (snapshot) in
             self.account = Account(snapshot: snapshot)
             self.slotsTableView.reloadData()
