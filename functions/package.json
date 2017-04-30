@@ -2,8 +2,20 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "dependencies": {
-    "firebase-admin": "~4.1.2",
-    "firebase-functions": "^0.5"
+    "bluebird": "^3.5.0",
+    "cors": "^2.8.3",
+    "firebase-admin": "~4.2.1",
+    "firebase-functions": "^0.5.5",
+    "github": "^9.2.0",
+    "lodash": "^4.17.4"
   },
-  "private": true
+  "scripts": {
+    "test": "mocha test",
+    "test-debug": "mocha debug test"
+  },
+  "private": true,
+  "devDependencies": {
+    "mocha": "^3.3.0",
+    "yakbak": "^2.5.0"
+  }
 }

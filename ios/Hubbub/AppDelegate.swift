@@ -8,6 +8,8 @@
 
 import Firebase
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,11 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let rootViewController = UINavigationController()
         rootViewController.setNavigationBarHidden(true, animated: false)
-        
+
+        // Initialize Fabric
+        Fabric.sharedSDK().debug = true
+        Fabric.with([Crashlytics.self])
+
         // Initialize Firebase
         FIRApp.configure()
         FIRDatabase.setLoggingEnabled(true)
-        
+
         // Handle auth state changes:
         // If not logged in, show the login screen. Otherwise show the home screen.
         FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
@@ -34,16 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             rootViewController.setViewControllers([vc], animated: false)
         })
-        
+
         // Storyboard has no entry point, so create a Window ourselves
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window!.backgroundColor = UIColor.white
         window!.rootViewController = rootViewController
         window!.makeKeyAndVisible()
-        
+
         return true
     }
-    
+
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if url.scheme == "hubbub" {
             self.oauthClient.handleRedirectURL(url)

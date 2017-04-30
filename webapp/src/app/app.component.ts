@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { FirebaseObjectObservable } from 'angularfire2/database';
+
+import { UserService } from './user.service'
+import { Profile } from './types'
 
 @Component({
   selector: 'app-root',
@@ -6,5 +11,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'vanilla ng app works!';
+  title = 'All the Hubbub';
+
+  constructor(public userService: UserService) {
+  }
+
 }

@@ -225,6 +225,7 @@
 				871818B51E8AC81F00CF0B44 /* Resources */,
 				0AEDC531989D50BBBFF73BFE /* [CP] Embed Pods Frameworks */,
 				3C3B44BC8F75DA6F2645A06D /* [CP] Copy Pods Resources */,
+				D1D080B11EB02FBA00E1B8F6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -289,6 +290,7 @@
 				TargetAttributes = {
 					871818B61E8AC81F00CF0B44 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 5EL2YAA4GG;
 						ProvisioningStyle = Automatic;
 					};
 					871818CA1E8AC81F00CF0B44 = {
@@ -474,6 +476,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HubbubTests/Pods-HubbubTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D1D080B11EB02FBA00E1B8F6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 796081d516e581059e1a154f6bbbd4a3d8b9416a 39ead38110a03d9426da50a27078ef63455b74ad3700d8664efaf589a685bd19";
+		};
 		DF4397411F25BEFBEEC956BF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -656,6 +671,8 @@
 			baseConfigurationReference = D2DE68E23402674767E52B46 /* Pods-Hubbub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5EL2YAA4GG;
 				INFOPLIST_FILE = Hubbub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.all-the-hubbub.Hubbub";
@@ -669,6 +686,8 @@
 			baseConfigurationReference = 866B6F1EDAB1AA345225CC01 /* Pods-Hubbub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5EL2YAA4GG;
 				INFOPLIST_FILE = Hubbub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.all-the-hubbub.Hubbub";

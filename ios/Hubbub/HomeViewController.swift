@@ -161,7 +161,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
 
         // Start by fetching the user's existing request for the given day, if any
         let rootRef = FIRDatabase.database().reference()
-        rootRef.child("account/\(userID)/slots/\(slot.id)").observeSingleEvent(of: .value, with: { (snapshot) in
+        rootRef.child("accounts/\(userID)/slots/\(slot.id)").observeSingleEvent(of: .value, with: { (snapshot) in
             // Build a set of updates
             var updates = [String:Any?]()
 
@@ -174,13 +174,13 @@ class HomeViewController: UIViewController, UITableViewDelegate {
                 // Leave the slot by deleting the request and the account entry
                 let val:Any? = nil
                 updates["requests/\(existingSlot.id)/\(userID)"] = val
-                updates["account/\(userID)/slots/\(existingSlot.id)"] = val
+                updates["accounts/\(userID)/slots/\(existingSlot.id)"] = val
             } else {
                 // Create a new request
                 updates["requests/\(slot.id)/\(userID)"] = true
                 
                 // Create or update an account slot
-                updates["account/\(userID)/slots/\(slot.id)"] = ["timestamp": slot.timestamp]
+                updates["accounts/\(userID)/slots/\(slot.id)"] = ["timestamp": slot.timestamp]
             }
 
             // Apply all updates atomically

@@ -1,0 +1,17 @@
+<h1>Admin Console</h1>
+
+<md-list>
+ <md-list-item *ngFor="let item of slotList$ | async">
+    <!--<button md-button (click)="select(item)" [color]="selected.id == item.id ? 'primary' : null" >{{ item.name }}</button>-->
+    <button md-button (click)="select(item)" [color]="(selected && (item.id == selected.id)) ? 'primary' : null" >{{ item.name }}</button>
+ </md-list-item>
+</md-list>
+
+<md-card *ngIf="selected">
+<md-card-title>{{selected.name}}</md-card-title>
+<p>id: {{selected.id}}</p>
+<p>state: {{selected.state}}</p>
+<p>startAt: {{selected.startAt}}</p>
+<p>endAt: {{selected.endAt}}</p>
+<button md-button md-raised-button (click)="close(selected)">CLOSE</button>
+</md-card>

@@ -19,6 +19,10 @@ target 'Hubbub' do
   pod 'p2.OAuth2', '~> 3.0'
   pod 'SnapKit', '~> 3.0'
 
+  # Pods for Crashlytics
+ pod 'Fabric'
+ pod 'Crashlytics'
+
   target 'HubbubTests' do
     inherit! :search_paths
     # Pods for testing

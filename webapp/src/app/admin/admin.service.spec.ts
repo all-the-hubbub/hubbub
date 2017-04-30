@@ -1,0 +1,17 @@
+// TODO: write tests after validating testing approach for AngularFire
+
+// import { TestBed, inject } from '@angular/core/testing';
+
+// import { AdminService } from './admin.service';
+
+// describe('AdminService', () => {
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       providers: [AdminService]
+//     });
+//   });
+
+//   it('should ...', inject([AdminService], (service: AdminService) => {
+//     expect(service).toBeTruthy();
+//   }));
+// });
