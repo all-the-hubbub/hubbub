@@ -1,6 +1,6 @@
 ## Realtime Database Schema
 ```
-/account
+/accounts
     /<USER-ID>
         githubToken = {string}
         email = {string}
@@ -14,7 +14,7 @@
                 /topic
                     id = {string}
                     name = {string}
-/profile
+/profiles
     /<USER-ID>
         uid = {string}
         name = {string}
