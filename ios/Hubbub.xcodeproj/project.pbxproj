@@ -15,6 +15,7 @@
 		871818D01E8AC81F00CF0B44 /* HubbubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871818CF1E8AC81F00CF0B44 /* HubbubTests.swift */; };
 		871818DB1E8AC81F00CF0B44 /* HubbubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871818DA1E8AC81F00CF0B44 /* HubbubUITests.swift */; };
 		875D85611EA6B70A00DEAE5A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875D85601EA6B70A00DEAE5A /* HomeViewController.swift */; };
+		876508A01EB66D9A00AE6674 /* SlotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8765089F1EB66D9A00AE6674 /* SlotTableViewCell.swift */; };
 		876B48181E8D5425006C8005 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876B48171E8D5425006C8005 /* LoginViewController.swift */; };
 		87A177E71E8ACA9000D61E2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */; };
 		87A177E81E8ACA9000D61E2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */; };
@@ -64,6 +65,7 @@
 		871818DA1E8AC81F00CF0B44 /* HubbubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubbubUITests.swift; sourceTree = "<group>"; };
 		871818DC1E8AC81F00CF0B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		875D85601EA6B70A00DEAE5A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		8765089F1EB66D9A00AE6674 /* SlotTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotTableViewCell.swift; sourceTree = "<group>"; };
 		876B48171E8D5425006C8005 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		87A177E61E8ACA9000D61E2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		87DD0B7A1EB3F7240037A1E0 /* HomeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				87DD0B7A1EB3F7240037A1E0 /* HomeHeaderView.swift */,
+				8765089F1EB66D9A00AE6674 /* SlotTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 			files = (
 				876B48181E8D5425006C8005 /* LoginViewController.swift in Sources */,
 				87DD0B7E1EB3F74E0037A1E0 /* Profile.swift in Sources */,
+				876508A01EB66D9A00AE6674 /* SlotTableViewCell.swift in Sources */,
 				871818BB1E8AC81F00CF0B44 /* AppDelegate.swift in Sources */,
 				875D85611EA6B70A00DEAE5A /* HomeViewController.swift in Sources */,
 				87FD3DD71EA82FEC00B1D8E3 /* OAuth.swift in Sources */,

@@ -63,26 +63,18 @@ class HomeViewController: UIViewController, UITableViewDelegate {
             make.top.equalTo(appBar.headerViewController.headerView.snp.bottom)
         }
         
-        // Your Slots
-        let yourSlotsLabel = UILabel()
-        yourSlotsLabel.text = "Upcoming Lunches:"
-        view.addSubview(yourSlotsLabel)
-        yourSlotsLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
-            make.top.equalTo(headerView.snp.bottom).offset(20)
-        }
-        
         // Slots
         slotsTableView = UITableView(frame: .zero, style: .plain)
+        slotsTableView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
         slotsTableView.delegate = self
-        view.addSubview(slotsTableView)
+        view.insertSubview(slotsTableView, at: 0)
         slotsTableView.snp.makeConstraints { (make) in
-            make.left.equalTo(yourSlotsLabel.snp.left).offset(10)
+            make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalTo(yourSlotsLabel.snp.bottom)
+            make.top.equalTo(headerView.snp.bottom)
             make.bottom.equalToSuperview()
         }
-        slotsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "slotsCell")
+        slotsTableView.register(SlotTableViewCell.self, forCellReuseIdentifier: "slotsCell")
         
         // TODO: Shouldn't be listening to the entire account object because /slots can get large
         bindAccount()
@@ -122,80 +114,38 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     
     internal func bindSlots() {
         // Fetch the next 10 slots (including up to an hour ago to account for ongoing slots)
-        let startTime = Date().timeIntervalSince1970 - (60*60)
-        slotsQuery = FIRDatabase.database().reference().child("slots")
-            .queryOrdered(byChild: "timestamp")
-            .queryStarting(atValue: startTime)
+        slotsQuery = FIRDatabase.database().reference().child("accounts/\(user.uid)/slots")
+            .queryOrdered(byChild: "endAt")
+            .queryStarting(atValue: Date().timeIntervalSince1970)
             .queryLimited(toFirst: 10)
         
-        slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { [unowned self] (tableView, indexPath, snapshot) -> UITableViewCell in
+        slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { (tableView, indexPath, snapshot) -> UITableViewCell in
             let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
-            if let slot = Slot(snapshot: snapshot), var name = slot.name {
-                if (self.account?.hasRequestForSlot(id: slot.id) ?? false) {
-                    name += " \u{2611}"
-                }
-                cell.textLabel?.text = name
+            if let slot = Slot(snapshot: snapshot) {
+                (cell as! SlotTableViewCell).slot = slot
             }
             return cell
         })
     }
     
     internal func bindProfile() {
-        profileRef = FIRDatabase.database().reference().child("profiles").child(user.uid)
+        profileRef = FIRDatabase.database().reference().child("profiles/\(user.uid)")
         profileRef!.observe(.value, with: { [unowned self] (snapshot) in
             self.headerView.profile = Profile(snapshot: snapshot)
         })
     }
     
     internal func bindAccount() {
-        accountRef = FIRDatabase.database().reference().child("accounts").child(user.uid)
+        accountRef = FIRDatabase.database().reference().child("accounts/\(user.uid)")
         accountRef!.observe(.value, with: { [unowned self] (snapshot) in
             self.account = Account(snapshot: snapshot)
             self.slotsTableView.reloadData()
         })
     }
     
-    internal func toggleSlot(slot:Slot) {
-        // Capture some data so the block below doesn't need self
-        let userID = user.uid
-
-        // Start by fetching the user's existing request for the given day, if any
-        let rootRef = FIRDatabase.database().reference()
-        rootRef.child("accounts/\(userID)/slots/\(slot.id)").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Build a set of updates
-            var updates = [String:Any?]()
-
-            if let existingSlot = Slot(snapshot: snapshot) {
-                // If a topic has already been assigned, the user can't leave the slot!
-                if existingSlot.topicID != nil {
-                    return
-                }
-
-                // Leave the slot by deleting the request and the account entry
-                let val:Any? = nil
-                updates["requests/\(existingSlot.id)/\(userID)"] = val
-                updates["accounts/\(userID)/slots/\(existingSlot.id)"] = val
-            } else {
-                // Create a new request
-                updates["requests/\(slot.id)/\(userID)"] = true
-                
-                // Create or update an account slot
-                updates["accounts/\(userID)/slots/\(slot.id)"] = ["timestamp": slot.timestamp]
-            }
-
-            // Apply all updates atomically
-            rootRef.updateChildValues(updates)
-        })
-    }
-    
     // MARK: UITableViewDelegate
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let slotSnapshot = slotsDatasource?.items[indexPath.row] {
-            if let slot = Slot(snapshot: slotSnapshot) {
-                toggleSlot(slot: slot)
-            }
-        }
-        tableView.deselectRow(at: indexPath, animated: true)
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
     }
 }

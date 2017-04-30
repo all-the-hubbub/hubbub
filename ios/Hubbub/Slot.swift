@@ -13,21 +13,25 @@ class Slot: NSObject {
     
     var id:String
     var name:String?
-    var timestamp:Int?
-    var topicID:String?
+    var location:String?
+    var startAt:Int?
+    var endAt:Int?
     
-    var date:Date {
+    var startDate:Date? {
         get {
-            let interval = TimeInterval(self.timestamp ?? 0)
-            return Date(timeIntervalSince1970: interval)
+            if self.startAt == nil {
+                return nil
+            }
+            return Date(timeIntervalSince1970: TimeInterval(self.startAt!))
         }
     }
     
     init?(key:String, data:[String:Any]) {
         self.id = key
         self.name = data["name"] as? String
-        self.timestamp = data["timestamp"] as? Int
-        self.topicID = data["topicId"] as? String
+        self.location = data["location"] as? String
+        self.startAt = data["startAt"] as? Int
+        self.endAt = data["endAt"] as? Int
     }
     
     convenience init?(snapshot:FIRDataSnapshot) {
