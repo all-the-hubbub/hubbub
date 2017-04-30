@@ -23,8 +23,6 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     // Internal Properties
     internal var user:FIRUser
     internal var oauthClient:OAuthClient
-    internal var account:Account?
-    internal var accountRef:FIRDatabaseReference?
     internal var profileRef:FIRDatabaseReference?
     internal var slotsQuery:FIRDatabaseQuery?
     internal var slotsDatasource:FUITableViewDataSource?
@@ -76,18 +74,12 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         }
         slotsTableView.register(SlotTableViewCell.self, forCellReuseIdentifier: "slotsCell")
         
-        // TODO: Shouldn't be listening to the entire account object because /slots can get large
-        bindAccount()
-        
         bindSlots()
         bindProfile()
     }
     
     deinit {
         if let ref = profileRef {
-            ref.removeAllObservers()
-        }
-        if let ref = accountRef {
             ref.removeAllObservers()
         }
         if let query = slotsQuery {
@@ -113,7 +105,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     internal func bindSlots() {
-        // Fetch the next 10 slots (including up to an hour ago to account for ongoing slots)
+        // Fetch the next 10 slots this user has joined
         slotsQuery = FIRDatabase.database().reference().child("accounts/\(user.uid)/slots")
             .queryOrdered(byChild: "endAt")
             .queryStarting(atValue: Date().timeIntervalSince1970)
@@ -132,14 +124,6 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         profileRef = FIRDatabase.database().reference().child("profiles/\(user.uid)")
         profileRef!.observe(.value, with: { [unowned self] (snapshot) in
             self.headerView.profile = Profile(snapshot: snapshot)
-        })
-    }
-    
-    internal func bindAccount() {
-        accountRef = FIRDatabase.database().reference().child("accounts/\(user.uid)")
-        accountRef!.observe(.value, with: { [unowned self] (snapshot) in
-            self.account = Account(snapshot: snapshot)
-            self.slotsTableView.reloadData()
         })
     }
     
