@@ -13,7 +13,7 @@ import { Profile } from './types'
 export class AppComponent {
   title = 'All the Hubbub';
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService) {
   }
 
 }

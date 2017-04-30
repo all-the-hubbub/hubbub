@@ -29,7 +29,7 @@ exports.join = function(req, res) {
       // Does the slot exist?
       const slot = snapshot.val();
       if (!slot) {
-        throw new errors.HTTPError(404, 'slot not found');
+        throw new errors.HTTPError(404, 'slot not found, id: ' + slotId);
       }
 
       // Only grant the request if the slot is open
@@ -141,7 +141,7 @@ exports.close = function(req, res) {
       // Does the slot exist?
       const slot = snapshot.val();
       if (!slot) {
-        throw new errors.HTTPError(404, 'slot not found');
+        throw new errors.HTTPError(404, 'slot not found, id: ' + slotId);
       }
 
       // Mark the slot as closed
@@ -173,7 +173,7 @@ exports.close = function(req, res) {
       uids.forEach(uid => {
         topicWithMembers.members[uid] = true;
       });
-      updates[`/topics/${slotId}/${topic.id}`] = topicWithMembers;
+      updates[`/assignments/${slotId}/${topic.id}`] = topicWithMembers;
 
       // Apply all updates atomically
       return rootRef.update(updates);
