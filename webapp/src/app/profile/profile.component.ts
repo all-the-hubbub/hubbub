@@ -5,7 +5,7 @@ import { Profile } from '../types';
 @Component({
   selector: 'profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
   @Input() public observableData: Observable<Profile>;

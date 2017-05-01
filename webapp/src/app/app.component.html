@@ -1,5 +1,5 @@
-<md-sidenav-container fullscreen>
-  <md-toolbar color="primary">
+<section class="app flex-container" fxLayout="column" fxLayoutAlign="start center">
+  <md-toolbar color="primary" class="mat-elevation-z12">
 
     {{title}}
 
@@ -9,7 +9,9 @@
     </button>
   </md-toolbar>
 
-  <md-sidenav #sidenav mode="side" align="end" class="app-sidenav">
+
+<md-sidenav-container fxFlex>
+  <md-sidenav #sidenav mode="side" align="end" class="app-sidenav" class="mat-elevation-z6">
 
     <md-nav-list>
       <a md-list-item *ngIf="userService.loginStatus == 'LoggedIn'"
@@ -48,6 +50,8 @@
   <button (click)="userService.login()" md-button>Log In</button>
 </div>
 
+<div class="app flex-container" fxLayout="column" fxLayoutAlign="start center">
+
 <div *ngIf="userService.loginStatus == 'LoggedIn'">
   <div *ngIf="(userService.profile$ | async)">
     <profile [observableData]="userService.profile$"></profile>
@@ -56,9 +60,11 @@
 
 <router-outlet></router-outlet>
 
+</div>
 
 </md-sidenav-container>
 
 
 
 
+</section>

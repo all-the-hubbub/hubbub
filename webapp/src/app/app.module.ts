@@ -1,9 +1,10 @@
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { MdButtonModule, MdCheckboxModule, MdSidenavModule, MdToolbarModule, MdListModule } from '@angular/material';
+import { MdButtonModule, MdCardModule, MdCheckboxModule, MdSidenavModule, MdToolbarModule, MdListModule } from '@angular/material';
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import 'hammerjs';   // for Material gestures
 import { routes } from        './app.router';
 import { AppComponent } from  './app.component';
 import { UserService } from   './user.service';
+import { SlotService } from './slot.service';
 
 import { AdminModule } from './admin/admin.module';
 import { LunchComponent } from './lunch/lunch.component';
@@ -44,16 +46,18 @@ export const config = {
     AngularFireDatabaseModule,
     BrowserAnimationsModule,  // used by Material components
     BrowserModule,
+    FlexLayoutModule,
     FormsModule,
     HttpModule,
     MdButtonModule,
+    MdCardModule,
     MdCheckboxModule,
     MdListModule,
     MdSidenavModule,
     MdToolbarModule,
     routes
   ],
-  providers: [UserService],
+  providers: [UserService, SlotService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

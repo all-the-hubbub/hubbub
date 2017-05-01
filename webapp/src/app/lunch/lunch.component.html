@@ -1,3 +1,23 @@
-<p>
-  something about lunch will go here
-</p>
+<md-card>
+  <md-card-header>
+    <md-card-title>Meet New People</md-card-title>
+    <md-card-subtitle>Sign up and we'll find a group you might like.</md-card-subtitle>
+  </md-card-header>
+
+  <md-card-content>
+
+    <md-list>
+    <md-list-item *ngFor="let item of slotList$ | async">
+      <h3 md-line>{{item.name}}</h3>
+      <p md-line class="demo-secondary-text">Time - Location</p>
+      <md-checkbox (click)="select(item)" [checked]="false"></md-checkbox>
+
+    </md-list-item>
+    </md-list>
+      </md-card-content>
+  <md-card-actions>
+    <button md-button>ADD</button>
+  </md-card-actions>
+
+</md-card>
+
