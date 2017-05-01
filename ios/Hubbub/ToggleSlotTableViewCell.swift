@@ -11,8 +11,8 @@ import UIKit
 
 class CheckBox: UIButton {
     
-    let checkedImage = #imageLiteral(resourceName: "ic_check_box")
-    let uncheckedImage = #imageLiteral(resourceName: "ic_check_box_outline_blank")
+    let checkedImage = #imageLiteral(resourceName: "ic_check_box").withRenderingMode(.alwaysTemplate)
+    let uncheckedImage = #imageLiteral(resourceName: "ic_check_box_outline_blank").withRenderingMode(.alwaysTemplate)
     
     var isChecked: Bool {
         didSet {
@@ -23,6 +23,7 @@ class CheckBox: UIButton {
     override init(frame: CGRect) {
         isChecked = false
         super.init(frame: frame)
+        self.tintColor = ColorSecondary
         updateImage()
     }
     

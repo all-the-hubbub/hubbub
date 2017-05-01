@@ -22,25 +22,28 @@ class HomeHeaderView: UIView {
             nameLabel.text = profile?.name
             handleLabel.text = profile?.handle
             if let url = profile?.photoURL {
-                profileImageView.af_setImage(withURL: url, filter: RoundedCornersFilter(radius: 130))
+                profileImageView.af_setImage(withURL: url, filter: RoundedCornersFilter(radius: 112))
+            } else {
+                profileImageView.image = nil
             }
         }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = ColorPrimary
         
         addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) in
-            make.width.equalTo(65)
-            make.height.equalTo(65)
+            make.width.equalTo(56)
+            make.height.equalTo(56)
             make.left.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(10)
             make.bottom.equalToSuperview().offset(-20)
         }
         
         nameLabel.font = UIFont.systemFont(ofSize: 24)
+        nameLabel.textColor = .white
         addSubview(nameLabel)
         nameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(profileImageView.snp.right).offset(20)
@@ -48,12 +51,13 @@ class HomeHeaderView: UIView {
             make.top.equalTo(profileImageView.snp.top)
         }
         
-        handleLabel.textColor = .darkGray
+        handleLabel.font = UIFont.systemFont(ofSize: 14)
+        handleLabel.textColor = .white
         addSubview(handleLabel)
         handleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(nameLabel.snp.left)
             make.right.equalTo(nameLabel.snp.right)
-            make.top.equalTo(nameLabel.snp.bottom).offset(5)
+            make.top.equalTo(nameLabel.snp.bottom)
         }
     }
     

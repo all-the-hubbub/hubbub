@@ -68,6 +68,8 @@ class LoginViewController: UIViewController {
         loginButton.setTitle("Login with GitHub", for: .normal)
         loginButton.setTitle("Logging in...", for: .disabled)
         loginButton.setTitleColor(.white, for: .normal)
+        loginButton.setBackgroundColor(ColorSecondary, for: .normal)
+        loginButton.setBackgroundColor(ColorSecondary, for: .disabled)
         loginButton.addTarget(self, action: #selector(doLogin), for: UIControlEvents.touchUpInside)
         container.addSubview(loginButton)
         loginButton.snp.makeConstraints { (make) -> Void in

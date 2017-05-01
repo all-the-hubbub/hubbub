@@ -10,8 +10,6 @@ import Alamofire
 import Firebase
 import FirebaseDatabaseUI
 import MaterialComponents
-import MaterialComponents.MaterialIcons_ic_arrow_back
-import MaterialComponents.MaterialPalettes
 import SnapKit
 import UIKit
 
@@ -53,7 +51,10 @@ class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTabl
         super.viewDidLoad()
         
         appBar.addSubviewsToParent()
-        appBar.headerViewController.headerView.backgroundColor = MDCPalette.blue().tint500
+        appBar.headerViewController.headerView.backgroundColor = ColorPrimary
+        appBar.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.white
+        ]
         if let navShadowLayer = appBar.headerViewController.headerView.shadowLayer as? MDCShadowLayer {
             navShadowLayer.elevation = 3
         }
@@ -61,7 +62,7 @@ class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTabl
         // Nav Bar
         navigationItem.title = "Join a meetup"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named:MDCIcons.pathFor_ic_arrow_back()),
+            image: #imageLiteral(resourceName: "ic_arrow_back_white"),
             style: .done,
             target: self,
             action: #selector(back)

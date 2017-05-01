@@ -6,7 +6,6 @@
 //  Copyright © 2017 All The Hubbub. All rights reserved.
 //
 
-import MaterialComponents.MaterialPalettes
 import SnapKit
 import UIKit
 
@@ -43,7 +42,7 @@ class DateView: UIView {
         
         numberLabel.font = UIFont.boldSystemFont(ofSize: 18)
         numberLabel.textAlignment = .center
-        numberLabel.textColor = MDCPalette.blue().tint500
+        numberLabel.textColor = ColorSecondary
         addSubview(numberLabel)
         numberLabel.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -53,7 +52,7 @@ class DateView: UIView {
         
         weekdayLabel.font = UIFont.systemFont(ofSize: 12)
         weekdayLabel.textAlignment = .center
-        weekdayLabel.textColor = MDCPalette.blue().tint500
+        weekdayLabel.textColor = ColorSecondary
         addSubview(weekdayLabel)
         weekdayLabel.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -101,7 +100,7 @@ class SlotTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .clear
+        backgroundColor = .white
         
         contentView.addSubview(dateView)
         dateView.snp.makeConstraints { (make) in

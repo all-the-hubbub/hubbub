@@ -9,7 +9,6 @@
 import Firebase
 import FirebaseDatabaseUI
 import MaterialComponents
-import MaterialComponents.MaterialPalettes
 import SnapKit
 import UIKit
 
@@ -43,14 +42,14 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         appBar.addSubviewsToParent()
-        appBar.headerViewController.headerView.backgroundColor = MDCPalette.blue().tint500
-        if let navShadowLayer = appBar.headerViewController.headerView.shadowLayer as? MDCShadowLayer {
-            navShadowLayer.elevation = 3
-        }
+        appBar.headerViewController.headerView.backgroundColor = ColorPrimary
+        appBar.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.white
+        ]        
         
         // Nav Bar
         navigationItem.title = "Hubbub"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_more_vert"), style: .plain, target: self, action: #selector(showActionMenu))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_more_vert_white"), style: .plain, target: self, action: #selector(showActionMenu))
         
         // Header
         headerView.setElevation(points: 2)
@@ -62,9 +61,11 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         }
         
         // Slots
+        slotsTableView.delegate = self
         slotsTableView.allowsSelection = false
         slotsTableView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
-        slotsTableView.delegate = self
+        slotsTableView.separatorInset = .zero
+        slotsTableView.tableHeaderView = HomeSlotsTableHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
         view.insertSubview(slotsTableView, at: 0)
         slotsTableView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -76,7 +77,8 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         
         // Join Button
         let joinButton = MDCFloatingButton(shape: .default)
-        joinButton.setTitle("+", for: .normal)
+        joinButton.setImage(#imageLiteral(resourceName: "ic_add_white"), for: .normal)
+        joinButton.setBackgroundColor(ColorSecondary, for: .normal)
         joinButton.addTarget(self, action: #selector(presentSlots), for: .touchUpInside)
         view.addSubview(joinButton)
         joinButton.snp.makeConstraints { (make) in
