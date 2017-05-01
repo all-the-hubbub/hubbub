@@ -16,6 +16,7 @@ class Slot: NSObject {
     var location:String?
     var startAt:Int?
     var endAt:Int?
+    var topic:Topic?
     
     var startDate:Date? {
         get {
@@ -32,6 +33,9 @@ class Slot: NSObject {
         self.location = data["location"] as? String
         self.startAt = data["startAt"] as? Int
         self.endAt = data["endAt"] as? Int
+        if let topicData = data["topic"] as? [String:Any] {
+            self.topic = Topic(data: topicData)
+        }
     }
     
     convenience init?(snapshot:FIRDataSnapshot) {

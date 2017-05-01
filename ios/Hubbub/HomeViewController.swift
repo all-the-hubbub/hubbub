@@ -72,7 +72,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
             make.top.equalTo(headerView.snp.bottom)
             make.bottom.equalToSuperview()
         }
-        slotsTableView.register(SlotTableViewCell.self, forCellReuseIdentifier: "slotsCell")
+        slotsTableView.register(AccountSlotTableViewCell.self, forCellReuseIdentifier: "slotsCell")
         
         // Join Button
         let joinButton = MDCFloatingButton(shape: .default)
@@ -129,7 +129,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { (tableView, indexPath, snapshot) -> UITableViewCell in
             let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
             if let slot = Slot(snapshot: snapshot) {
-                (cell as! SlotTableViewCell).slot = slot
+                (cell as! AccountSlotTableViewCell).slot = slot
             }
             return cell
         })
