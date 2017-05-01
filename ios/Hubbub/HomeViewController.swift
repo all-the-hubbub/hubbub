@@ -18,7 +18,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     // UI
     let appBar = MDCAppBar()
     let headerView = HomeHeaderView()
-    var slotsTableView:UITableView!
+    let slotsTableView:UITableView = UITableView(frame: .zero, style: .plain)
     
     // Internal Properties
     internal var user:FIRUser
@@ -62,7 +62,6 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         }
         
         // Slots
-        slotsTableView = UITableView(frame: .zero, style: .plain)
         slotsTableView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
         slotsTableView.delegate = self
         view.insertSubview(slotsTableView, at: 0)
@@ -73,6 +72,16 @@ class HomeViewController: UIViewController, UITableViewDelegate {
             make.bottom.equalToSuperview()
         }
         slotsTableView.register(SlotTableViewCell.self, forCellReuseIdentifier: "slotsCell")
+        
+        // Join Button
+        let joinButton = MDCFloatingButton(shape: .default)
+        joinButton.setTitle("+", for: .normal)
+        joinButton.addTarget(self, action: #selector(presentSlots), for: .touchUpInside)
+        view.addSubview(joinButton)
+        joinButton.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
+        }
         
         bindSlots()
         bindProfile()
@@ -98,6 +107,11 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         alert.addAction(logout)
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
+    }
+    
+    internal func presentSlots() {
+        let slotsVC = SlotsViewController(user: user)
+        navigationController?.pushViewController(slotsVC, animated: true)
     }
     
     internal func doLogout() {
