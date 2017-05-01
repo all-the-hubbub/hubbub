@@ -1,7 +1,16 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, sans-serif;
+}
+
+.app{
+    height: 100vh;
+}
+
 .app-toolbar-filler {
   flex: 1 1 auto;
 }
-
 
 md-nav-list {
   padding: 0px;

@@ -1,6 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule } from '@angular/material';
+
+import { Observable } from 'rxjs/Observable';
+import { Slot } from '../types';
 
 import { LunchComponent } from './lunch.component';
+import { SlotService } from '../slot.service';
+
+class MockSlotService {
+  public slotList$: Observable<Slot[]>;
+}
 
 describe('LunchComponent', () => {
   let component: LunchComponent;
@@ -8,7 +17,13 @@ describe('LunchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LunchComponent ]
+      declarations: [ LunchComponent ],
+      imports: [
+        MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule,
+      ],
+      providers: [
+        { provide: SlotService, useClass: MockSlotService },
+      ]
     })
     .compileComponents();
   }));

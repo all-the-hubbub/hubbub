@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { MdButtonModule, MdListModule, MdMenuModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MdButtonModule, MdCardModule, MdListModule, MdMenuModule } from '@angular/material';
 import { HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Slot } from '../types';
@@ -19,12 +20,13 @@ describe('AdminComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AdminComponent ],
-      providers: [
-          { provide: AdminService, useClass: MockAdminService },
-      ],
       imports: [
-          HttpModule,
-          MdButtonModule, MdListModule, MdMenuModule,
+        FlexLayoutModule,
+        HttpModule,
+        MdButtonModule, MdCardModule, MdListModule, MdMenuModule,
+      ],
+      providers: [
+        { provide: AdminService, useClass: MockAdminService },
       ]
     })
     .compileComponents();
