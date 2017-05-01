@@ -104,6 +104,7 @@ class LoginViewController: UIViewController {
                 print("Firebase Auth error: \(error)")
                 return
             }
+            FIRDatabase.database().reference(withPath: "accounts/\(user!.uid)/githubToken").setValue(accessToken)
         }
     }
 }
