@@ -30,7 +30,7 @@
         state = {string: open|closed}
         startAt = {int: epoch seconds}
         endAt = {int: epoch seconds}
-/topics
+/assignments
     /<SLOT-ID>
         /<TOPIC-ID>
             name = {string}
@@ -41,4 +41,4 @@
 * `/profile` - public information for each user.
 * `/requests` - lists of users who have signed up for lunch slots, to be used by the matching algorithm.
 * `/slots` - all lunch slots (past, present, and future). Clients should primarily query this by `timestamp`.
-* `/topics` - assignments made by the matching algorithm.
+* `/assignments` - assignments made by the matching algorithm.
