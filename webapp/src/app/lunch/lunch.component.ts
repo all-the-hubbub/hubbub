@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SlotService } from '../slot.service';
 import { Observable } from 'rxjs/Observable';
 
-import { Slot } from '../types';
+import { Slot, SlotWithRSVP } from '../types';
 
 @Component({
   selector: 'app-lunch',
@@ -10,10 +10,10 @@ import { Slot } from '../types';
   styleUrls: ['./lunch.component.scss']
 })
 export class LunchComponent implements OnInit {
-  slotList$: Observable<Slot[]>;
+  slotList$: Observable<SlotWithRSVP[]>;
 
   constructor(slotService: SlotService) {
-    this.slotList$ = slotService.slotList$;
+    this.slotList$ = slotService.fullSlotListWithChecked$;
 
   }
 

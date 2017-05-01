@@ -26,6 +26,9 @@ function mockAFAuth(options?: MockAuthData) {
     };
     return {
       app: {} as any,
+      authState: Observable.create(function (observer) {
+                    observer.next(user);
+                  }),
       auth:{
         onAuthStateChanged: function(callback) {
           callback(user);

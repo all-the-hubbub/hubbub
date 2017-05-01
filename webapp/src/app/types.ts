@@ -9,6 +9,17 @@ export class Slot {
   endAt: Date;
 }
 
+export class SlotWithRSVP {
+  id: string;
+  name: string;
+  state: "open" | "closed";
+  startAt: Date;
+  endAt: Date;
+  requested: boolean;
+}
+
+
+
 
 // User's public profile
 export type ProfileData = {
