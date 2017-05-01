@@ -2,8 +2,15 @@
   "rules": {
     ".read": true, // "auth != null",
     ".write": "auth != null",
+    "accounts": {
+      "$uid": {
+        "slots": {
+          ".indexOn": ["startAt", "endAt"]
+        }
+      }
+    },
     "slots": {
-      ".indexOn": "timestamp"
+      ".indexOn": "startAt"
     }
   }
 }
