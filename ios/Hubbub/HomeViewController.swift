@@ -39,6 +39,15 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        if let ref = profileRef {
+            ref.removeAllObservers()
+        }
+        if let query = slotsQuery {
+            query.removeAllObservers()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         appBar.addSubviewsToParent()
@@ -90,13 +99,8 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         bindProfile()
     }
     
-    deinit {
-        if let ref = profileRef {
-            ref.removeAllObservers()
-        }
-        if let query = slotsQuery {
-            query.removeAllObservers()
-        }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
     // MARK: Internal

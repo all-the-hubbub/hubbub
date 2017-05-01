@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
+        view.backgroundColor = ColorPrimary
 
         let container = UIView()
         view.addSubview(container)
@@ -43,7 +43,7 @@ class LoginViewController: UIViewController {
         }
 
         // Hero Icon
-        let hero = UIImageView(image: #imageLiteral(resourceName: "hubbub-icon"))
+        let hero = UIImageView(image: #imageLiteral(resourceName: "hubbub-hero"))
         container.addSubview(hero)
         hero.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -52,14 +52,29 @@ class LoginViewController: UIViewController {
 
         // Title
         let title = UILabel()
-        title.text = "What's all this hubbub about?"
+        title.text = "Hubbub"
         title.textAlignment = .center
-        title.textColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4274509804, alpha: 1)
+        title.textColor = .white
+        title.font = UIFont.systemFont(ofSize: 32)
         container.addSubview(title)
         title.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.top.equalTo(hero.snp.bottom).offset(10)
+        }
+        
+        // Tagline
+        let tagline = UILabel()
+        tagline.text = "Meet people with similar interests"
+        tagline.textAlignment = .center
+        tagline.textColor = .white
+        tagline.alpha = 0.54
+        tagline.font = UIFont.systemFont(ofSize: 16)
+        container.addSubview(tagline)
+        tagline.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalTo(title.snp.bottom).offset(5)
         }
 
         // Login
@@ -67,16 +82,21 @@ class LoginViewController: UIViewController {
         loginButton.setElevation(2, for: .normal)
         loginButton.setTitle("Login with GitHub", for: .normal)
         loginButton.setTitle("Logging in...", for: .disabled)
-        loginButton.setTitleColor(.white, for: .normal)
         loginButton.setBackgroundColor(ColorSecondary, for: .normal)
         loginButton.setBackgroundColor(ColorSecondary, for: .disabled)
+        loginButton.setTitleColor(.white, for: .normal)
+        loginButton.setTitleColor(.white, for: .disabled)
         loginButton.addTarget(self, action: #selector(doLogin), for: UIControlEvents.touchUpInside)
         container.addSubview(loginButton)
         loginButton.snp.makeConstraints { (make) -> Void in
             make.centerX.equalToSuperview()
-            make.top.equalTo(title.snp.bottom).offset(40)
+            make.top.equalTo(tagline.snp.bottom).offset(40)
             make.bottom.equalToSuperview()
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
     func doLogin() {

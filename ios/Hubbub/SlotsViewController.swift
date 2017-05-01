@@ -86,6 +86,10 @@ class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTabl
         bindAccountSlots(startAt: now, limit: 10)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: Internal
     
     internal func back() {
