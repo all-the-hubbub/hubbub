@@ -6,6 +6,7 @@
 //  Copyright © 2017 All The Hubbub. All rights reserved.
 //
 
+import Alamofire
 import Firebase
 import FirebaseDatabaseUI
 import MaterialComponents
@@ -14,7 +15,7 @@ import MaterialComponents.MaterialPalettes
 import SnapKit
 import UIKit
 
-class SlotsViewController: UIViewController, UITableViewDelegate {
+class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTableViewCellDelegate {
 
     // UI
     let appBar = MDCAppBar()
@@ -67,6 +68,7 @@ class SlotsViewController: UIViewController, UITableViewDelegate {
         )
         
         // Slots
+        slotsTableView.allowsSelection = false
         slotsTableView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
         slotsTableView.delegate = self
         view.insertSubview(slotsTableView, at: 0)
@@ -76,7 +78,7 @@ class SlotsViewController: UIViewController, UITableViewDelegate {
             make.top.equalTo(appBar.headerViewController.headerView.snp.bottom)
             make.bottom.equalToSuperview()
         }
-        slotsTableView.register(SlotTableViewCell.self, forCellReuseIdentifier: "slotsCell")
+        slotsTableView.register(ToggleSlotTableViewCell.self, forCellReuseIdentifier: "slotsCell")
         
         let now = Date().timeIntervalSince1970
         bindSlots(startAt: now, limit: 10)
@@ -97,11 +99,10 @@ class SlotsViewController: UIViewController, UITableViewDelegate {
         
         slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { [unowned self] (tableView, indexPath, snapshot) -> UITableViewCell in
             let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
-            if let slot = Slot(snapshot: snapshot), let slotCell = cell as? SlotTableViewCell {
-                slotCell.slot = slot
-                if (self.accountSlotIds.contains(slot.id)) {
-                    slotCell.backgroundColor = .yellow
-                }
+            if let slot = Slot(snapshot: snapshot), let toggleSlotCell = cell as? ToggleSlotTableViewCell {
+                toggleSlotCell.delegate = self
+                toggleSlotCell.slot = slot
+                toggleSlotCell.checkBox.isChecked = self.accountSlotIds.contains(slot.id)
             }
             return cell
         })
@@ -140,5 +141,20 @@ class SlotsViewController: UIViewController, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
+    }
+    
+    // MARK: ToggleSlotTableViewCellDelegate
+    
+    func toggleSlotTableViewCell(_ cell: ToggleSlotTableViewCell, didSetToggleTo value: Bool) {
+        guard let slotId = cell.slot?.id else { return }
+        
+        let params: Parameters = [
+            "id": slotId,
+            "userId": user.uid
+        ]
+        
+        let call = value ? "joinSlot" : "leaveSlot"
+        let url = "https://us-central1-hubbub-159904.cloudfunctions.net/\(call)"
+        _ = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default)
     }
 }

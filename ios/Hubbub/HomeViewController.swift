@@ -62,6 +62,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         }
         
         // Slots
+        slotsTableView.allowsSelection = false
         slotsTableView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
         slotsTableView.delegate = self
         view.insertSubview(slotsTableView, at: 0)
