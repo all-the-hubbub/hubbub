@@ -12,12 +12,15 @@ import { Slot, SlotWithRSVP } from '../types';
 export class LunchComponent implements OnInit {
   slotList$: Observable<SlotWithRSVP[]>;
 
-  constructor(slotService: SlotService) {
+  constructor(private slotService: SlotService) {
     this.slotList$ = slotService.fullSlotListWithChecked$;
-
   }
 
   ngOnInit() {
+  }
+
+  select(slot: SlotWithRSVP) {
+    this.slotService.join(slot);
   }
 
 }

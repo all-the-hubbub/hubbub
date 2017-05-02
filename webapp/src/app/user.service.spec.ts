@@ -62,8 +62,8 @@ function mockAFDatabase(object) {
 
 describe('UserService', () => {
   let service: UserService;
+  let uid: '111';
   let profile = new Profile({
-    uid: '111',
     photo: 'https://whatever.com/photo.jpg',
     handle: '@whatever',
     name: 'Maria Sanchez'
@@ -72,14 +72,14 @@ describe('UserService', () => {
 
   beforeEach(() => {
     service = new UserService(
-      mockAFAuth({uid: profile.uid, email: email}),
+      mockAFAuth({uid: uid, email: email}),
       mockAFDatabase(profile),
       new NgZone({}));
   });
 
   it('should have a profile', () => {
     service.profile$.subscribe(val => {
-      expect(val.uid).toEqual(profile.uid);
+      expect(val.$key).toEqual(uid);
       expect(val.name).toEqual(profile.name);
       expect(val.handle).toEqual(profile.handle);
       expect(val.photo).toEqual(profile.photo);

@@ -20,6 +20,7 @@ export class SlotService {
   public userSlotList$: FirebaseListObservable<Slot[] | null > ;
   public fullSlotListWithChecked$: Observable<SlotWithRSVP[]>;
   db: firebase.database.Database;
+  private uid: string;    // userId // TODO: remove once we have auth with Cloud Functions
 
   constructor(private afDB: AngularFireDatabase,
               private userService: UserService,
@@ -31,22 +32,24 @@ export class SlotService {
       (currentProfile: any, index: number) => {
         console.log('currentProfile', currentProfile);
         if (currentProfile) {
-          return afDB.list(`/accounts/${currentProfile.uid}/slots`);
+          this.uid = currentProfile.$key;
+          return afDB.list(`/accounts/${currentProfile.$key}/slots`);
         } else {
-          return FirebaseListObservable.of(currentProfile);
+          return FirebaseListObservable.of(null);
         }
     }) as FirebaseListObservable<Slot[] | null >;
+
 
     this.fullSlotListWithChecked$ = Observable.combineLatest(this.fullSlotList$, this.userSlotList$, (fullSlotList, userSlotList) => {
       if (!userSlotList) return null;
       return fullSlotList.map(value => {
         let combinedSlot =  {
-          id: value.id,
+          $key: value.$key,
           name: value.name,
           state: value.state,
           startAt: value.startAt,
           endAt: value.endAt,
-          requested: userSlotList.map(e => e.id).includes(value.id)
+          requested: userSlotList.map(e => e.$key).includes(value.$key)
         }
         return combinedSlot;
       })
@@ -54,16 +57,16 @@ export class SlotService {
 
   }
 
-  // close(slot: Slot) {
-  //   console.log('close item:', slot);
-  //   let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/closeSlot';
-  //   return this.http.post(endpoint, {id: slot.id}, { headers: headers })
-  //     // Call map on the response observable to get the parsed people object
-  //     //.map(res => res.json())
-  //     // Subscribe to the observable to get the parsed people object and attach it to the
-  //     // component
-  //     .subscribe(res => console.log('res', res));
-  // }
+  join(slot: Slot) {
+    console.log('close item:', slot);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/joinSlot';
+    return this.http.post(endpoint, {id: slot.$key, userId: this.uid}, { headers: headers })
+      // Call map on the response observable to get the parsed people object
+      //.map(res => res.json())
+      // Subscribe to the observable to get the parsed people object and attach it to the
+      // component
+      .subscribe(res => console.log('res', res));
+  }
 
 }
