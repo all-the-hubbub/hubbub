@@ -8,12 +8,11 @@
 
 import Alamofire
 import Firebase
-import FirebaseDatabaseUI
 import MaterialComponents
 import SnapKit
 import UIKit
 
-class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTableViewCellDelegate {
+class SlotsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ToggleSlotTableViewCellDelegate {
 
     // UI
     let appBar = MDCAppBar()
@@ -21,16 +20,13 @@ class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTabl
 
     // Internal Properties
     internal var user:FIRUser
-    internal var slotsQuery:FIRDatabaseQuery?
-    internal var slotsDatasource:FUITableViewDataSource?
+    internal var slots:[Slot] = [Slot]()
     internal var accountSlotIds:Set<String> = Set<String>()
     internal var accountSlotsQuery:FIRDatabaseQuery?
     
     required init(user:FIRUser) {
         self.user = user
-        
         super.init(nibName: nil, bundle: nil)
-        
         addChildViewController(appBar.headerViewController)
     }
     
@@ -39,9 +35,6 @@ class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTabl
     }
     
     deinit {
-        if let query = slotsQuery {
-            query.removeAllObservers()
-        }
         if let query = accountSlotsQuery {
             query.removeAllObservers()
         }
@@ -69,9 +62,10 @@ class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTabl
         )
         
         // Slots
+        slotsTableView.delegate = self
+        slotsTableView.dataSource = self
         slotsTableView.allowsSelection = false
         slotsTableView.backgroundColor = .white
-        slotsTableView.delegate = self
         view.insertSubview(slotsTableView, at: 0)
         slotsTableView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -82,7 +76,7 @@ class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTabl
         slotsTableView.register(ToggleSlotTableViewCell.self, forCellReuseIdentifier: "slotsCell")
         
         let now = Date().timeIntervalSince1970
-        bindSlots(startAt: now, limit: 10)
+        fetchSlots(startAt: now, limit: 10)
         bindAccountSlots(startAt: now, limit: 10)
     }
     
@@ -96,50 +90,80 @@ class SlotsViewController: UIViewController, UITableViewDelegate, ToggleSlotTabl
         _ = navigationController?.popViewController(animated: true)
     }
     
-    internal func bindSlots(startAt:TimeInterval, limit:UInt) {
-        slotsQuery = FIRDatabase.database().reference().child("slots")
+    internal func fetchSlots(startAt:TimeInterval, limit:UInt) {
+        let slotsQuery = FIRDatabase.database().reference(withPath: "slots")
             .queryOrdered(byChild: "startAt")
             .queryStarting(atValue: startAt)
             .queryLimited(toFirst: limit)
         
-        slotsDatasource = slotsTableView.bind(to: slotsQuery!, populateCell: { [unowned self] (tableView, indexPath, snapshot) -> UITableViewCell in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
-            if let slot = Slot(snapshot: snapshot), let toggleSlotCell = cell as? ToggleSlotTableViewCell {
-                toggleSlotCell.delegate = self
-                toggleSlotCell.slot = slot
-                toggleSlotCell.checkBox.isChecked = self.accountSlotIds.contains(slot.id)
+        slotsQuery.observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+            guard let strongSelf = self else { return }
+            
+            var newSlots = [Slot]()
+            for child in snapshot.children {
+                if let slotSnapshot = child as? FIRDataSnapshot {
+                    if let slot = Slot(snapshot: slotSnapshot) {
+                        newSlots.append(slot)
+                    }
+                }
             }
-            return cell
+            
+            strongSelf.slots = newSlots
+            strongSelf.slotsTableView.reloadData()
         })
     }
     
     internal func bindAccountSlots(startAt:TimeInterval, limit:UInt) {
-        accountSlotsQuery = FIRDatabase.database().reference().child("accounts/\(user.uid)/slots")
+        accountSlotsQuery = FIRDatabase.database().reference(withPath: "accounts/\(user.uid)/slots")
             .queryOrdered(byChild: "startAt")
             .queryStarting(atValue: startAt)
             .queryLimited(toFirst: limit)
         
-        accountSlotsQuery?.observe(.childAdded, with: { [unowned self] (snapshot) in
+        accountSlotsQuery?.observe(.childAdded, with: { [weak self] (snapshot) in
+            guard let strongSelf = self else { return }
+            
             let id = snapshot.key
-            self.accountSlotIds.insert(id)
-            self.reloadCellFor(slotId: id)
+            strongSelf.accountSlotIds.insert(id)
+            strongSelf.reloadCellFor(slotId: id)
         })
-        accountSlotsQuery?.observe(.childRemoved, with: { [unowned self] (snapshot) in
+        accountSlotsQuery?.observe(.childRemoved, with: { [weak self] (snapshot) in
+            guard let strongSelf = self else { return }
+            
             let id = snapshot.key
-            self.accountSlotIds.remove(id)
-            self.reloadCellFor(slotId: id)
+            strongSelf.accountSlotIds.remove(id)
+            strongSelf.reloadCellFor(slotId: id)
         })
     }
     
     internal func reloadCellFor(slotId:String) {
-        guard let count = slotsDatasource?.count else { return }
-        for i in 0...Int(count) {
-            if (slotsDatasource?.snapshot(at: i).key == slotId) {
+        for (i, slot) in slots.enumerated() {
+            if (slot.id == slotId) {
                 let indexPath = IndexPath(row: i, section: 0)
                 slotsTableView.reloadRows(at: [indexPath], with: .none)
                 return
             }
         }
+    }
+    
+    // MARK: UITableViewDataSource
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return slots.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
+        if let toggleSlotCell = cell as? ToggleSlotTableViewCell {
+            let slot = slots[indexPath.row]
+            toggleSlotCell.delegate = self
+            toggleSlotCell.slot = slot
+            toggleSlotCell.checkBox.isChecked = self.accountSlotIds.contains(slot.id)
+        }
+        return cell
     }
     
     // MARK: UITableViewDelegate
