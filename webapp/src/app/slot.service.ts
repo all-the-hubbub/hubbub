@@ -7,7 +7,7 @@ import { Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/switchMap';
 
-import { Profile, Slot, SlotWithRSVP } from './types';
+import { Profile, Slot, SlotWithRSVP, UpcomingEvent } from './types';
 
 // TODO: the following is temporary -- check with deast@
 import * as firebase from 'firebase/app';
@@ -17,7 +17,7 @@ import { UserService } from './user.service'
 @Injectable()
 export class SlotService {
   public fullSlotList$: FirebaseListObservable<Slot[]>;
-  public userSlotList$: FirebaseListObservable<Slot[] | null > ;
+  public userSlotList$: FirebaseListObservable<UpcomingEvent[] | null > ;
   public fullSlotListWithChecked$: Observable<SlotWithRSVP[]>;
   db: firebase.database.Database;
   private uid: string;    // userId // TODO: remove once we have auth with Cloud Functions

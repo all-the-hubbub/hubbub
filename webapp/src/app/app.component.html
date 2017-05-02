@@ -1,7 +1,7 @@
 <section class="app flex-container" fxLayout="column" fxLayoutAlign="start center">
   <md-toolbar color="primary" class="mat-elevation-z12">
 
-    {{title}}
+    <a href="/">{{title}}</a>
 
     <span class="app-toolbar-filler"></span>
     <button class="app-icon-button" (click)="sidenav.toggle()">
@@ -18,6 +18,9 @@
         (click)="sidenav.close(); userService.logout()"
         [routerLink]="['/']">
         <span md-line>Log Out</span>
+      </a>
+      <a md-list-item (click)="sidenav.close()" [routerLink]="['/request']">
+        <span md-line>Event Signup</span>
       </a>
       <a md-list-item (click)="sidenav.close()" [routerLink]="['/admin']">
         <span md-line>Admin</span>

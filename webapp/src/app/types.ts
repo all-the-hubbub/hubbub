@@ -13,6 +13,15 @@ export class SlotWithRSVP extends Slot {
   requested: boolean;
 }
 
+class Topic {
+  name: string;
+  id: string;
+}
+
+export class UpcomingEvent extends Slot {
+  topic: Topic;
+}
+
 // User's public profile
 export type ProfileData = {
   $key?: string,
