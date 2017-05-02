@@ -16,9 +16,9 @@ export class SlotWithRSVP extends Slot {
 // User's public profile
 export type ProfileData = {
   $key?: string,
-  photo: string,
-  handle: string,
-  name: string
+  photo?: string,
+  handle?: string,
+  name?: string
 }
 
 export class Profile {
@@ -27,10 +27,10 @@ export class Profile {
     handle: string;
     name: string;
     constructor(data: ProfileData) {
-      this.$key = data.$key;
-      this.photo = data.photo;
-      this.handle = data.handle;
-      this.name = data.name;
+      this.$key = data.$key || "";
+      this.photo = data.photo || "";
+      this.handle = data.handle || "";
+      this.name = data.name || "";
     }
 }
 

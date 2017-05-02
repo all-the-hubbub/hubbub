@@ -2,15 +2,17 @@ import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpModule } from '@angular/http';
-import { MdButtonModule, MdCardModule, MdListModule, MdMenuModule } from '@angular/material';
+import { MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule, MdMenuModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { SlotRequestItemComponent } from './slot-request-item/slot-request-item.component';
 
-import { AdminComponent } from './admin.component';
-import { AdminService } from './admin.service';
+import { LunchComponent } from './lunch.component';
+import { SlotService } from '../slot.service';
+import { UserService } from '../user.service';
 
 const moduleRoutes: Routes = [
-  { path: 'admin', component: AdminComponent },
+  { path: 'request', component: LunchComponent },
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forChild(moduleRoutes);
@@ -21,12 +23,15 @@ export const routes: ModuleWithProviders = RouterModule.forChild(moduleRoutes);
     CommonModule,
     FlexLayoutModule,
     HttpModule,
-    MdButtonModule, MdCardModule, MdListModule, MdMenuModule,
+    MdButtonModule, MdCardModule,
+    MdCheckboxModule,
+    MdListModule, MdMenuModule,
     routes
   ],
-  declarations: [AdminComponent],
+  declarations: [LunchComponent],
   providers: [
-    AdminService,
+    SlotService,
+    UserService
   ]
 })
-export class AdminModule { }
+export class LunchModule { }

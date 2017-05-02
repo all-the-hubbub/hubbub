@@ -79,7 +79,6 @@ describe('UserService', () => {
 
   it('should have a profile', () => {
     service.profile$.subscribe(val => {
-      expect(val.$key).toEqual(uid);
       expect(val.name).toEqual(profile.name);
       expect(val.handle).toEqual(profile.handle);
       expect(val.photo).toEqual(profile.photo);

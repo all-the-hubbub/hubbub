@@ -4,12 +4,16 @@ body {
     font-family: Roboto, sans-serif;
 }
 
-.app{
+.app {
     height: 100vh;
 }
 
 .app-toolbar-filler {
   flex: 1 1 auto;
+}
+
+.app-card {
+  width: 80vh;
 }
 
 md-nav-list {
