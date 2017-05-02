@@ -15,6 +15,7 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var user: FIRUser?
     let oauthClient = GitHubOAuthClient()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -29,14 +30,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         FIRDatabase.setLoggingEnabled(true)
 
-        // Handle auth state changes:
-        // If not logged in, show the login screen. Otherwise show the home screen.
-        FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
+        // Firebase Auth
+        FIRAuth.auth()?.addStateDidChangeListener({ [unowned self] (auth, user) in
+            // If nothing has changed since the last invocation, return early.
+            // This prevents ViewController thrashing in scenarios like a new access token being minted.
+            if (user == self.user || user?.uid == self.user?.uid) {
+                return
+            }
+            self.user = user
+        
+            // If not logged in, show the login screen. Otherwise show the home screen.
             var vc:UIViewController
-            if (user == nil) {
+            if (self.user == nil) {
                 vc = LoginViewController(oauthClient: self.oauthClient)
             } else {
-                vc = HomeViewController(user: user!, oauthClient: self.oauthClient)
+                vc = HomeViewController(user: self.user!, oauthClient: self.oauthClient)
             }
             rootViewController.setViewControllers([vc], animated: false)
         })
