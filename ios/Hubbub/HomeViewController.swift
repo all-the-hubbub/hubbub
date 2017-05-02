@@ -19,10 +19,13 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     let headerView = HomeHeaderView()
     let slotsTableView:UITableView = UITableView(frame: .zero, style: .plain)
     
-    // Internal Properties
-    internal var user:FIRUser
-    internal var oauthClient:OAuthClient
+    // Properties
+    var user:FIRUser
+    var oauthClient:OAuthClient
+    
+    // Database
     internal var profileRef:FIRDatabaseReference?
+    internal var profileHandle:UInt?
     internal var slotsQuery:FIRDatabaseQuery?
     internal var slotsDatasource:FUITableViewDataSource?
     
@@ -40,11 +43,8 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     deinit {
-        if let ref = profileRef {
-            ref.removeAllObservers()
-        }
-        if let query = slotsQuery {
-            query.removeAllObservers()
+        if let ref = profileRef, let handle = profileHandle {
+            ref.removeObserver(withHandle: handle)
         }
     }
     
@@ -127,7 +127,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     
     internal func bindSlots() {
         // Fetch the next 10 slots this user has joined
-        slotsQuery = FIRDatabase.database().reference().child("accounts/\(user.uid)/slots")
+        slotsQuery = FIRDatabase.database().reference(withPath: "accounts/\(user.uid)/slots")
             .queryOrdered(byChild: "endAt")
             .queryStarting(atValue: Date().timeIntervalSince1970)
             .queryLimited(toFirst: 10)
@@ -142,8 +142,8 @@ class HomeViewController: UIViewController, UITableViewDelegate {
     }
     
     internal func bindProfile() {
-        profileRef = FIRDatabase.database().reference().child("profiles/\(user.uid)")
-        profileRef!.observe(.value, with: { [unowned self] (snapshot) in
+        profileRef = FIRDatabase.database().reference(withPath: "profiles/\(user.uid)")
+        profileHandle = profileRef!.observe(.value, with: { [unowned self] (snapshot) in
             self.headerView.profile = Profile(snapshot: snapshot)
         })
     }

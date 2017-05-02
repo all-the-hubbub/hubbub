@@ -18,11 +18,17 @@ class SlotsViewController: UIViewController, UITableViewDataSource, UITableViewD
     let appBar = MDCAppBar()
     let slotsTableView:UITableView = UITableView(frame: .zero, style: .plain)
 
+    // Properties
+    var user:FIRUser
+    
     // Internal Properties
-    internal var user:FIRUser
     internal var slots:[Slot] = [Slot]()
     internal var accountSlotIds:Set<String> = Set<String>()
+    
+    // Database
+    internal var slotsQuery:FIRDatabaseQuery?
     internal var accountSlotsQuery:FIRDatabaseQuery?
+    internal var accountSlotsHandles = [UInt]()
     
     required init(user:FIRUser) {
         self.user = user
@@ -36,7 +42,9 @@ class SlotsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     deinit {
         if let query = accountSlotsQuery {
-            query.removeAllObservers()
+            for handle in accountSlotsHandles {
+                query.removeObserver(withHandle: handle)
+            }
         }
     }
     
@@ -91,12 +99,12 @@ class SlotsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     internal func fetchSlots(startAt:TimeInterval, limit:UInt) {
-        let slotsQuery = FIRDatabase.database().reference(withPath: "slots")
+        slotsQuery = FIRDatabase.database().reference(withPath: "slots")
             .queryOrdered(byChild: "startAt")
             .queryStarting(atValue: startAt)
             .queryLimited(toFirst: limit)
         
-        slotsQuery.observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+        slotsQuery!.observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             guard let strongSelf = self else { return }
             
             var newSlots = [Slot]()
@@ -119,20 +127,23 @@ class SlotsViewController: UIViewController, UITableViewDataSource, UITableViewD
             .queryStarting(atValue: startAt)
             .queryLimited(toFirst: limit)
         
-        accountSlotsQuery?.observe(.childAdded, with: { [weak self] (snapshot) in
+        var handle = accountSlotsQuery!.observe(.childAdded, with: { [weak self] (snapshot) in
             guard let strongSelf = self else { return }
             
             let id = snapshot.key
             strongSelf.accountSlotIds.insert(id)
             strongSelf.reloadCellFor(slotId: id)
         })
-        accountSlotsQuery?.observe(.childRemoved, with: { [weak self] (snapshot) in
+        accountSlotsHandles.append(handle)
+        
+        handle = accountSlotsQuery!.observe(.childRemoved, with: { [weak self] (snapshot) in
             guard let strongSelf = self else { return }
             
             let id = snapshot.key
             strongSelf.accountSlotIds.remove(id)
             strongSelf.reloadCellFor(slotId: id)
         })
+        accountSlotsHandles.append(handle)
     }
     
     internal func reloadCellFor(slotId:String) {
