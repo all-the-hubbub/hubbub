@@ -109,8 +109,8 @@ class SlotsViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             var newSlots = [Slot]()
             for child in snapshot.children {
-                if let slotSnapshot = child as? FIRDataSnapshot {
-                    if let slot = Slot(snapshot: slotSnapshot) {
+                if let slotSnapshot = child as? FIRDataSnapshot, let slot = Slot(snapshot: slotSnapshot) {
+                    if (slot.state == "open") {
                         newSlots.append(slot)
                     }
                 }
