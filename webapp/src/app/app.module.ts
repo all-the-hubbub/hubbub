@@ -4,7 +4,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { MdButtonModule, MdCardModule, MdCheckboxModule, MdSidenavModule, MdToolbarModule, MdListModule } from '@angular/material';
+import { MdButtonModule, MdCardModule, MdSidenavModule, MdToolbarModule, MdListModule } from '@angular/material';
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ import { UserService } from   './user.service';
 import { SlotService } from './slot.service';
 
 import { AdminModule } from './admin/admin.module';
-import { LunchComponent } from './lunch/lunch.component';
+import { LunchModule } from './lunch/lunch.module';
 import { ProfileComponent } from './profile/profile.component';
 
 // For AoT compatibility, this needs to be exported so that Angular
@@ -36,8 +36,7 @@ export const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent,
-    LunchComponent
+    ProfileComponent
   ],
   imports: [
     AdminModule,
@@ -49,9 +48,9 @@ export const config = {
     FlexLayoutModule,
     FormsModule,
     HttpModule,
+    LunchModule,
     MdButtonModule,
     MdCardModule,
-    MdCheckboxModule,
     MdListModule,
     MdSidenavModule,
     MdToolbarModule,

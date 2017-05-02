@@ -9,14 +9,15 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AdminComponent } from './admin.component';
 import { AdminService } from './admin.service';
 
-const adminRoutes: Routes = [
+const moduleRoutes: Routes = [
   { path: 'admin', component: AdminComponent },
 ];
 
-export const routes: ModuleWithProviders = RouterModule.forChild(adminRoutes);
+export const routes: ModuleWithProviders = RouterModule.forChild(moduleRoutes);
 
 @NgModule({
   imports: [
+    AngularFireDatabaseModule,
     CommonModule,
     FlexLayoutModule,
     HttpModule,
@@ -26,7 +27,6 @@ export const routes: ModuleWithProviders = RouterModule.forChild(adminRoutes);
   declarations: [AdminComponent],
   providers: [
     AdminService,
-    AngularFireDatabaseModule
   ]
 })
 export class AdminModule { }
