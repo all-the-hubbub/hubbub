@@ -54,7 +54,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         appBar.headerViewController.headerView.backgroundColor = ColorPrimary
         appBar.navigationBar.titleTextAttributes = [
             NSForegroundColorAttributeName: UIColor.white
-        ]        
+        ]
         
         // Nav Bar
         navigationItem.title = "Hubbub"
@@ -71,7 +71,6 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         
         // Slots
         slotsTableView.delegate = self
-        slotsTableView.allowsSelection = false
         slotsTableView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
         slotsTableView.separatorInset = .zero
         slotsTableView.tableHeaderView = HomeSlotsTableHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
@@ -97,6 +96,13 @@ class HomeViewController: UIViewController, UITableViewDelegate {
         
         bindSlots()
         bindProfile()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let indexPath = slotsTableView.indexPathForSelectedRow {
+            slotsTableView.deselectRow(at: indexPath, animated: animated)
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -136,6 +142,7 @@ class HomeViewController: UIViewController, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "slotsCell", for: indexPath)
             if let slot = Slot(snapshot: snapshot) {
                 (cell as! AccountSlotTableViewCell).slot = slot
+                cell.isUserInteractionEnabled = (slot.topic != nil)
             }
             return cell
         })
@@ -152,5 +159,12 @@ class HomeViewController: UIViewController, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let snapshot = slotsDatasource?.snapshot(at: indexPath.row), let slot = Slot(snapshot: snapshot) {
+            let beaconVC = BeaconViewController(slot: slot)
+            navigationController?.pushViewController(beaconVC, animated: true)
+        }
     }
 }

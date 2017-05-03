@@ -14,6 +14,7 @@
 		871818C51E8AC81F00CF0B44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871818C31E8AC81F00CF0B44 /* LaunchScreen.storyboard */; };
 		871818D01E8AC81F00CF0B44 /* HubbubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871818CF1E8AC81F00CF0B44 /* HubbubTests.swift */; };
 		871818DB1E8AC81F00CF0B44 /* HubbubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871818DA1E8AC81F00CF0B44 /* HubbubUITests.swift */; };
+		8740F7511EB96139009BD436 /* BeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8740F7501EB96139009BD436 /* BeaconViewController.swift */; };
 		875D85611EA6B70A00DEAE5A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875D85601EA6B70A00DEAE5A /* HomeViewController.swift */; };
 		8761393A1EB7D45000A2412D /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876139391EB7D45000A2412D /* Style.swift */; };
 		8761393C1EB7EFBF00A2412D /* HomeSlotsTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8761393B1EB7EFBF00A2412D /* HomeSlotsTableHeaderView.swift */; };
@@ -70,6 +71,7 @@
 		871818D61E8AC81F00CF0B44 /* HubbubUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HubbubUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		871818DA1E8AC81F00CF0B44 /* HubbubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubbubUITests.swift; sourceTree = "<group>"; };
 		871818DC1E8AC81F00CF0B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8740F7501EB96139009BD436 /* BeaconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconViewController.swift; sourceTree = "<group>"; };
 		875D85601EA6B70A00DEAE5A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		876139391EB7D45000A2412D /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		8761393B1EB7EFBF00A2412D /* HomeSlotsTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeSlotsTableHeaderView.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 		87F1B8471EAFF7E100AE5535 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8740F7501EB96139009BD436 /* BeaconViewController.swift */,
 				875D85601EA6B70A00DEAE5A /* HomeViewController.swift */,
 				876B48171E8D5425006C8005 /* LoginViewController.swift */,
 				876508A11EB68D2400AE6674 /* SlotsViewController.swift */,
@@ -544,6 +547,7 @@
 				87F1B8431EAFEB4B00AE5535 /* Slot.swift in Sources */,
 				876508AA1EB6F9E400AE6674 /* Topic.swift in Sources */,
 				876508A41EB6E7C400AE6674 /* ToggleSlotTableViewCell.swift in Sources */,
+				8740F7511EB96139009BD436 /* BeaconViewController.swift in Sources */,
 				87DD0B7B1EB3F7240037A1E0 /* HomeHeaderView.swift in Sources */,
 				87F1B8451EAFED2800AE5535 /* Account.swift in Sources */,
 				876508A81EB6F72700AE6674 /* AccountSlotTableViewCell.swift in Sources */,
