@@ -8,6 +8,17 @@ platform :ios do
   #
   lane :beta do |values|
     # Fabric generated this lane for deployment to Crashlytics Beta
+
+    ensure_git_status_clean
+    increment_build_number
+    build_number = Actions.lane_context[Actions::SharedValues::BUILD_NUMBER]
+    commit_version_bump(
+      message: "Build Version Bump to #{build_number} by fastlane",
+      force: true
+    )
+    add_git_tag(tag: "crashlyticsbeta-#{build_number}")
+    push_to_git_remote
+
     # set 'export_method' to 'ad-hoc' if your Crashlytics Beta distribution uses ad-hoc provisioning
     gym(scheme: 'Hubbub', export_method: 'development')
 
