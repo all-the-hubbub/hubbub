@@ -1,3 +1,8 @@
-<p>
-  Profile Info: {{ (observableData | async) | json }}
-</p>
+<md-card class="profile-card">
+  <md-card-header layout-align="start center">
+    <img md-card-avatar src="{{ profile.photo }}"/>
+    <md-card-title>{{ profile.name }}</md-card-title>
+    <md-card-subtitle>{{ profile.handle }}</md-card-subtitle>
+  </md-card-header>
+</md-card>
+

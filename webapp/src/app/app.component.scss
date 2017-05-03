@@ -4,7 +4,7 @@ body {
     font-family: Roboto, sans-serif;
 }
 
-.app{
+.app {
     height: 100vh;
 }
 
@@ -12,6 +12,23 @@ body {
   flex: 1 1 auto;
 }
 
+.app-card {
+  width: 80vh;
+}
+
+md-toolbar {
+  a:link {
+    color: rgba(255, 255, 255, 0.87);
+    text-decoration: none;
+  }
+  a:visited {
+    color: rgba(255, 255, 255, 0.87);
+    text-decoration: none;
+  }
+  a:active {
+    text-decoration: none;
+  }
+}
 md-nav-list {
   padding: 0px;
 }

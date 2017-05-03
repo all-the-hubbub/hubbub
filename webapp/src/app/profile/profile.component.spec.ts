@@ -1,5 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MdCardModule } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { ProfileComponent } from './profile.component';
@@ -31,7 +32,10 @@ describe('ProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TestComponentWrapper, ProfileComponent ]
+      declarations: [ TestComponentWrapper, ProfileComponent ],
+      imports: [
+        MdCardModule
+      ]
     })
     .compileComponents();
 
@@ -42,7 +46,7 @@ describe('ProfileComponent', () => {
   }));
 
   it('should render some profile info', async(() => {
-    expect(element.querySelector('p').textContent).toContain(profileTestData.name);
+    expect(element.textContent).toContain(profileTestData.name);
   }));
 
 });
