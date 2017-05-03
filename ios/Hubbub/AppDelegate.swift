@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRAuth.auth()?.addStateDidChangeListener({ [unowned self] (auth, user) in
             // If nothing has changed since the last invocation, return early.
             // This prevents ViewController thrashing in scenarios like a new access token being minted.
-            if (user == self.user || user?.uid == self.user?.uid) {
+            if (user != nil && user!.uid == self.user?.uid) {
                 return
             }
             self.user = user
