@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { LunchComponent } from './lunch.component';
+import { TopicComponent } from './topic/topic.component';
 import { UpcomingEventsComponent } from './upcoming-events/upcoming-events.component';
 import { SlotService } from '../slot.service';
 import { UserService } from '../user.service';
@@ -14,6 +15,7 @@ import { UserService } from '../user.service';
 const moduleRoutes: Routes = [
   { path: '', component: UpcomingEventsComponent },
   { path: 'request', component: LunchComponent },
+  { path: 'beacon/:slotId/:topicId', component: TopicComponent },
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forChild(moduleRoutes);
@@ -27,15 +29,16 @@ export const routes: ModuleWithProviders = RouterModule.forChild(moduleRoutes);
     MdButtonModule, MdCardModule,
     MdCheckboxModule,
     MdListModule, MdMenuModule,
-    routes
+    routes,
   ],
   declarations: [
     LunchComponent,
-    UpcomingEventsComponent
+    TopicComponent,
+    UpcomingEventsComponent,
   ],
   providers: [
     SlotService,
-    UserService
+    UserService,
   ]
 })
 export class LunchModule { }

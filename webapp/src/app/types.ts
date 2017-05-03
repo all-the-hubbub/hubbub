@@ -13,7 +13,7 @@ export class SlotWithRSVP extends Slot {
   requested: boolean;
 }
 
-class Topic {
+export class Topic {
   name: string;
   id: string;
 }
