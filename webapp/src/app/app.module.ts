@@ -36,7 +36,7 @@ export const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     AdminModule,
