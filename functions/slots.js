@@ -154,25 +154,24 @@ function close (req, res) {
       // Build a multi-key database update
       const updates = {};
 
-      // Create a new topic
-      const topic = {
-        id: 'firebase-001',
-        name: 'Firebase',
-      };
+      // Generate topics and assign users to them
+      const uids = Object.keys(snapshot.val());
+      const topics = generateTopics(3, uids);
 
-      // Add the topic to each member's account slot
-      const uids = Object.keys(snapshot.val())
-      uids.forEach(uid => {
-        updates[`/accounts/${uid}/slots/${slotId}/topic`] = topic;
-      });
+      _.forEach(topics, (topic, topicId) => {
+        // Add the topic data to each member's account slot
+        topic.members.forEach(uid => {
+          updates[`/accounts/${uid}/slots/${slotId}/topic`] = topic.data;
+        });
 
-      // Add the topic members
-      const topicWithMembers = _.cloneDeep(topic);
-      topicWithMembers.members = {};
-      uids.forEach(uid => {
-        topicWithMembers.members[uid] = true;
+        // Add the topic assignment (with members)
+        const topicWithMembers = _.cloneDeep(topic.data);
+        topicWithMembers.members = {};
+        topic.members.forEach(uid => {
+          topicWithMembers.members[uid] = true;
+        });
+        updates[`/assignments/${slotId}/${topicId}`] = topicWithMembers;
       });
-      updates[`/assignments/${slotId}/${topic.id}`] = topicWithMembers;
 
       // Apply all updates atomically
       return rootRef.update(updates);
@@ -190,9 +189,57 @@ function close (req, res) {
     });
   };
 
+  function generateTopics(groupSize, uids) {
+    const names = _.shuffle([
+      'RTDB',
+      'Auth',
+      'Cloud Messaging',
+      'Storage',
+      'Hosting',
+      'Test Lab',
+      'Crash Reporting',
+      'Functions',
+      'Notifications',
+      'Remote Config',
+      'App Indexing',
+      'Dynamic Links',
+      'Invites',
+      'AdWords',
+      'AdMob',
+    ]);
+
+    // Form groups. The last group may be smaller than requested.
+    let groups = _.chunk(uids, groupSize);
+
+    // Don't create groups of 1, unless there's only 1 person
+    if (groups.length > 1 && _.last(groups).length == 1) {
+      let soloUser = _.last(groups)[0];
+      groups = _.dropRight(groups, 1);
+      _.last(groups).push(soloUser);
+    }
+
+    let topics = {};
+    groups.forEach((group, i) => {
+      let name = names[i % names.length];
+      let id = name.toLowerCase().replace(' ', '-') + '-' + i;
+
+      topics[id] = {
+        data: {
+          id: id,
+          name: name,
+        },
+        members: group,
+      };
+    });
+
+    return topics;
+  }
+
   return {
     join: join,
     leave: leave,
-    close: close
+    close: close,
+    generateTopics: generateTopics,
   }
 }
+
