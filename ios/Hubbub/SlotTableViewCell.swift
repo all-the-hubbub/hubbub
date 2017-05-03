@@ -65,6 +65,14 @@ class DateView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override var intrinsicContentSize: CGSize {
+        get {
+            let numberSize = numberLabel.intrinsicContentSize
+            let weekdaySize = weekdayLabel.intrinsicContentSize
+            return CGSize(width: 30, height: numberSize.height + weekdaySize.height)
+        }
+    }
 }
 
 class SlotTableViewCell: UITableViewCell {
@@ -104,7 +112,6 @@ class SlotTableViewCell: UITableViewCell {
         
         contentView.addSubview(dateView)
         dateView.snp.makeConstraints { (make) in
-            make.width.equalTo(30)
             make.left.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
         }
@@ -113,6 +120,7 @@ class SlotTableViewCell: UITableViewCell {
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(dateView.snp.right).offset(20)
+            make.right.equalToSuperview().offset(-20)
             make.top.equalTo(dateView.snp.top)
         }
         
@@ -121,6 +129,7 @@ class SlotTableViewCell: UITableViewCell {
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { (make) in
             make.left.equalTo(nameLabel.snp.left)
+            make.right.equalToSuperview().offset(-20)
             make.top.equalTo(nameLabel.snp.bottom).offset(2)
         }
     }

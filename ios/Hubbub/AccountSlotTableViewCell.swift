@@ -6,30 +6,29 @@
 //  Copyright © 2017 All The Hubbub. All rights reserved.
 //
 
-import SnapKit
 import UIKit
 
-class TopicTag: UIView {
-    let nameLabel = UILabel()
+class TopicTag: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = #colorLiteral(red: 0.8588235294, green: 0.8588235294, blue: 0.8588235294, alpha: 1)
-        layer.cornerRadius = 3
+        textColor = ColorSecondary
+        backgroundColor = #colorLiteral(red: 0.9058823529, green: 0.9647058824, blue: 0.9764705882, alpha: 1)
         
-        nameLabel.textColor = #colorLiteral(red: 0.4274509804, green: 0.4274509804, blue: 0.4274509804, alpha: 1)
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 12)
-        addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(4)
-            make.bottom.equalToSuperview().offset(-4)
-        }
+        textAlignment = .center
+        font = UIFont.boldSystemFont(ofSize: 12)
+        
+        clipsToBounds = true
+        layer.cornerRadius = 3
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let superSize = super.sizeThatFits(size)
+        return CGSize(width: superSize.width + (2 * 10), height: superSize.height + (2 * 4))
     }
 }
 
@@ -37,7 +36,14 @@ class AccountSlotTableViewCell: SlotTableViewCell {
     
     // UI
     let topicTag = TopicTag()
-    let pendingLabel = UILabel()
+    let pendingLabel: UILabel = {
+        let l = UILabel()
+        l.text = "pending..."
+        l.font = UIFont.italicSystemFont(ofSize: 12)
+        l.textColor = .darkGray
+        l.sizeToFit()
+        return l
+    }()
     
     // Properties
     override var slot: Slot? {
@@ -48,36 +54,12 @@ class AccountSlotTableViewCell: SlotTableViewCell {
             super.slot = newValue
             
             if let topic = slot?.topic {
-                pendingLabel.isHidden = true
-                topicTag.isHidden = false
-                topicTag.nameLabel.text = topic.name
+                topicTag.text = topic.name
+                topicTag.sizeToFit()
+                self.accessoryView = topicTag
             } else {
-                pendingLabel.isHidden = false
-                topicTag.isHidden = true
+                self.accessoryView = pendingLabel
             }
         }
-    }
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        pendingLabel.text = "pending..."
-        pendingLabel.font = UIFont.italicSystemFont(ofSize: 12)
-        pendingLabel.textColor = .darkGray
-        addSubview(pendingLabel)
-        pendingLabel.snp.makeConstraints { (make) in
-            make.right.equalToSuperview().offset(-20)
-            make.centerY.equalToSuperview()
-        }
-        
-        addSubview(topicTag)
-        topicTag.snp.makeConstraints { (make) in
-            make.right.equalToSuperview().offset(-20)
-            make.centerY.equalToSuperview()
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
