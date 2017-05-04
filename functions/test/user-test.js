@@ -61,8 +61,8 @@ describe("User", function () {
           it("updates the user's profile", () => {
             return userPromise.then(user => {
               return user.updateProfile();
-            }).then(user => {
-              assert.equal(user.handle, "hubbubducky");
+            }).then(data => {
+              assert.equal(data, "hubbubducky");
               assert.equal(user.name, "Hubbub Ducky");
               assert.equal(user.photo, "https://avatars2.githubusercontent.com/u/26857894?v=3");
               assert.equal(user.id, id);

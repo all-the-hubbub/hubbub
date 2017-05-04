@@ -30,8 +30,11 @@ exports.closeSlot = functions.https.onRequest((req, res) => {
 
 exports.updateProfile = functions.database.ref("/accounts/{userId}/githubToken")
   .onWrite(event => {
-    console.log("updateProfile event ", event);
-    return User.findById(event.params.userId).then( (user) => {
+    let start = new Date();
+    console.log("updateProfile event ", event, start.toString());
+    return User.findById(event.params.userId).then((user) => {
+      let diff = (start - new Date())/1000;
+      console.log("updateProfile", diff, user);
       return user.updateProfile();
     });
   });

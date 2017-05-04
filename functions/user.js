@@ -8,6 +8,7 @@ function UserWrapper(admin) {
 
   class User {
     static findById(id) {
+      console.log('findById id:', id);
       let db = admin.database();
       return Promise.props({
         account: db.ref(`/accounts/${id}`).once("value").then(snapshot => {
@@ -17,6 +18,7 @@ function UserWrapper(admin) {
           return snapshot.val();
         })
       }).then(data => {
+        console.log('findById data:', data);
         let
           account = data.account || {}
         , profile = data.profile || {};
@@ -48,13 +50,15 @@ function UserWrapper(admin) {
       this.github = new GitHubbub(this.githubToken);
     }
 
-    updateProfile () {
+    updateProfile() {
       let
         self = this
       , db = this.db
       , accountRef = db.ref(`/accounts/${this.id}`)
       , profileRef = db.ref(`/profiles/${this.id}`);
-
+      console.log('updateProfile', this);
+      console.log('account:', `/accounts/${this.id}`)
+      console.log('profile:', `/profiles/${this.id}`)
       return this.github.profile().then(data => {
         let newProfile = {
           photo: data.avatar_url,
@@ -62,15 +66,15 @@ function UserWrapper(admin) {
           handle: data.login,
           uid: self.id
         };
-        return Promise.props({
-          account: accountRef.update({
+        return Promise.all([
+          accountRef.update({
             githubCreatedAt: data.created_at,
             updatedAt: admin.database.ServerValue.TIMESTAMP
           }),
-          profile: profileRef.update(newProfile)
+          profileRef.update(newProfile)
+        ]).then(() => {
+          return newProfile;    // for testing
         });
-      }).then(updatedData => {
-        return User.findById(self.id);
       });
     }
   }
