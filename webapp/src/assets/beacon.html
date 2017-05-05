@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hubbub</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      background: #37474F;
+      font-family: sans-serif;
+    }
+
+    #topicName {
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+	  margin: auto;
+      font-size: 48px;
+      line-height: 48px;
+	  height: 48px;
+      text-align: center;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="topicName"></h1>
+
+  <script type="text/javascript">
+    function getParameterByName(name) {
+      var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+      return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+
+    var topicName = getParameterByName('topicName');
+    document.getElementById('topicName').innerHTML = topicName;
+  </script>
+</body>
+</html>
