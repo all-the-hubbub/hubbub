@@ -191,21 +191,15 @@ function close (req, res) {
 
   function generateTopics(groupSize, uids) {
     const names = _.shuffle([
-      'RTDB',
-      'Auth',
-      'Cloud Messaging',
-      'Storage',
-      'Hosting',
-      'Test Lab',
-      'Crash Reporting',
-      'Functions',
-      'Notifications',
-      'Remote Config',
-      'App Indexing',
-      'Dynamic Links',
-      'Invites',
-      'AdWords',
-      'AdMob',
+      'JavaScript',
+      'Java',
+      'Ruby',
+      'PHP',
+      'Python',
+      'Swift',
+      'TypeScript',
+      'Objective-C',
+      'Go',
     ]);
 
     // Form groups. The last group may be smaller than requested.
