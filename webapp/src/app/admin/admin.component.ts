@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
   close(slot: Slot) {
     console.log('close item:', slot);
 	  let headers = new Headers({ 'Content-Type': 'application/json' });
-    let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/closeSlot';
+    let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/closeEvent';
     return this.http.post(endpoint, {id: slot.$key}, { headers: headers })
       // Call map on the response observable to get the parsed people object
       //.map(res => res.json())
