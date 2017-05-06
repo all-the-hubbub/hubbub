@@ -30,7 +30,6 @@ exports.closeEvent = makeHttpFunction(slots.close, [cors]);
 
 exports.updateProfile = functions.database.ref("/accounts/{userId}/githubToken")
   .onWrite(event => {
-    console.log("updateProfile event ", event);
     return User.findById(event.params.userId).then( (user) => {
       return user.updateProfile();
     });

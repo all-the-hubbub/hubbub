@@ -30,7 +30,6 @@ describe("User", function () {
 
     describe("when there is a user", () => {
       beforeEach(() => {
-        console.log("id", id);
         userPromise = User.findById(id);
       });
 
@@ -61,11 +60,12 @@ describe("User", function () {
           it("updates the user's profile", () => {
             return userPromise.then(user => {
               return user.updateProfile();
-            }).then(user => {
-              assert.equal(user.handle, "hubbubducky");
-              assert.equal(user.name, "Hubbub Ducky");
-              assert.equal(user.photo, "https://avatars2.githubusercontent.com/u/26857894?v=3");
-              assert.equal(user.id, id);
+            }).then(profile => {
+              assert.equal(profile.handle, "hubbubducky", "incorrect handle");
+              assert.equal(profile.name, "Hubbub Ducky", "incorrect name");
+              assert.equal(profile.photo,
+                "https://avatars2.githubusercontent.com/u/26857894?v=3",
+                "incorrect photo");
             });
           });
         });
