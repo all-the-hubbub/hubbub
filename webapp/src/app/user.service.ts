@@ -48,6 +48,9 @@ export class UserService {
     })
   }
 
+  getToken(forceRefresh: boolean = false) {
+    return this.afAuth.auth.currentUser.getToken(forceRefresh);
+  }
   login() {
     const provider = new firebase.auth.GithubAuthProvider();
     this.afAuth.auth.signInWithRedirect(provider);
