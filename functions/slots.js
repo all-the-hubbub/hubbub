@@ -21,7 +21,7 @@ function join(req, res) {
   // Get a few refs for convenience
   const db = admin.database();
   const rootRef = db.ref();
-  const slotRef = db.ref(`/slots/${slotId}`);
+  const slotRef = db.ref(`/events/${slotId}`);
 
   return slotRef.once('value')
     .then(snapshot => {
@@ -45,7 +45,7 @@ function join(req, res) {
       // Copy the slot data into the user's slots
       const slotCopy = _.cloneDeep(slot);
       delete slotCopy.state;
-      updates[`/accounts/${userId}/slots/${slotId}`] = slotCopy;
+      updates[`/accounts/${userId}/events/${slotId}`] = slotCopy;
 
       // Apply all updates atomically
       return rootRef.update(updates);
@@ -80,7 +80,7 @@ function leave (req, res) {
   // Get a few refs for convenience
   const db = admin.database();
   const rootRef = db.ref();
-  const accountSlotRef = db.ref(`/accounts/${userId}/slots/${slotId}`);
+  const accountSlotRef = db.ref(`/accounts/${userId}/events/${slotId}`);
 
   return accountSlotRef.once('value')
     .then(snapshot => {
@@ -102,7 +102,7 @@ function leave (req, res) {
       updates[`/requests/${slotId}/${userId}`] = null;
 
       // Delete the account slot
-      updates[`/accounts/${userId}/slots/${slotId}`] = null;
+      updates[`/accounts/${userId}/events/${slotId}`] = null;
 
       // Apply all updates atomically
       return rootRef.update(updates);
@@ -132,7 +132,7 @@ function close (req, res) {
   // Get a few refs for convenience
   const db = admin.database();
   const rootRef = db.ref();
-  const slotRef = db.ref(`/slots/${slotId}`);
+  const slotRef = db.ref(`/events/${slotId}`);
   const reqsRef = db.ref(`/requests/${slotId}`);
 
   return slotRef.once('value')
@@ -161,7 +161,7 @@ function close (req, res) {
       _.forEach(topics, (topic, topicId) => {
         // Add the topic data to each member's account slot
         topic.members.forEach(uid => {
-          updates[`/accounts/${uid}/slots/${slotId}/topic`] = topic.data;
+          updates[`/accounts/${uid}/events/${slotId}/topic`] = topic.data;
         });
 
         // Add the topic assignment (with members)
