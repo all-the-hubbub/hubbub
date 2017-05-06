@@ -10,19 +10,19 @@ const cors = require('cors')({origin: true});
 
 const User = require("./user")(admin);
 
-exports.joinSlot = functions.https.onRequest((req, res) => {
+exports.joinEvent = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
       slots.join(req, res);
     });
 });
 
-exports.leaveSlot = functions.https.onRequest((req, res) => {
+exports.leaveEvent = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
       slots.leave(req, res);
     });
 });
 
-exports.closeSlot = functions.https.onRequest((req, res) => {
+exports.closeEvent = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
       slots.close(req, res);
     });
