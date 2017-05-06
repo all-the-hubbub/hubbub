@@ -2,7 +2,7 @@ const _ = require('lodash');
 const errors = require('./errors');
 const functions = require('firebase-functions');
 
-module.exports = function (admin) {
+module.exports = function(admin) {
 
 function join(req, res) {
   // TODO: replace with auth middleware

@@ -4,7 +4,7 @@ const util = require("util");
 const Promise = require('bluebird');
 const _ = require("lodash");
 
-function UserWrapper(admin) {
+module.exports = function(admin) {
 
   class User {
     static findById(id) {
@@ -54,24 +54,23 @@ function UserWrapper(admin) {
       , db = this.db
       , accountRef = db.ref(`/accounts/${this.id}`)
       , profileRef = db.ref(`/profiles/${this.id}`);
-
       return this.github.profile().then(data => {
         let newProfile = {
           photo: data.avatar_url,
           name: data.name,
           handle: data.login,
-          uid: self.id
         };
-        return Promise.props({
-          account: accountRef.update({
+        return Promise.all([
+          accountRef.update({
             githubCreatedAt: data.created_at,
-            updatedAt: admin.database.ServerValue.TIMESTAMP
+            updatedAt: admin.database.ServerValue.TIMESTAMP,
+            handle: data.login,     // for debugging via Firebase Console
           }),
-          profile: profileRef.update(newProfile)
+          profileRef.update(newProfile)
+        ]).then(() => {
+          return newProfile;        // for testing
         });
-      }).then(updatedData => {
-        return User.findById(self.id);
-      });
+      })
     }
   }
 
@@ -79,4 +78,3 @@ function UserWrapper(admin) {
 
 }
 
-module.exports = UserWrapper;
