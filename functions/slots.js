@@ -21,7 +21,7 @@ function join(req, res) {
   // Get a few refs for convenience
   const db = admin.database();
   const rootRef = db.ref();
-  const slotRef = db.ref(`/slots/${slotId}`);
+  const slotRef = db.ref(`/events/${slotId}`);
 
   return slotRef.once('value')
     .then(snapshot => {

@@ -26,14 +26,14 @@ export class SlotService {
               private userService: UserService,
               private http: Http) {
     this.db = this.afDB.app.database();
-    this.fullSlotList$ = afDB.list('slots');
+    this.fullSlotList$ = afDB.list('events');
 
     this.userSlotList$ = userService.profile$.switchMap(
       (currentProfile: any, index: number) => {
         console.log('currentProfile', currentProfile);
         if (currentProfile) {
           this.uid = currentProfile.$key;
-          return afDB.list(`/accounts/${currentProfile.$key}/slots`);
+          return afDB.list(`/accounts/${currentProfile.$key}/events`);
         } else {
           return FirebaseListObservable.of(null);
         }
@@ -60,7 +60,7 @@ export class SlotService {
   join(slot: Slot) {
     console.log('close item:', slot);
     let headers = new Headers({ 'Content-Type': 'application/json' });
-    let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/joinSlot';
+    let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/joinEvent';
     return this.http.post(endpoint, {id: slot.$key, userId: this.uid}, { headers: headers })
       // Call map on the response observable to get the parsed people object
       //.map(res => res.json())

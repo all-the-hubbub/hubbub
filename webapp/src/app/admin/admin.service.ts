@@ -14,7 +14,7 @@ export class AdminService {
 
   constructor(private afDB: AngularFireDatabase) {
     this.db = this.afDB.app.database();
-    this.slotList$ = afDB.list('slots');
+    this.slotList$ = afDB.list('events');
   }
 
 }
