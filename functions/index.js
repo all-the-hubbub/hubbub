@@ -24,9 +24,9 @@ function makeHttpFunction(fn, middlewares) {
   });
 }
 
-exports.joinSlot = makeHttpFunction(slots.join, [cors, middleware.userAuthRequired]);
-exports.leaveSlot = makeHttpFunction(slots.leave, [cors, middleware.userAuthRequired]);
-exports.closeSlot = makeHttpFunction(slots.close, [cors]);
+exports.joinEvent = makeHttpFunction(slots.join, [cors, middleware.userAuthRequired]);
+exports.leaveEvent = makeHttpFunction(slots.leave, [cors, middleware.userAuthRequired]);
+exports.closeEvent = makeHttpFunction(slots.close, [cors]);
 
 exports.updateProfile = functions.database.ref("/accounts/{userId}/githubToken")
   .onWrite(event => {

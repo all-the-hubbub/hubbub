@@ -59,14 +59,18 @@ export class SlotService {
 
   join(slot: Slot) {
     console.log('close item:', slot);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/joinSlot';
-    return this.http.post(endpoint, {id: slot.$key, userId: this.uid}, { headers: headers })
-      // Call map on the response observable to get the parsed people object
-      //.map(res => res.json())
-      // Subscribe to the observable to get the parsed people object and attach it to the
-      // component
-      .subscribe(res => console.log('res', res));
+    let token = this.userService.getToken().then(token => {
+
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/joinSlot';
+      return this.http.post(endpoint, {id: slot.$key, userId: this.uid}, { headers: headers })
+        // Call map on the response observable to get the parsed people object
+        //.map(res => res.json())
+        // Subscribe to the observable to get the parsed people object and attach it to the
+        // component
+        .subscribe(res => console.log('res', res));
+    })
+
   }
 
 }
