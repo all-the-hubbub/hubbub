@@ -6,6 +6,10 @@
     "public": "webapp/dist",
     "rewrites": [
       {
+        "source": "privacy",
+        "destination": "https://www.iubenda.com/privacy-policy/8115331"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
