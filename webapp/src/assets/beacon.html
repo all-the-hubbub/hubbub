@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hubbub</title>
   <style type="text/css">
     body {
@@ -12,23 +13,139 @@
     }
 
     #topicName {
-	  position: absolute;
-	  top: 0;
-	  right: 0;
-	  bottom: 0;
-	  left: 0;
-	  margin: auto;
-      font-size: 48px;
-      line-height: 48px;
-	  height: 48px;
       text-align: center;
-      color: white;
     }
   </style>
+  <link rel="stylesheet" type="text/css" href="bub.css">
 </head>
 <body>
   <h1 id="topicName"></h1>
 
+  <div class="canvas">
+
+   <div class="shape shape-circle">
+     <div class="wrapper">
+       <div class="arm arm-left"></div>
+       <div class="arm arm-right arm-flip"></div>
+     </div>
+     <div class="body"></div>
+     <div class="wrapper">
+       <div class="face blink">
+         <div class="eye"></div>
+         <div class="mouth"></div>
+         <div class="eye"></div>
+       </div>
+     </div>
+   </div>
+
+    <div class="shape shape-square">
+     <div class="wrapper">
+       <div class="arm arm-left"></div>
+       <div class="arm arm-right arm-flip"></div>
+     </div>
+     <div class="body body-square"></div>
+     <div class="wrapper">
+       <div class="face blink">
+         <div class="eye"></div>
+         <div class="mouth"></div>
+         <div class="eye"></div>
+       </div>
+     </div>
+   </div>
+<div class="hidden">
+   <div class="shape shape-heart">
+     <div class="wrapper">
+       <div class="arm arm-left"></div>
+       <div class="arm arm-right arm-flip"></div>
+     </div>
+     <div class="body body-square"></div>
+     <div class="wrapper">
+       <div class="face blink">
+         <div class="eye"></div>
+         <div class="mouth"></div>
+         <div class="eye"></div>
+       </div>
+     </div>
+   </div>
+
+   <div class="shape shape-triangle">
+     <div class="wrapper">
+       <div class="arm arm-left"></div>
+       <div class="arm arm-right arm-flip"></div>
+     </div>
+     <div class="body body-square"></div>
+     <div class="wrapper">
+       <div class="face blink">
+         <div class="eye"></div>
+         <div class="mouth"></div>
+         <div class="eye"></div>
+       </div>
+     </div>
+   </div>
+
+   <div class="shape shape-diamond">
+     <div class="wrapper">
+       <div class="arm arm-left"></div>
+       <div class="arm arm-right arm-flip"></div>
+     </div>
+     <div class="body body-square"></div>
+     <div class="wrapper">
+       <div class="face blink">
+         <div class="eye"></div>
+         <div class="mouth"></div>
+         <div class="eye"></div>
+       </div>
+     </div>
+   </div>
+
+   <div class="shape shape-pentagon">
+     <div class="wrapper">
+       <div class="arm arm-left"></div>
+       <div class="arm arm-right arm-flip"></div>
+     </div>
+     <div class="body body-square"></div>
+     <div class="wrapper">
+       <div class="face blink">
+         <div class="eye"></div>
+         <div class="mouth"></div>
+         <div class="eye"></div>
+       </div>
+     </div>
+   </div>
+
+    <div class="shape shape-star">
+     <div class="wrapper">
+       <div class="arm arm-left"></div>
+       <div class="arm arm-right arm-flip"></div>
+     </div>
+     <div class="body body-square"></div>
+     <div class="wrapper">
+       <div class="face blink">
+         <div class="eye"></div>
+         <div class="mouth"></div>
+         <div class="eye"></div>
+       </div>
+     </div>
+   </div>
+
+
+   <div class="shape shape-rectangle">
+     <div class="wrapper">
+       <div class="arm arm-left"></div>
+       <div class="arm arm-right arm-flip"></div>
+     </div>
+     <div class="body body-square"></div>
+     <div class="wrapper">
+       <div class="face blink">
+         <div class="eye"></div>
+         <div class="mouth"></div>
+         <div class="eye"></div>
+       </div>
+     </div>
+   </div>
+
+ </div>
+</div>
   <script type="text/javascript">
     function getParameterByName(name) {
       var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
