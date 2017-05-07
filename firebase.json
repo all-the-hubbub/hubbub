@@ -4,11 +4,14 @@
   },
   "hosting": {
     "public": "webapp/dist",
-    "rewrites": [
+    "redirects": [
       {
-        "source": "privacy",
-        "destination": "https://www.iubenda.com/privacy-policy/8115331"
-      },
+        "source": "/privacy",
+        "destination": "https://www.iubenda.com/privacy-policy/8115331",
+        "type": 302
+      }
+    ],
+    "rewrites": [
       {
         "source": "**",
         "destination": "/index.html"
