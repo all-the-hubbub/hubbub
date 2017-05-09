@@ -11,7 +11,7 @@ import { Profile } from './types'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'All the Hubbub';
+  title = 'Hubbub';
 
   constructor(public userService: UserService) {
   }

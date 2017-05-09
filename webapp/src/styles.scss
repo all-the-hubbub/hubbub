@@ -78,3 +78,8 @@ p {
     background-color: rgba(0, 0, 0, 0.04);
   }
 }
+
+//Overide angular material accent buttons to have white text
+.mat-raised-button.mat-accent {
+  color: white;
+}

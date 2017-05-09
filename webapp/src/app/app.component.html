@@ -1,4 +1,16 @@
-<section class="app flex-container" fxLayout="column" fxLayoutAlign="start center">
+<div class="scrim" *ngIf="userService.loginStatus != 'LoggedIn'">
+  <!-- AUTH UNKOWN -->
+  <md-progress-spinner mode="indeterminate" *ngIf="userService.loginStatus == 'Unknown'"></md-progress-spinner>
+  <!-- AUTH LOGGED OUT -->
+  <div class="login" *ngIf="userService.loginStatus == 'LoggedOut'">
+    <img src="/assets/img/login_2x.png">
+    <h1 class="title">{{title}}</h1>
+    <p>Meet people with similar interets</p>
+    <button md-raised-button color="accent" (click)="userService.login()" md-button>LOG IN WITH GITHUB</button>
+  </div>
+</div>
+
+<section class="app flex-container" fxLayout="column" fxLayoutAlign="start center" >
 
     <!--TOP BAR -->
     <md-toolbar color="primary" class="mat-elevation-z3 app-bar">
@@ -8,12 +20,12 @@
       </button>
 
       <!-- PROFILE -->
-      <md-toolbar-row class="profile-toolbar-row" *ngIf="userService.loginStatus == 'LoggedIn'">
+      <md-toolbar-row class="profile-toolbar-row" *ngIf="userService.loginStatus != 'LoggedIn'">
           <profile class="profile-wrapper" *ngIf="(userService.profile$ | async)" [observableData]="userService.profile$"></profile>
       </md-toolbar-row>
     </md-toolbar>
 
-    <!-- SIDE NAV CONTAINER -->
+    <!-- BODY -->
     <md-sidenav-container fxFlex>
       <!-- FAB -->
       <button class="fab " md-fab> <i class="material-icons">add</i></button>
@@ -36,31 +48,10 @@
             <span md-line>About...</span>
           </a>
         </md-nav-list>
-       <!--<md-nav-list>
-           <a md-list-item href="page1.html">Page 1</a>
-           <a md-list-item href="page2.html">Page 2</a>
-           <a md-list-item href="page3.html">Page 3</a>
-       </md-nav-list>-->
-              <!--<div *ngIf="userService.loginStatus == 'LoggedIn'">
-                  <md-toolbar-row (click)="userService.logout()">
-                      Log Out
-                      <!--<button  md-button>Log Out</button>-->
-                  <!--</md-toolbar-row>-->
-                <!--</div>-->
       </md-sidenav>
-
 
       <!-- CANVAS -->
       <div class="canvas">
-        <!-- AUTH UNKNOWN -->
-        <div *ngIf="userService.loginStatus == 'Unknown'">
-          <md-spinner></md-spinner>
-        </div>
-        <!-- AUTH LOGED IN -->
-        <div *ngIf="userService.loginStatus == 'LoggedOut'">
-          <button (click)="userService.login()" md-button>Log In</button>
-        </div>
-
         <router-outlet></router-outlet>
       </div>
 

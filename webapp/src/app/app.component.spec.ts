@@ -44,16 +44,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'All the Hubbub'`, async(() => {
+  it(`should have as title 'Hubbub'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toContain('All the Hubbub');
+    expect(app.title).toContain('Hubbub');
   }));
 
   it('should render title', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('md-toolbar').textContent).toContain('All the Hubbub');
+    expect(compiled.querySelector('md-toolbar').textContent).toContain('Hubbub');
   }));
 });
