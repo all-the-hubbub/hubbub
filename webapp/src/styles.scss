@@ -78,3 +78,47 @@ p {
     background-color: rgba(0, 0, 0, 0.04);
   }
 }
+
+//shared event styles
+
+.event-card.mat-card {
+  padding: 0 0 8px 0;
+}
+
+.event {
+  height: 72px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+  }
+
+  .mat-list-item-content {
+    height: 72px !important;
+    padding: 0 24px !important;
+
+    label,
+    md-checkbox {
+      width: 100%
+    }
+  }
+
+  .mat-checkbox-label {
+    flex-grow: 1;
+    display: flex;
+  }
+
+  .mat-checkbox-label-before .mat-checkbox-inner-container {
+    margin-right: 8px;
+  }
+}
+
+.event-date {
+  margin-right: 24px;
+  color: #00B8D4;
+
+}
+.event-info {
+  flex-grow: 1;
+}
+

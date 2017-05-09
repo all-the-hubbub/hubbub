@@ -1,23 +1,41 @@
-<md-card>
-  <md-card-header>
-    <md-card-title>Meet New People</md-card-title>
-    <md-card-subtitle>Sign up and we'll find a group you might like.</md-card-subtitle>
-  </md-card-header>
+<!-- TODO: DIALOG -->
+<!-- This content should be in a dialog that appears after you click -->
+<!-- the round add button on the main page -->
 
+<!-- TODO:LOADING SLOTS -->
+<!-- md-spinner -->
+
+<!-- NO SLOTS -->
+<md-card class="flat" *ngIf="!(slotList$ | async)?.length">
+    <p class="secondary text-center">
+      Looks like there are no events
+    </p>
+</md-card>
+
+<!-- HAS SLOTS -->
+<md-card class="event-card" *ngIf="(slotList$ | async)?.length">
   <md-card-content>
 
     <md-list>
-    <md-list-item *ngFor="let item of slotList$ | async">
-      <h3 md-line>{{item.name}}</h3>
-      <p md-line class="demo-secondary-text">Time - Location</p>
-      <md-checkbox (click)="select(item)" [checked]="item.requested"></md-checkbox>
+      <md-list-item class="event edit" *ngFor="let item of slotList$ | async">
+      <!-- TODO: CHECKBOXES -->
+      <!-- Clicking checboxes doesnt seem to do anything right now -->
+      <!-- Apply on click or have save action to apply changes -->
+      <md-checkbox (click)="select(item)" [checked]="item.requested" align="before">
+       <div class="event-date">
+            <h2>18</h2>
+            <h5>May</h5>
+          </div>
 
-    </md-list-item>
+          <div class="event-info">
+            <h3>{{item.name}}</h3>
+            <p class="secondary">Time - Location</p>
+          </div>
+          </md-checkbox>
+
+      </md-list-item>
     </md-list>
-  </md-card-content>
-  <md-card-actions>
-    <button md-button>ADD</button>
-  </md-card-actions>
 
+  </md-card-content>
 </md-card>
 
