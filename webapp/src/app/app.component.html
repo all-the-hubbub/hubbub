@@ -45,13 +45,6 @@
 
 
 
-  <div *ngIf="userService.loginStatus == 'Unknown'">
-  <p>loading...</p>
-</div>
-
-<div *ngIf="userService.loginStatus == 'LoggedOut'">
-  <button (click)="userService.login()" md-button>Log In</button>
-</div>
 
 <div class="app flex-container" fxLayout="column" fxLayoutAlign="start center">
 

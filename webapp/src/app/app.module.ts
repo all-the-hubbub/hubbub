@@ -4,7 +4,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { MdButtonModule, MdCardModule, MdSidenavModule, MdToolbarModule, MdListModule } from '@angular/material';
+import { MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule, MdMenuModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -15,12 +15,17 @@ import { RouterModule, Routes } from '@angular/router';
 import 'hammerjs';   // for Material gestures
 import { routes } from        './app.router';
 import { AppComponent } from  './app.component';
+import { AdminService } from   './admin/admin.service';
 import { UserService } from   './user.service';
 import { SlotService } from './slot.service';
 
-import { AdminModule } from './admin/admin.module';
-import { LunchModule } from './lunch/lunch.module';
+import { AuthGuard } from './auth.guard';
+
+import { AdminComponent } from './admin/admin.component';
+import { LunchComponent } from './lunch/lunch.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UpcomingEventsComponent } from './upcoming-events/upcoming-events.component';
+import { LoginComponent } from './login/login.component';
 
 // For AoT compatibility, this needs to be exported so that Angular
 // can statically analyze the NgModule declaration
@@ -35,11 +40,14 @@ export const config = {
 
 @NgModule({
   declarations: [
+    AdminComponent,
+    LunchComponent,
     AppComponent,
     ProfileComponent,
+    UpcomingEventsComponent,
+    LoginComponent,
   ],
   imports: [
-    AdminModule,
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
@@ -48,15 +56,16 @@ export const config = {
     FlexLayoutModule,
     FormsModule,
     HttpModule,
-    LunchModule,
     MdButtonModule,
     MdCardModule,
+    MdCheckboxModule,
     MdListModule,
+    MdMenuModule,
     MdSidenavModule,
     MdToolbarModule,
     routes
   ],
-  providers: [UserService, SlotService],
+  providers: [AdminService, AuthGuard, UserService, SlotService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
