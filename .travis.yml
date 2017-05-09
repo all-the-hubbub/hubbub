@@ -39,14 +39,15 @@ script:
   - (cd functions; yarn test)
 
 deploy:
-  skip_cleanup: true
   - provider: firebase
+    skip_cleanup: true
     token:
       secure: "$FIREBASE_TOKEN"
     project: hubbub-159904
     on:
       branch: master
   - provider: firebase
+    skip_cleanup: true
     token:
       secure: "$FIREBASE_STAGING_TOKEN"
     project: hubbub-staging
