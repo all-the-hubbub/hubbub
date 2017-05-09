@@ -1,8 +1,7 @@
-<md-card class="profile-card">
-  <md-card-header layout-align="start center">
-    <img md-card-avatar src="{{ profile.photo }}"/>
-    <md-card-title>{{ profile.name }}</md-card-title>
-    <md-card-subtitle>{{ profile.handle }}</md-card-subtitle>
-  </md-card-header>
-</md-card>
-
+<div class="profile">
+   <img class="profile-avatar" src="{{ profile.photo }}"/>
+   <div class="profile-info">
+      <h1>{{ profile.name }}</h1>
+      <p>{{ profile.handle }}</p>
+   </div>
+</div>
