@@ -20,8 +20,8 @@
       </button>
 
       <!-- PROFILE -->
-      <md-toolbar-row class="profile-toolbar-row" *ngIf="userService.loginStatus != 'LoggedIn'">
-          <profile class="profile-wrapper" *ngIf="(userService.profile$ | async)" [observableData]="userService.profile$"></profile>
+      <md-toolbar-row class="profile-toolbar-row" *ngIf="userService.loginStatus == 'LoggedIn'">
+          <profile *ngIf="(userService.profile$ | async)" [observableData]="userService.profile$"></profile>
       </md-toolbar-row>
     </md-toolbar>
 
