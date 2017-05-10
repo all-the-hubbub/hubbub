@@ -4,7 +4,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule, MdMenuModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
+import { MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule, MdMenuModule, MdSidenavModule, MdToolbarModule, MdDialogModule, MdProgressSpinnerModule } from '@angular/material';
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -63,6 +63,8 @@ export const config = {
     MdMenuModule,
     MdSidenavModule,
     MdToolbarModule,
+    MdDialogModule,
+    MdProgressSpinnerModule,
     routes
   ],
   providers: [AdminService, AuthGuard, UserService, SlotService],

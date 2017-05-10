@@ -98,7 +98,7 @@ p {
     padding: 0 24px !important;
 
     label,
-    md-checkbox {
+    .mat-checkbox {
       width: 100%
     }
   }
@@ -109,7 +109,7 @@ p {
   }
 
   .mat-checkbox-label-before .mat-checkbox-inner-container {
-    margin-right: 8px;
+    margin-right: 10px;
   }
 }
 
@@ -120,5 +120,43 @@ p {
 }
 .event-info {
   flex-grow: 1;
+  margin-right: 24px;
 }
 
+//shared dialog styles
+.dialog-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  .mat-dialog-title {
+    color: rgba(0, 0, 0, 0.87);
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  button {
+    color: rgba(0, 0, 0, 0.54);
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+}
+.event-dialog-content.mat-dialog-content {
+  padding: 0;
+}
+
+.event-dialog-content {
+  .empty-state {
+    margin: 24px;
+  }
+}
+
+//shared spinner
+.mat-progress-spinner {
+  margin: auto;
+  height: 56px !important;
+  padding: 24px;
+}
