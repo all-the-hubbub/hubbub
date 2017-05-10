@@ -2,6 +2,6 @@
   "projects": {
     "default": "hubbub-staging",
     "staging": "hubbub-staging",
-    "production": "hubbub-159904"
+    "prod": "hubbub-159904"
   }
 }

@@ -8,11 +8,12 @@ import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/switchMap';
 
 import { Profile, Slot, SlotWithRSVP, UpcomingEvent } from './types';
+import { UserService } from './user.service'
+import { environment } from '../environments/environment';
 
 // TODO: the following is temporary -- check with deast@
 import * as firebase from 'firebase/app';
 
-import { UserService } from './user.service'
 
 @Injectable()
 export class SlotService {
@@ -64,7 +65,7 @@ export class SlotService {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       });
-      let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/joinEvent';
+      let endpoint = `${environment.config.functionRoot}/joinEvent`;
       return this.http.post(endpoint, {id: slot.$key, userId: this.uid}, { headers: headers })
         // Call map on the response observable to get the parsed people object
         //.map(res => res.json())

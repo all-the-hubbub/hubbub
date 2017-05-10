@@ -14,7 +14,7 @@
   <md-sidenav #sidenav mode="side" align="end" class="app-sidenav" class="mat-elevation-z6">
 
     <md-nav-list>
-      <a md-list-item *ngIf="userService.loginStatus == 'LoggedIn'"
+      <a md-list-item *ngIf="loggedIn"
         (click)="sidenav.close(); userService.logout()"
         [routerLink]="['/']">
         <span md-line>Log Out</span>
@@ -30,29 +30,13 @@
       </a>
     </md-nav-list>
 
-   <!--<md-nav-list>
-       <a md-list-item href="page1.html">Page 1</a>
-       <a md-list-item href="page2.html">Page 2</a>
-       <a md-list-item href="page3.html">Page 3</a>
-   </md-nav-list>-->
-          <!--<div *ngIf="userService.loginStatus == 'LoggedIn'">
-              <md-toolbar-row (click)="userService.logout()">
-                  Log Out
-                  <!--<button  md-button>Log Out</button>-->
-              <!--</md-toolbar-row>-->
-            <!--</div>-->
   </md-sidenav>
 
 
 
 
 <div class="app flex-container" fxLayout="column" fxLayoutAlign="start center">
-
-<div *ngIf="userService.loginStatus == 'LoggedIn'">
-  <div *ngIf="(userService.profile$ | async)">
-    <profile [observableData]="userService.profile$"></profile>
-  </div>
-</div>
+<profile></profile>
 
 <router-outlet></router-outlet>
 
