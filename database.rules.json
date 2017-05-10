@@ -4,12 +4,12 @@
     ".write": "auth != null",
     "accounts": {
       "$uid": {
-        "slots": {
+        "events": {
           ".indexOn": ["startAt", "endAt"]
         }
       }
     },
-    "slots": {
+    "events": {
       ".indexOn": "startAt"
     }
   }
