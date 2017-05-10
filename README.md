@@ -50,10 +50,29 @@ Our tests that call out to the Github API require and OAuth token. You can get a
 
 To run tests with the debugger, use `yarn test-debug`.
 
-Note: We do not store the api recordings because they contain the token. TODO: After test run, modify the files to remove the token (it seems like they are overused and comments so this shouldn't have an effect).   
+Note: We do not store the api recordings because they contain the token. TODO: After test run, modify the files to remove the token (it seems like they are overused and comments so this shouldn't have an effect).
 
 ## CI
 
 We are using [Travis CI](https://travis-ci.org/all-the-hubbub/hubbub) for continuous integration.
 
-Note: The configuration on Travis includes hubbubducky's OAuth token stored in `GITHUB_OAUTH_TOKEN`. This might need to be updated from time to time.
+Note: The configuration on Travis includes
+
+* `GITHUB_OAUTH_TOKEN`: hubbubducky's OAuth token
+* Firebase project auth tokens:
+  * `FIREBASE_TOKEN`: `firebase use production; firebase login:ci`
+  * `FIREBASE_STAGING_TOKEN`: `firebase use staging; firebase login:ci`
+
+these might need to be updated from time to time.
+
+## Firebase project set up
+
+We have aliases set up to switch environments; however, the master branch is protected on github and deploys should only happen from CI.
+
+```
+$ firebase use production
+Now using alias production (hubbub-159904)
+$ firebase use staging
+Now using alias staging (hubbub-staging)
+```
+

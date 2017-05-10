@@ -2,11 +2,14 @@ import { TestBed, async } from '@angular/core/testing';
 import { MdButtonModule, MdCheckboxModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
 
 import { UserService, AuthStatus } from './user.service';
-import { AppComponent } from './app.component';
+import { AdminComponent } from './admin/admin.component';
+import { AppComponent } from './app.component'
 import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
 import { LunchComponent } from './lunch/lunch.component';
-import { Profile } from './types'
-import { routes } from        './app.router';
+import { UpcomingEventsComponent } from './upcoming-events/upcoming-events.component';
+import { Profile }  from './types'
+import { routes }   from './app.router';
 
 import { Observable } from 'rxjs/Observable';
 import {APP_BASE_HREF} from '@angular/common';
@@ -20,7 +23,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent, ProfileComponent, LunchComponent,
+        AppComponent, AdminComponent, ProfileComponent, LoginComponent, LunchComponent, UpcomingEventsComponent
       ],
       providers: [
           { provide: UserService, useClass: MockUserService },
@@ -33,7 +36,6 @@ describe('AppComponent', () => {
         MdCheckboxModule,
         MdSidenavModule,
         MdToolbarModule,
-
       ]
     }).compileComponents();
   }));
