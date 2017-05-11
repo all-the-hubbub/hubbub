@@ -8,7 +8,8 @@ This app doesn't do much yet, but it will!
 
 Web and Cloud Functions are in this repo. When code is checked into master branch, tests are run on Travis CI and if they pass, then the code is deployed.
 
-Staging server: https://hubbub-159904.firebaseapp.com/
+* Production website: https://hubbub-159904.firebaseapp.com/
+* Staging website: https://hubbub-staging.firebaseapp.com/
 
 ## More details about the app
 You authenticate with Github, which triggers a [Cloud Function](https://cloud.google.com/functions/docs/) that grabs a lot of data from the [Github API](https://developer.github.com/v3/).  The initial data fills out your basic profile (e.g. [languages you code in](https://developer.github.com/v3/repos/#list-languages)) and creates a list of connections based on your pull request history or the other committers on projects that you have contributed to.

@@ -27,16 +27,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UpcomingEventsComponent } from './upcoming-events/upcoming-events.component';
 import { LoginComponent } from './login/login.component';
 
-// For AoT compatibility, this needs to be exported so that Angular
-// can statically analyze the NgModule declaration
-export const config = {
-    apiKey: "AIzaSyC2nnXNrZafMKoAqrwU69AkSJP6iwqJFJ0",
-    authDomain: "hubbub-159904.firebaseapp.com",
-    databaseURL: "https://hubbub-159904.firebaseio.com",
-    projectId: "hubbub-159904",
-    storageBucket: "hubbub-159904.appspot.com",
-    messagingSenderId: "113654972557"
-  };
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -48,7 +39,7 @@ export const config = {
     LoginComponent,
   ],
   imports: [
-    AngularFireModule.initializeApp(config),
+    AngularFireModule.initializeApp(environment.config),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     BrowserAnimationsModule,  // used by Material components

@@ -23,9 +23,6 @@ export class UserService {
     console.log('UserService constructor');
     this.db = this.afDB.app.database();
 
-    this.afAuth.auth.onAuthStateChanged(user => {
-        console.log('onAuthStateChanged user', user);
-    });
     this.user$ = this.afAuth.authState;
     this.profile$ = this.afAuth.authState.do(user => {
         console.log('UserService: user', user);

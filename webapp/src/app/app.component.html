@@ -15,7 +15,7 @@
 
       <!-- PROFILE -->
       <md-toolbar-row class="profile-toolbar-row" *ngIf="userService.loginStatus == 'LoggedIn'">
-          <profile class="profile-wrapper" *ngIf="(userService.profile$ | async)" [observableData]="userService.profile$"></profile>
+          <profile></profile>
       </md-toolbar-row>
     </md-toolbar>
 
@@ -38,7 +38,8 @@
         </div>
 
         <router-outlet></router-outlet>
-      </div>
+
+    </div>
 
   </md-sidenav-container>
 </section>

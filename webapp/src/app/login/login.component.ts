@@ -6,12 +6,12 @@ import { UserService } from '../user.service';
 import * as firebase from 'firebase/app';
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  user$: Observable<firebase.User>;
+  public showLogin: boolean = false;
   returnUrl: string;
 
   constructor(public userService: UserService,
@@ -21,8 +21,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    console.log('LoginComponent returnUrl', this.returnUrl);
-    this.user$ = this.userService.user$;
+    this.userService.user$.subscribe(user => {
+      this.showLogin = (user == null);
+    })
   }
 
   login() {
