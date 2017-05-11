@@ -5,8 +5,7 @@ const functions = require('firebase-functions');
 module.exports = function(admin) {
 
 function join(req, res) {
-  // TODO: replace with auth middleware
-  const userId = req.body.userId;
+  const userId = _.get(req, 'user.uid')
   if (!userId) {
     res.sendStatus(401);
     return;
@@ -64,8 +63,7 @@ function join(req, res) {
 };
 
 function leave (req, res) {
-  // TODO: replace with auth middleware
-  const userId = req.body.userId;
+  const userId = _.get(req, 'user.uid')
   if (!userId) {
     res.sendStatus(401);
     return;
