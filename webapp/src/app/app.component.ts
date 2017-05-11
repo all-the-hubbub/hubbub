@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseObjectObservable } from 'angularfire2/database';
+import { MdDialog } from '@angular/material';
+import { LunchComponent } from './lunch/lunch.component';
 
 import { UserService } from './user.service'
 import { Profile } from './types'
@@ -15,8 +17,10 @@ export class AppComponent {
   title = 'All the Hubbub';
   loggedIn: boolean = false;
 
-  constructor(public userService: UserService) {
-    console.log('env', environment);
+  constructor(public userService: UserService, private readonly dialog: MdDialog) {
+  }
+  openDialog() {
+    this.dialog.open(LunchComponent);
   }
 
   ngOnInit() {
@@ -26,3 +30,5 @@ export class AppComponent {
   }
 
 }
+
+

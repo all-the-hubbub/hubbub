@@ -1,20 +1,25 @@
-<!-- TODO: DIALOG -->
-<!-- This content should be in a dialog that appears after you click -->
-<!-- the round add button on the main page -->
+<div class="dialog-header">
+  <h2 md-dialog-title>Join a meetup</h2>
+  <button md-icon-button md-dialog-close>
+    <i class="material-icons">close</i>
+  </button>
+</div>
 
 <!-- TODO:LOADING SLOTS -->
-<!-- md-spinner -->
+<!-- Need a way to know if it's loading vs none -->
+<!-- <md-dialog-content class="event-dialog-content">
+    <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</md-dialog-content> -->
 
 <!-- NO SLOTS -->
-<md-card class="flat" *ngIf="!(slotList$ | async)?.length">
-    <p class="secondary text-center">
-      Looks like there are no events
+<md-dialog-content class="event-dialog-content" *ngIf="!(slotList$ | async)?.length">
+    <p class="secondary text-center empty-state">
+      Sorry, looks like there are no upcoming events right now
     </p>
-</md-card>
+</md-dialog-content>
 
 <!-- HAS SLOTS -->
-<md-card class="event-card" *ngIf="(slotList$ | async)?.length">
-  <md-card-content>
+<md-dialog-content class="event-dialog-content" *ngIf="(slotList$ | async)?.length">
 
     <md-list>
       <md-list-item class="event edit" *ngFor="let item of slotList$ | async">
@@ -35,7 +40,5 @@
 
       </md-list-item>
     </md-list>
-
-  </md-card-content>
-</md-card>
+</md-dialog-content>
 
