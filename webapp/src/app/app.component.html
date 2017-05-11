@@ -7,7 +7,11 @@
         <i class="material-icons app-toolbar-menu">more_vert</i>
       </button>
       <md-menu #menu="mdMenu">
-        <button md-menu-item [routerLink]="['/']">Log out</button>
+        <button md-menu-item
+          (click)="userService.logout()"
+          [routerLink]="['/login']" >
+          Log out
+        </button>
         <!-- <button md-menu-item [routerLink]="['/about']"> About</button> -->
         <!-- TODO: ONLY SHOW IF USER IS ADMIN -->
         <button md-menu-item [routerLink]="['/admin']"> Admin Console</button>
