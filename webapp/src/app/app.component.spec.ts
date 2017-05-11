@@ -14,10 +14,8 @@ import { routes }   from './app.router';
 import { Observable } from 'rxjs/Observable';
 import {APP_BASE_HREF} from '@angular/common';
 
-class MockUserService {
-  public loginStatus: AuthStatus = "Unknown";
-  public profile$: Observable<Profile>;
-}
+
+import { subjectUid, subjectProfileData, UserServiceMock } from './user.service.mock';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -26,7 +24,7 @@ describe('AppComponent', () => {
         AppComponent, AdminComponent, ProfileComponent, LoginComponent, LunchComponent, UpcomingEventsComponent
       ],
       providers: [
-          { provide: UserService, useClass: MockUserService },
+          { provide: UserService, useClass: UserServiceMock },
           { provide: APP_BASE_HREF, useValue : '/' }
 
       ],
@@ -56,6 +54,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('md-toolbar').textContent).toContain('All the Hubbub');
+    expect(compiled.textContent).toContain('All the Hubbub');
   }));
 });

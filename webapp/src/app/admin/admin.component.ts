@@ -4,6 +4,7 @@ import { Http, Response, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Slot } from '../types';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'admin',
@@ -30,7 +31,7 @@ export class AdminComponent implements OnInit {
   close(slot: Slot) {
     console.log('close item:', slot);
 	  let headers = new Headers({ 'Content-Type': 'application/json' });
-    let endpoint = 'https://us-central1-hubbub-159904.cloudfunctions.net/closeEvent';
+    let endpoint = `${environment.config.functionRoot}/closeEvent`;
     return this.http.post(endpoint, {id: slot.$key}, { headers: headers })
       // Call map on the response observable to get the parsed people object
       //.map(res => res.json())

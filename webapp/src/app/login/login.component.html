@@ -1,4 +1,3 @@
-<div *ngIf="user$ | async; else elseBlock">
-   Hello!
+<div *ngIf="showLogin">
+  <button (click)="userService.login()" md-button>Log In With Github</button>
 </div>
-<ng-template #elseBlock><button (click)="userService.login()" md-button>Log In With Github</button></ng-template>

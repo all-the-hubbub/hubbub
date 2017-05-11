@@ -1,39 +1,37 @@
 import { Injectable, NgZone } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
-
+import { Observable } from 'rxjs/Observable';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private afAuth: AngularFireAuth,
+  constructor(private userService: UserService,
               private router: Router) {
       console.log('constructor LoggedIn');
   }
 
+  activationCheck(state):Observable<boolean>{
+    return this.userService.user$.do(user => {
+      if (user == null) {
+          this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+      }
+      return user;
+    }).map(user => {
+        return (user != null);  // allow if authenticated
+    });
+  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
     console.log('canActivate');
-    return this.afAuth.authState
-          .map(user => user != null)      // null means not authenticated
-          .do(isAuthenticated => {   // change routes if not authenticated
-            if(!isAuthenticated) {
-              this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-            }
-          });
+    return this.activationCheck(state)
   }
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
     console.log('canActivateChild');
-    return this.afAuth.authState
-          .map(user => user != null)  // null means not authenticated
-          .do(isAuthenticated => {    // change routes if not authenticated
-            if(!isAuthenticated) {
-              this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-            }
-          });
+    return this.activationCheck(state)
   }
 }
