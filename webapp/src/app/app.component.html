@@ -26,7 +26,6 @@
   <!-- BODY -->
   <md-sidenav-container fxFlex>
 
-
     <!-- FAB -->
     <button class="fab " md-fab (click)="openDialog()"> <i class="material-icons">add</i></button>
 
@@ -36,13 +35,13 @@
      <!--  <div *ngIf="userService.loginStatus == 'Unknown'">
         <md-progress-spinner mode="indeterminate"></md-progress-spinner>
       </div> -->
-      <!-- AUTH LOGED IN -->
-      <!-- div *ngIf="userService.loginStatus == 'LoggedOut'">
-        <button (click)="userService.login()" md-button>Log In</button>
-      </div> -->
+    <!-- AUTH LOGED IN -->
+    <!-- div *ngIf="userService.loginStatus == 'LoggedOut'">
+      <button (click)="userService.login()" md-button>Log In</button>
+    </div> -->
 
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
+  </div>
 
-  </md-sidenav-container>
+</md-sidenav-container>
 </section>
