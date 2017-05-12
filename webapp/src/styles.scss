@@ -83,3 +83,85 @@ p {
 .mat-raised-button.mat-accent {
   color: white;
 }
+
+//shared event styles
+
+.event-card.mat-card {
+  padding: 0 0 8px 0;
+}
+
+.event {
+  height: 72px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+  }
+
+  .mat-list-item-content {
+    height: 72px !important;
+    padding: 0 24px !important;
+
+    label,
+    .mat-checkbox {
+      width: 100%
+    }
+  }
+
+  .mat-checkbox-label {
+    flex-grow: 1;
+    display: flex;
+  }
+
+  .mat-checkbox-label-before .mat-checkbox-inner-container {
+    margin-right: 10px;
+  }
+}
+
+.event-date {
+  margin-right: 24px;
+  color: #00B8D4;
+
+}
+.event-info {
+  flex-grow: 1;
+  margin-right: 24px;
+}
+
+//shared dialog styles
+.dialog-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  .mat-dialog-title {
+    color: rgba(0, 0, 0, 0.87);
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  button {
+    color: rgba(0, 0, 0, 0.54);
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+}
+.event-dialog-content.mat-dialog-content {
+  padding: 0;
+}
+
+.event-dialog-content {
+  .empty-state {
+    margin: 24px;
+  }
+}
+
+//shared spinner
+.mat-progress-spinner {
+  margin: auto;
+  height: 56px !important;
+  padding: 24px;
+}

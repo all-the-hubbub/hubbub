@@ -4,7 +4,7 @@ global._ = require("lodash");
 global.util = require("util");
 let fs = require("fs");
 
-let privateKeyFile = __dirname + "/../Hubbub-832a008fa871.json";
+let privateKeyFile = __dirname + "/../hubbub-staging-firebase-adminsdk-np34o-c9ca59c6b6.json";
 
 console.log(privateKeyFile);
 

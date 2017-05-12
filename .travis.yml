@@ -35,12 +35,22 @@ install:
   - (cd functions; yarn)
 
 script:
-  - (cd webapp; ng test --watch false && ng build)
+  - (cd webapp; ng test --watch false && ng build --prod)
   - (cd functions; yarn test)
 
 deploy:
-  skip_cleanup: true
-  provider: firebase
-  token:
-    secure: "$FIREBASE_TOKEN"
-  project: hubbub-159904
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: "$FIREBASE_TOKEN"
+    project: hubbub-159904
+    on:
+      branch: master
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: "$FIREBASE_STAGING_TOKEN"
+    project: hubbub-staging
+    on:
+      branch: staging
+
