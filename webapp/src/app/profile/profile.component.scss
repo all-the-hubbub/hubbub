@@ -1,3 +1,20 @@
-.profile-card {
-  width: 600px;
+.profile {
+  display: flex;
+  flex-direction: row;
+  max-width: 650px;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 24px;
+
+  .profile-avatar {
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+
+  .profile-info {
+    flex-grow: 1;
+  }
 }
+

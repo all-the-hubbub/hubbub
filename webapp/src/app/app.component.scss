@@ -1,19 +1,36 @@
-body {
-    padding: 0;
-    margin: 0;
-    font-family: Roboto, sans-serif;
+.title {
+  flex-grow: 1;
 }
 
 .app {
-    height: 100vh;
+    height: 100%;
 }
 
-.app-toolbar-filler {
-  flex: 1 1 auto;
+.app-bar {
+  z-index: 1;
 }
 
-.app-card {
-  width: 80vh;
+.fab.mat-fab {
+  color: white;
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10;
+}
+
+//Overide angular material set toolbar height so it can grow
+.mat-toolbar-row  {
+  height: auto !important;
+  min-height: 56px;
+}
+
+//Wont let me set this within the component styles
+profile {
+    width: 100%;
+}
+
+.canvas {
+  padding: 24px;
 }
 
 md-toolbar {

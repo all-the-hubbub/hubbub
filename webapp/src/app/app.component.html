@@ -1,50 +1,57 @@
 <section class="app flex-container" fxLayout="column" fxLayoutAlign="start center">
-  <md-toolbar color="primary" class="mat-elevation-z12">
 
-    <a href="/">{{title}}</a>
-
-    <span class="app-toolbar-filler"></span>
-    <button class="app-icon-button" (click)="sidenav.toggle()">
+  <!--TOP BAR -->
+  <md-toolbar color="primary" class="mat-elevation-z3 app-bar">
+    <h2 class="title">{{title}}</h2>
+    <button md-icon-button class="app-icon-button" (click)="sidenav.toggle()">
       <i class="material-icons app-toolbar-menu">menu</i>
     </button>
+
+    <!-- PROFILE -->
+    <md-toolbar-row class="profile-toolbar-row" *ngIf="userService.loginStatus == 'LoggedIn'">
+       <profile></profile>
+    </md-toolbar-row>
   </md-toolbar>
 
+  <!-- BODY -->
+  <md-sidenav-container fxFlex>
+    <!-- FAB -->
+    <button *ngIf="userService.loginStatus == 'LoggedIn'" class="fab " md-fab> <i class="material-icons">add</i></button>
+     <!-- SIDE NAV -->
+    <md-sidenav #sidenav mode="side" align="end" class="app-sidenav" class="mat-elevation-z6">
 
-<md-sidenav-container fxFlex>
-  <md-sidenav #sidenav mode="side" align="end" class="app-sidenav" class="mat-elevation-z6">
-
-    <md-nav-list>
-      <a md-list-item *ngIf="loggedIn"
-        (click)="sidenav.close(); userService.logout()"
-        [routerLink]="['/']">
-        <span md-line>Log Out</span>
-      </a>
-      <a md-list-item (click)="sidenav.close()" [routerLink]="['/request']">
-        <span md-line>Event Signup</span>
-      </a>
-      <a md-list-item (click)="sidenav.close()" [routerLink]="['/admin']">
-        <span md-line>Admin</span>
-      </a>
-      <a md-list-item (click)="sidenav.close()" [routerLink]="['/about']">
-        <span md-line>About...</span>
-      </a>
-    </md-nav-list>
-
-  </md-sidenav>
-
-
-
-
-<div class="app flex-container" fxLayout="column" fxLayoutAlign="start center">
-<profile></profile>
-
-<router-outlet></router-outlet>
-
-</div>
-
-</md-sidenav-container>
+      <md-nav-list>
+        <a md-list-item *ngIf="userService.loginStatus == 'LoggedIn'"
+          (click)="sidenav.close(); userService.logout()"
+          [routerLink]="['/login']">
+          <span md-line>Log Out</span>
+        </a>
+        <a md-list-item (click)="sidenav.close()" [routerLink]="['/request']">
+          <span md-line>Event Signup</span>
+        </a>
+        <a md-list-item (click)="sidenav.close()" [routerLink]="['/admin']">
+          <span md-line>Admin</span>
+        </a>
+        <a md-list-item (click)="sidenav.close()" [routerLink]="['/about']">
+          <span md-line>About...</span>
+        </a>
+      </md-nav-list>
+    </md-sidenav>
 
 
+    <!-- CANVAS -->
+    <div class="canvas">
+      <!-- AUTH UNKNOWN -->
+      <!-- <div *ngIf="userService.loginStatus == 'Unknown'">
+        <md-spinner></md-spinner>
+      </div> -->
+      <!-- AUTH LOGED IN -->
+     <!--  <div *ngIf="userService.loginStatus == 'LoggedOut'">
+        <button (click)="userService.login()" md-button>Log In</button>
+      </div> -->
 
+      <router-outlet></router-outlet>
+    </div>
 
+  </md-sidenav-container>
 </section>

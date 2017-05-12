@@ -1,9 +1,12 @@
-<md-card>
-  <md-card-header>
-    <md-card-title>Meet New People</md-card-title>
-    <md-card-subtitle>Sign up and we'll find a group you might like.</md-card-subtitle>
-  </md-card-header>
+<!-- NO EVENTS -->
+<md-card class="flat" *ngIf="!(eventList$ | async)?.length">
+    <p class="secondary text-center">
+      Add an event to hangout with people that share your interests
+    </p>
+</md-card>
 
+<!-- HAS EVENTS -->
+<md-card *ngIf="(eventList$ | async)?.length">
   <md-card-content>
 
     <md-list>
@@ -20,9 +23,8 @@
     </md-list-item>
     </md-list>
   </md-card-content>
-  <md-card-actions>
+<!--   <md-card-actions>
     <button md-button>ADD</button>
-  </md-card-actions>
-
+  </md-card-actions> -->
 </md-card>
 
