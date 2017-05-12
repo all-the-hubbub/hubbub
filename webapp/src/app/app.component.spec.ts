@@ -58,6 +58,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('md-toolbar').textContent).toContain('Hubbub');
+    expect(compiled.textContent).toContain('Hubbub');
   }));
 });
