@@ -2,6 +2,7 @@
 ```
 /accounts
     /<USER-ID>
+        admin = {null|bool}
         githubToken = {string}
         email = {string}
         updatedAt = {server timestamp}
