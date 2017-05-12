@@ -8,6 +8,8 @@ import { Slot } from '../types';
 
 import { AdminComponent } from './admin.component';
 import { AdminService } from './admin.service';
+import { UserService } from '../user.service';
+import { subjectUid, subjectProfileData, UserServiceMock } from '../user.service.mock';
 
 class MockAdminService {
   public slotList$: Observable<Slot[]>;
@@ -27,6 +29,7 @@ describe('AdminComponent', () => {
       ],
       providers: [
         { provide: AdminService, useClass: MockAdminService },
+        { provide: UserService, useClass: UserServiceMock },
       ]
     })
     .compileComponents();
