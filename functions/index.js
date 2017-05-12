@@ -26,7 +26,7 @@ function makeHttpFunction(fn, middlewares) {
 
 exports.joinEvent = makeHttpFunction(slots.join, [cors, middleware.userAuthRequired]);
 exports.leaveEvent = makeHttpFunction(slots.leave, [cors, middleware.userAuthRequired]);
-exports.closeEvent = makeHttpFunction(slots.close, [cors]);
+exports.closeEvent = makeHttpFunction(slots.close, [cors, middleware.userAuthRequired, middleware.adminOnly]);
 
 exports.updateProfile = functions.database.ref("/accounts/{userId}/githubToken")
   .onWrite(event => {
