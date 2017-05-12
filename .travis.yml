@@ -35,7 +35,9 @@ install:
   - (cd functions; yarn)
 
 script:
-  - (cd webapp; ng test --watch false && ng build --prod)
+  - if [ "$TRAVIS_BRANCH" = "staging" ]; then export WEB_ENV=staging; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then export WEB_ENV=prod; fi
+  - (cd webapp; ng test --watch false && ng build --environment=$WEB_ENV)
   - (cd functions; yarn test)
 
 deploy:
