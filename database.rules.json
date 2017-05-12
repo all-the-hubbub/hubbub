@@ -1,16 +1,29 @@
 {
   "rules": {
-    ".read": true, // "auth != null",
-    ".write": "auth != null",
     "accounts": {
       "$uid": {
+        ".read": "$uid === auth.uid",
+        "githubToken": {
+          ".write": "$uid === auth.uid"
+        },
         "events": {
           ".indexOn": ["startAt", "endAt"]
         }
       }
     },
+    "profiles": {
+      ".read": "true"
+    },
     "events": {
+      ".read": "true",
       ".indexOn": "startAt"
+    },
+    "assignments": {
+      "$eventId": {
+        "$topicId": {
+          ".read": "data.child('members/' + auth.uid).exists()"
+        }
+      }
     }
   }
 }
