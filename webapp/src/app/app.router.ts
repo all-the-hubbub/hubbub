@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { UpcomingEventsComponent } from './upcoming-events/upcoming-events.component';
 
 const appRoutes: Routes = [
-  { path: '', component: UpcomingEventsComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: UpcomingEventsComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'request', component: LunchComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
