@@ -30,7 +30,7 @@ module.exports = function(admin) {
 
     admin.database().ref(`/accounts/${req.user.uid}/admin`).once('value')
       .then(snapshot => {
-        let isAdmin = snapshot.val();
+        let isAdmin = (snapshot.val() === true);
         if (isAdmin) {
           next();
         } else {
