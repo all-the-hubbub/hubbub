@@ -24,7 +24,8 @@ module.exports = function(admin) {
 
   function adminOnly(req, res, next) {
     if (!req.user) {
-      res.sendStatus(403);
+      console.log('No authenticated user');
+      res.sendStatus(401);
       return;
     }
 
