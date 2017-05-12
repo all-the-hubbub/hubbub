@@ -1,5 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
-import { MdButtonModule, MdCheckboxModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdDialogModule, MdMenuModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
 
 import { UserService, AuthStatus } from './user.service';
 import { AdminComponent } from './admin/admin.component';
@@ -7,6 +7,7 @@ import { AppComponent } from './app.component'
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { LunchComponent } from './lunch/lunch.component';
+import { MdDialog } from '@angular/material';
 import { UpcomingEventsComponent } from './upcoming-events/upcoming-events.component';
 import { Profile }  from './types'
 import { routes }   from './app.router';
@@ -21,7 +22,8 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent, AdminComponent, ProfileComponent, LoginComponent, LunchComponent, UpcomingEventsComponent
+        AppComponent, AdminComponent, ProfileComponent,
+        LoginComponent, LunchComponent, UpcomingEventsComponent
       ],
       providers: [
           { provide: UserService, useClass: UserServiceMock },
@@ -32,6 +34,8 @@ describe('AppComponent', () => {
         routes,
         MdButtonModule,
         MdCheckboxModule,
+        MdDialogModule,
+        MdMenuModule,
         MdSidenavModule,
         MdToolbarModule,
       ]
