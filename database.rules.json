@@ -6,6 +6,9 @@
         "githubToken": {
           ".write": "$uid === auth.uid"
         },
+        "profileNeedsUpdate": {
+          ".write": "$uid === auth.uid"
+        },
         "events": {
           ".indexOn": ["startAt", "endAt"]
         }
