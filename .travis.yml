@@ -34,13 +34,32 @@ install:
   - (cd webapp; yarn)
   - (cd functions; yarn)
 
+env:
+  master:
+    web: prod
+
+
 script:
-  - (cd webapp; ng test --watch false && ng build)
+  - export WEB_ENV=dev
+  - if [ "$TRAVIS_BRANCH" = "staging" ]; then export WEB_ENV=staging; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then export WEB_ENV=prod; fi
+  - echo "Building with environment=$WEB_ENV"
+  - (cd webapp; ng test --watch false && ng build --environment=$WEB_ENV)
   - (cd functions; yarn test)
 
 deploy:
-  skip_cleanup: true
-  provider: firebase
-  token:
-    secure: "$FIREBASE_TOKEN"
-  project: hubbub-159904
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: "$FIREBASE_TOKEN"
+    project: hubbub-159904
+    on:
+      branch: master
+  - provider: firebase
+    skip_cleanup: true
+    token:
+      secure: "$FIREBASE_STAGING_TOKEN"
+    project: hubbub-staging
+    on:
+      branch: staging
+

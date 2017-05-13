@@ -4,8 +4,8 @@ import { MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule } from '@a
 import { Observable } from 'rxjs/Observable';
 
 import { UpcomingEventsComponent } from './upcoming-events.component';
-import { SlotService } from '../../slot.service';
-import { Slot } from '../../types';
+import { SlotService } from '../slot.service';
+import { Slot } from '../types';
 
 class MockSlotService {
   public slotList$: Observable<Slot[]>;

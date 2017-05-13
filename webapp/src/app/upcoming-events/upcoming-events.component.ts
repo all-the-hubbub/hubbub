@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { SlotService } from '../../slot.service';
-import { UpcomingEvent } from '../../types';
+import { SlotService } from '../slot.service';
+import { UpcomingEvent } from '../types';
 
 @Component({
   selector: 'upcoming-events',

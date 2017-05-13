@@ -1,0 +1,39 @@
+<!-- TODO:LOADING SLOTS -->
+<!-- md-spinner -->
+
+<!-- NO EVENTS -->
+<md-card class="flat" *ngIf="!(eventList$ | async)?.length">
+    <p class="secondary text-center">
+      Add an event to hangout with people that share your interests
+    </p>
+</md-card>
+
+<!-- HAS EVENTS -->
+<md-card class="event-card" *ngIf="(eventList$ | async)?.length">
+  <md-card-content>
+
+    <md-list>
+    <!-- TODO: OPEN EVENT DETAIL -->
+    <!-- Clicking on an event should open the event detail view -->
+      <md-list-item class="event" *ngFor="let item of eventList$ | async">
+        <div class="event-date">
+          <h2>18</h2>
+          <h5>May</h5>
+        </div>
+
+        <div class="event-info">
+          <h3>{{item.name}}</h3>
+          <p class="secondary">Time - Location</p>
+        </div>
+        <div *ngIf="item.topic">
+          <p class="secondary">{{item.topic.name}}</p>
+        </div>
+        <div *ngIf="!item.topic">
+          <h5 class="secondary"><i>pending...</i></h5>
+        </div>
+
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>
+

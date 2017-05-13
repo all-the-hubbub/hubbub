@@ -1,5 +1,162 @@
 /* You can add global styles to this file, and also import other style files */
 
-body {
+body, html, {
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 0;
   margin: 0;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  // background-color: #FAFAFA;
+}
+
+.primary {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.secondary {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.text-center {
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+
+h4 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+p {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+
+.canvas .mat-card {
+  max-width: 650px;
+  margin: auto;
+
+  &.flat {
+    background-color: transparent;
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+//shared event styles
+
+.event-card.mat-card {
+  padding: 0 0 8px 0;
+}
+
+.event {
+  height: 72px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+  }
+
+  .mat-list-item-content {
+    height: 72px !important;
+    padding: 0 24px !important;
+
+    label,
+    .mat-checkbox {
+      width: 100%
+    }
+  }
+
+  .mat-checkbox-label {
+    flex-grow: 1;
+    display: flex;
+  }
+
+  .mat-checkbox-label-before .mat-checkbox-inner-container {
+    margin-right: 10px;
+  }
+}
+
+.event-date {
+  margin-right: 24px;
+  color: #00B8D4;
+
+}
+.event-info {
+  flex-grow: 1;
+  margin-right: 24px;
+}
+
+//shared dialog styles
+.dialog-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  .mat-dialog-title {
+    color: rgba(0, 0, 0, 0.87);
+    flex-grow: 1;
+    margin: 0;
+  }
+
+  button {
+    color: rgba(0, 0, 0, 0.54);
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+}
+.event-dialog-content.mat-dialog-content {
+  padding: 0;
+}
+
+.event-dialog-content {
+  .empty-state {
+    margin: 24px;
+  }
+}
+
+//shared spinner
+.mat-progress-spinner {
+  margin: auto;
+  height: 56px !important;
+  padding: 24px;
 }
