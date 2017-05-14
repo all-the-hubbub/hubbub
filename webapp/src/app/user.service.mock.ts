@@ -10,9 +10,9 @@ export const subjectProfileData = {
     name: 'Maria Sanchez'
 };
 
-
+// Mock for loggedIn user
 export class UserServiceMock {
-  public loginStatus: AuthStatus = "Unknown";
+  public loginStatus: AuthStatus = "LoggedIn";
   public profile$: Observable<Profile>;
   public user$: Observable<any>;
 
