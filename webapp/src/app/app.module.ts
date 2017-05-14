@@ -20,6 +20,7 @@ import { UserService } from   './user.service';
 import { SlotService } from './slot.service';
 
 import { AuthGuard } from './auth.guard';
+import { OnlyIfLoggedOut } from './loggedout.guard';
 
 import { AdminComponent } from './admin/admin.component';
 import { LunchComponent } from './lunch/lunch.component';
@@ -58,7 +59,10 @@ import { environment } from '../environments/environment';
     MdProgressSpinnerModule,
     routes
   ],
-  providers: [AdminService, AuthGuard, UserService, SlotService],
+  providers: [
+    AdminService, AuthGuard, OnlyIfLoggedOut,
+    UserService, SlotService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
