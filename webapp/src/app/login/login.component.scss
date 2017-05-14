@@ -1,0 +1,33 @@
+.scrim {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: #5C6BC0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  color: white;
+  // height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    height: 250px;
+    width: 250px;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  button {
+    margin: 24px;
+  }
+}

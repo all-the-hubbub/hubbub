@@ -79,7 +79,17 @@ p {
   }
 }
 
+//Overide angular material accent buttons to have white text
+.mat-raised-button.mat-accent {
+  color: white;
+}
+
 //shared event styles
+
+.event-card.mat-card,
+.flat.mat-card {
+  margin: 24px auto;
+}
 
 .event-card.mat-card {
   padding: 0 0 8px 0;

@@ -1,3 +1,10 @@
-<div *ngIf="showLogin">
-  <button (click)="userService.login()" md-button>Log In With Github</button>
+<div class="scrim" *ngIf="showLogin">
+  <!-- SPINNER -->
+  <!-- <md-progress-spinner mode="indeterminate"></md-progress-spinner> -->
+  <div class="login">
+    <img src="/assets/img/login_2x.png">
+    <h1 class="title">Hubbub</h1>
+    <p>Meet people with similar interets</p>
+    <button md-raised-button color="accent" (click)="userService.login()" md-button>LOG IN WITH GITHUB</button>
+  </div>
 </div>

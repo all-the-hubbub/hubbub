@@ -14,7 +14,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'All the Hubbub';
+  title = 'Hubbub';
   loggedIn: boolean = false;
 
   constructor(public userService: UserService, private readonly dialog: MdDialog) {
