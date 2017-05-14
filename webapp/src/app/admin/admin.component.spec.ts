@@ -1,15 +1,25 @@
+import { APP_BASE_HREF }                    from '@angular/common';
+import { NO_ERRORS_SCHEMA }                 from '@angular/core';
+import { HttpModule }                       from '@angular/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdCardModule, MdListModule, MdMenuModule } from '@angular/material';
-import { HttpModule } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Slot } from '../types';
+import { AngularFireDatabaseModule }        from 'angularfire2/database';
+import { FlexLayoutModule }                 from '@angular/flex-layout';
+import { MdButtonModule,
+         MdCardModule, MdCheckboxModule,
+         MdDialogModule,
+         MdListModule, MdMenuModule,
+         MdSidenavModule, MdToolbarModule } from '@angular/material';
+import { Observable }                       from 'rxjs/Observable';
 
-import { AdminComponent } from './admin.component';
-import { AdminService } from './admin.service';
-import { UserService } from '../user.service';
+// app dependencies
+import { AdminService }                     from './admin.service';
+import { UserService }                      from '../user.service';
+import { WrapperComponent }                 from '../wrapper/wrapper.component';
+import { Slot }                             from '../types';
+
+// testing imports
 import { subjectUid, subjectProfileData, UserServiceMock } from '../user.service.mock';
+import { AdminComponent }                   from './admin.component';
 
 class MockAdminService {
   public slotList$: Observable<Slot[]>;
@@ -21,11 +31,22 @@ describe('AdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminComponent ],
+      declarations: [
+        AdminComponent,
+        WrapperComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
       imports: [
         FlexLayoutModule,
         HttpModule,
-        MdButtonModule, MdCardModule, MdListModule, MdMenuModule,
+        MdButtonModule,
+        MdCheckboxModule,
+        MdCardModule,
+        MdDialogModule,
+        MdListModule,
+        MdMenuModule,
+        MdSidenavModule,
+        MdToolbarModule,
       ],
       providers: [
         { provide: AdminService, useClass: MockAdminService },
