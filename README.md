@@ -14,66 +14,98 @@ Web and Cloud Functions are in this repo. When code is checked into master branc
 ## More details about the app
 You authenticate with Github, which triggers a [Cloud Function](https://cloud.google.com/functions/docs/) that grabs a lot of data from the [Github API](https://developer.github.com/v3/).  The initial data fills out your basic profile (e.g. [languages you code in](https://developer.github.com/v3/repos/#list-languages)) and creates a list of connections based on your pull request history or the other committers on projects that you have contributed to.
 
+## Setting up a dev environment
 
+### Install dev tools
 
-## Dev Setup
+Note: we're using yarn to manage npm dependencies, which is really helpful
+for making sure you are using the exact same set of modules that have been
+tested to work with this project. The following instructions specify some
+global installs and config, which shouldn't be required if you know what you
+are doing, but make it much easier to get started if you are new to some of
+this tech, and even for many of us who use it all the time!
 
-We've got our node app in `functions`, our web app in `webapp/`, and our ios app in `ios/`. Please navigate to their readme files for setup instructions.
-
-install
+These instructions use `yarn` and `nvm` which we recommend:
 * [yarn](https://yarnpkg.com) -- required for yarn.lock sanity
-* [nvm](https://github.com/creationix/nvm) -- recommended
+* [nvm](https://github.com/creationix/nvm) -- makes easier switching to and from
+  other node projects that you might have
 
 ```
 nvm use v6.9.1
+npm install -g firebase-tools
+npm install -g @angular/cli
 ng set --global packageManager=yarn
-cd webapp
-yarn
+git clone https://github.com/all-the-hubbub/hubbub.git
+cd hubbub
 ```
+
+### Set up project
+
+To run a dev instance of Hubbub, you will need your own firebase project to
+run the Cloud Functions.  Since we are calling an external service from a Cloud
+Function, we need to set up billing for the account.
+
+1. Go to the [Firebase console](https://console.firebase.google.com) and
+   create a new project called `hubbub-dev`
+2. Setup billing. The easiset way is to upgrade to the pay-as-you-go Blaze plan,
+   but you won't be charged unless your usage exceeds the [generous free tier](https://firebase.google.com/pricing/).
+2. Click "Add Firebase to your web app" and copy the projectId, which should
+   look something like `hubbub-dev-1234`
+3. in your hubbub directory (which you should be in if you followed the steps
+   above), type the following command using YOUR project id:
+   `firebase use hubbub-dev-1234`
+4. then: `firebase setup:web` and paste the configuration into `webapp/environments/environment.ts` and update `functionsRoot` to use your projectId instead of `hubbub-staging` (ideally that would be part of web:setup config block, see [issue](https://github.com/firebase/firebase-tools/issues/333)
+5. Now we need to set up OAuth for Github!
+   a. In Firebase Console, go to the Authentication (via left nav)
+   b. Choose "SIGN-IN METHOD" tab (along the top of the panel)
+   c. select 'Github' and then turn on 'Enable' in the top right
+   d. In another tab, go to https://github.com/settings/applications/new
+   e. fill in info about your project (OAuth callback URL can be found in
+      Firebase Auth console).  Here's an example: ![Github app registration form][github-register-app]
+   f. submit the form and then github will show you a page with your Client ID
+      and Client Secret.
+   g. Go back to the Firebase Console and fill that in and click "Save"
+5. then install node modules for web app and functions, build the web app,
+and deploy everything!
+```
+yarn
+npm run test    # all of the webapp tests should pass
+npm run build   # this builds the static artifacts for Angular app
+cd ..
+(cd functions; yarn)
+# skipping functions testing for now since our tests need a Github token
+firebase deploy
+```
+Note: we need to deploy the app before we can run locally so the OAuth callback
+will be present at the place Github expects it to be
+
+## Development details
+We've got our node app in `functions`, our web app in `webapp/`
+
+Testing webapp
+```
+cd webapp
+npm run test
+```
+
+Run the webapp
+```
+npm run start
+```
+
+GITHUB_OAUTH_TOKEN
 
 Deploy webapp
 ```
 cd webapp
 npm run deploy
 ```
+
 ### Functions
 
 Set up the [Cloud Datastore Emulator](https://cloud.google.com/datastore/docs/tools/datastore-emulator)
 so you can run tests that require Cloud Datastore locally.
 
-### Testing Functions
 
-In the `functions` directory, type `yarn test` to run the tests. Fyi, we are using
-[yakbak](https://github.com/flickr/yakbak) to record network traffic. We use a config
-file to to switch between calling github and the yakbak proxy.
 
-Our tests that call out to the Github API require and OAuth token. You can get a token by logging into the production application and looking at the firebase real-time database console under `accounts`. You can use the test user `hubbubducky` for this purpose (which is what we use on CI). Define and environment variable `GITHUB_OAUTH_TOKEN` to store the token for tests.
-
-To run tests with the debugger, use `yarn test-debug`.
-
-Note: We do not store the api recordings because they contain the token. TODO: After test run, modify the files to remove the token (it seems like they are overused and comments so this shouldn't have an effect).
-
-## CI
-
-We are using [Travis CI](https://travis-ci.org/all-the-hubbub/hubbub) for continuous integration.
-
-Note: The configuration on Travis includes
-
-* `GITHUB_OAUTH_TOKEN`: hubbubducky's OAuth token
-* Firebase project auth tokens:
-  * `FIREBASE_TOKEN`: `firebase use production; firebase login:ci`
-  * `FIREBASE_STAGING_TOKEN`: `firebase use staging; firebase login:ci`
-
-these might need to be updated from time to time.
-
-## Firebase project set up
-
-We have aliases set up to switch environments; however, the master branch is protected on github and deploys should only happen from CI.
-
-```
-$ firebase use production
-Now using alias production (hubbub-159904)
-$ firebase use staging
-Now using alias staging (hubbub-staging)
-```
-
+[logo]: doc/dev/firebase-auth-github-config-2.png "Github OAuth App Registration"

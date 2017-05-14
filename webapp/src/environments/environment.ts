@@ -9,13 +9,13 @@ export const environment = {
   production: false,
   name: 'dev',
   config: {
-    "apiKey": "AIzaSyC1u9c5E81QSXv9Nh2c7H8pO_dBt2tN0k8",
-    "databaseURL": "https://hubbub-staging.firebaseio.com",
-    "storageBucket": "hubbub-staging.appspot.com",
-    "authDomain": "hubbub-staging.firebaseapp.com",
-    "messagingSenderId": "855593303793",
-    "projectId": "hubbub-staging",
-    "functionRoot": "https://us-central1-hubbub-staging.cloudfunctions.net",
+  "apiKey": "AIzaSyAxhoUSVxJfouGxwPQXSCnw1hyF-zH2uSs",
+  "databaseURL": "https://hubbub-dev-c41cd.firebaseio.com",
+  "storageBucket": "hubbub-dev-c41cd.appspot.com",
+  "authDomain": "hubbub-dev-c41cd.firebaseapp.com",
+  "messagingSenderId": "466710443666",
+  "projectId": "hubbub-dev-c41cd",
+  "functionRoot": "https://us-central1-hubbub-dev-c41cd.cloudfunctions.net",
   }
 
 };
