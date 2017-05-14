@@ -1,0 +1,63 @@
+.title {
+  flex-grow: 1;
+}
+
+
+.app {
+    height: 100%;
+}
+
+.app-bar {
+  z-index: 1;
+}
+
+.fab.mat-fab {
+  color: white;
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10;
+}
+
+//Overide angular material set toolbar height so it can grow
+.mat-toolbar-row  {
+  height: auto !important;
+  min-height: 56px;
+}
+
+//Wont let me set this within the component styles
+profile {
+    width: 100%;
+}
+
+md-toolbar {
+  a:link {
+    color: rgba(255, 255, 255, 0.87);
+    text-decoration: none;
+  }
+  a:visited {
+    color: rgba(255, 255, 255, 0.87);
+    text-decoration: none;
+  }
+  a:active {
+    text-decoration: none;
+  }
+}
+md-nav-list {
+  padding: 0px;
+}
+md-sidenav-container {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+md-sidenav-layout {
+  background: rgba(0, 0, 0, .03);
+}
+.sidenav {
+  width: 300px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
