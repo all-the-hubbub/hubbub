@@ -54,19 +54,21 @@ Function, we need to set up billing for the account.
 3. in your hubbub directory (which you should be in if you followed the steps
    above), type the following command using YOUR project id:
    `firebase use hubbub-dev-1234`
-4. then: `firebase setup:web` and paste the configuration into `webapp/environments/environment.ts` and update `functionsRoot` to use your projectId instead of `hubbub-staging` (ideally that would be part of web:setup config block, see [issue](https://github.com/firebase/firebase-tools/issues/333)
+4. then run the following command to configure the web app with your project
+   info: `./setup.sh`
 5. Now we need to set up OAuth for Github!
-   a. In Firebase Console, go to the Authentication (via left nav)
-   b. Choose "SIGN-IN METHOD" tab (along the top of the panel)
-   c. select 'Github' and then turn on 'Enable' in the top right
-   d. In another tab, go to https://github.com/settings/applications/new
-   e. fill in info about your project (OAuth callback URL can be found in
+   1. In Firebase Console, go to  Authentication (via left nav)
+   2. Choose "SIGN-IN METHOD" tab (along the top of the panel)
+   3. select 'Github' and then turn on 'Enable' in the top right
+   4. In another tab, go to https://github.com/settings/applications/new
+   5. fill in info about your project (OAuth callback URL can be found in
       Firebase Auth console).  Here's an example: ![Github app registration form][github-register-app]
-   f. submit the form and then github will show you a page with your Client ID
+   6. submit the form and then github will show you a page with your Client ID
       and Client Secret.
-   g. Go back to the Firebase Console and fill that in and click "Save"
+   7. Go back to the Firebase Console and fill that in and click "Save"
 5. then install node modules for web app and functions, build the web app,
 and deploy everything!
+
 ```
 yarn
 npm run test    # all of the webapp tests should pass
@@ -76,8 +78,8 @@ cd ..
 # skipping functions testing for now since our tests need a Github token
 firebase deploy
 ```
-Note: we need to deploy the app before we can run locally so the OAuth callback
-will be present at the place Github expects it to be
+
+Note: we need to deploy the app before we can run locally so the OAuth callback will be present at the place Github expects it to be
 
 ## Development details
 We've got our node app in `functions`, our web app in `webapp/`
@@ -93,8 +95,6 @@ Run the webapp
 npm run start
 ```
 
-GITHUB_OAUTH_TOKEN
-
 Deploy webapp
 ```
 cd webapp
@@ -103,9 +103,12 @@ npm run deploy
 
 ### Functions
 
-Set up the [Cloud Datastore Emulator](https://cloud.google.com/datastore/docs/tools/datastore-emulator)
-so you can run tests that require Cloud Datastore locally.
+Currently the Cloud Functions tests don't work for any user, we need to
+make it so the tests will work without everyone knowing the github token for
+`hubbubducky`
 
+Some of the tests use the [Cloud Datastore Emulator](https://cloud.google.com/datastore/docs/tools/datastore-emulator)
+to run tests that require Cloud Datastore locally.
 
 
 [logo]: doc/dev/firebase-auth-github-config-2.png "Github OAuth App Registration"
