@@ -26,7 +26,6 @@ describe('GitHubbub', function() {
       }
 
       client = new GitHubbub(oauthToken);
-      repositories = [];
     });
 
     describe(".profile", () => {
@@ -77,16 +76,55 @@ describe('GitHubbub', function() {
     });
 
     describe('.reposStarred', function() {
+      let expectedRepositories = [
+        'DefinitelyTyped/DefinitelyTyped',
+        'Homebrew/brew',
+        'Microsoft/TypeScript',
+        'Microsoft/vscode',
+        'ReactiveX/rxjs',
+        'Tradenomiliitto/tradenomiitti',
+        'all-the-hubbub/test',
+        'angular/angular',
+        'angular/angular-cli',
+        'atom/atom',
+        'cockroachdb/cockroach',
+        'd3/d3',
+        'dgraph-io/dgraph',
+        'electron/electron',
+        'elixir-ecto/ecto',
+        'elixir-lang/elixir',
+        'elm-lang/core',
+        'elm-lang/elm-compiler',
+        'elm-lang/elm-make',
+        'elm-lang/elm-platform',
+        'elm-lang/elm-reactor',
+        'elm-lang/virtual-dom',
+        'evancz/elm-todomvc',
+        'golang/go',
+        'grafana/grafana',
+        'jekyll/jekyll',
+        'loadimpact/k6',
+        'mitchellh/vagrant',
+        'moby/moby',
+        'ohanhi/elm-native-ui',
+        'phoenixframework/phoenix',
+        'pragdave/earmark',
+        'railsware/black-screen',
+        'rtfeldman/elm-css',
+        'rtfeldman/elm-spa-example',
+        'saschatimme/elm-phoenix',
+        'sinatra/sinatra',
+        'tensorflow/tensorflow',
+        'vuejs/vue'
+      ];
+
       it('fetches repositories that the current user has starred', function(done) {
         client.reposStarred()
           .then(repos => {
-            repos.forEach(repo => {
-              repositories.push(repo.full_name);
-            });
-
-            assert.deepEqual(repositories, [
-              "all-the-hubbub/test"
-            ])
+            let repositories = _.map(repos, repo => {
+              return repo.full_name;
+            }).sort();
+            assert.deepEqual(repositories, expectedRepositories);
             done();
           })
           .catch(done);
@@ -97,9 +135,9 @@ describe('GitHubbub', function() {
       it('fetches repositories that the current user is watching', function(done) {
         client.reposWatching()
           .then(repos => {
-            repos.forEach(repo => {
-              repositories.push(repo.full_name);
-            });
+            let repositories = _.map(repos, repo => {
+              return repo.full_name;
+            }).sort();
 
             assert.deepEqual(repositories, [
               "all-the-hubbub/test"
