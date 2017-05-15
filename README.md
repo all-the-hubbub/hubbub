@@ -60,7 +60,9 @@ Function, we need to set up billing for the account.
    1. In Firebase Console, go to  Authentication (via left nav)
    2. Choose "SIGN-IN METHOD" tab (along the top of the panel)
    3. select 'Github' and then turn on 'Enable' in the top right
-   4. In another tab, go to https://github.com/settings/applications/new
+   4. In another tab, go to your settings for OAuth applications, which for an individual account is: https://github.com/settings/applications/new (the
+   URL would be different if you want to create the OAuth app for a github
+   organization)
    5. fill in info about your project (OAuth callback URL can be found in
       Firebase Auth console).  Here's an example: ![Github app registration form][github-register-app]
    6. submit the form and then github will show you a page with your Client ID
