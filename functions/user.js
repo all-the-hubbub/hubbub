@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const GitHubbub = require('./githubbub');
 const Promise = require('bluebird');
-const ServerValue = require('firebase-admin').database.ServerValue;
+const SERVER_TIMESTAMP = require('firebase-admin').database.ServerValue.TIMESTAMP;
 
 class User {
   static findById(db, id) {
@@ -60,7 +60,7 @@ class User {
       return Promise.all([
         accountRef.update({
           githubCreatedAt: data.created_at,
-          updatedAt: ServerValue.TIMESTAMP,
+          updatedAt: SERVER_TIMESTAMP,
           handle: data.login,     // for debugging via Firebase Console
         }),
         profileRef.update(newProfile)
