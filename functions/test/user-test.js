@@ -1,10 +1,11 @@
-const User = require("../user")(config.admin);
+const User = require("../user");
 
 describe("User", function () {
   this.timeout(10000);
 
   let
     userPromise
+  , db = config.db
   , id = "S7osJegfQvWPhpSNSWsBwMroUgo2"; // id of hubbubducky; will need to be updated if this changes
 
   if (!config.isTestDatabase) {
@@ -15,7 +16,7 @@ describe("User", function () {
         describe("when passed user id that exists in firebase", () => {
 
           beforeEach(() => {
-            userPromise = User.findById(id);
+            userPromise = User.findById(db, id);
           });
 
           it("user has an oauth token", () => {
@@ -30,7 +31,7 @@ describe("User", function () {
 
     describe("when there is a user", () => {
       beforeEach(() => {
-        userPromise = User.findById(id);
+        userPromise = User.findById(db, id);
       });
 
       describe(".updateProfile", function () {
