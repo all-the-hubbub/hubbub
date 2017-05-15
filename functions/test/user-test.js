@@ -5,7 +5,7 @@ describe("User", function () {
 
   let
     userPromise
-  , id = "dmHNBNH2fnNh43c1YgaVA2KUUWA2"; // id of hubbubducky; will need to be updated if this changes
+  , id = "S7osJegfQvWPhpSNSWsBwMroUgo2"; // id of hubbubducky; will need to be updated if this changes
 
   if (!config.isTestDatabase) {
     console.log("Test requires database; skipping on CI.");
@@ -21,7 +21,7 @@ describe("User", function () {
           it("user has an oauth token", () => {
             return userPromise.then(user => {
               assert.equal(user.githubToken, process.env.GITHUB_OAUTH_TOKEN);
-              assert.equal(user.email, "hubbubducky@gmail.com");
+              assert.equal(user.handle, "hubbubducky");
             });
           });
         });
