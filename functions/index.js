@@ -9,7 +9,7 @@ const cors = require('cors')({origin: true});
 const middleware = require('./middleware')(admin);
 
 const slots = require('./slots')(admin);
-const User = require("./user")(admin);
+const User = require("./user");
 
 function makeHttpFunction(fn, middlewares) {
   const router = new express.Router();
@@ -30,7 +30,8 @@ exports.closeEvent = makeHttpFunction(slots.close, [cors, middleware.userAuthReq
 
 exports.updateProfile = functions.database.ref("/accounts/{userId}/githubToken")
   .onWrite(event => {
-    return User.findById(event.params.userId).then( (user) => {
+    const db = admin.database();
+    return User.findById(db, event.params.userId).then( (user) => {
       return user.updateProfile();
     });
   });
