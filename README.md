@@ -72,7 +72,7 @@ and deploy everything!
 ```
 yarn
 npm run test    # all of the webapp tests should pass
-npm run build   # this builds the static artifacts for Angular app
+npm run build   # this builds the static artifacts for web app
 cd ..
 (cd functions; yarn)
 # skipping functions testing for now since our tests need a Github token
@@ -80,6 +80,8 @@ firebase deploy
 ```
 
 Note: we need to deploy the app before we can run locally so the OAuth callback will be present at the place Github expects it to be
+
+To view the app, go to /login, the homepage is currently blank
 
 ## Development details
 We've got our node app in `functions`, our web app in `webapp/`
@@ -95,20 +97,31 @@ Run the webapp
 npm run start
 ```
 
-Deploy webapp
+Deploy webapp only
 ```
 cd webapp
 npm run deploy
 ```
 
+### TODO: Server data
+
+The Admin Web UI isn't finished, so for the app to work end-to-end we need to
+seed the database with events (which would be nice for open source developers
+and interactive testing anyhow)
+
 ### Functions
 
-Currently the Cloud Functions tests don't work for any user, we need to
-make it so the tests will work without everyone knowing the github token for
-`hubbubducky`
+Testing Cloud Functions
+```
+cd functions
+npm run test
+```
+
+TODO: Currently the Cloud Functions tests need a bit more work to be
+open-source-friendly -- we need to make it so the tests will work without
+everyone knowing the github token for `hubbubducky`!
 
 Some of the tests use the [Cloud Datastore Emulator](https://cloud.google.com/datastore/docs/tools/datastore-emulator)
 to run tests that require Cloud Datastore locally.
-
 
 [logo]: doc/dev/firebase-auth-github-config-2.png "Github OAuth App Registration"
