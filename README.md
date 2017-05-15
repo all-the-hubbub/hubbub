@@ -58,9 +58,9 @@ Function, we need to set up billing for the account.
    info: `./setup.sh`
 5. Now we need to set up OAuth for Github!
    1. In Firebase Console, go to  Authentication (via left nav)
-   2. Choose "SIGN-IN METHOD" tab (along the top of the panel)
+   2. Choose "SIGN-IN METHOD" tab (along the top of the panel) ![Firebase Console shows lists of authentication providers][fb-auth]
    3. select 'Github' and then turn on 'Enable' in the top right
-   4. In another tab, go to your settings for OAuth applications, which for an individual account is: https://github.com/settings/applications/new (the
+   4. In another browser tab, go to your settings for OAuth applications, which for an individual account is: https://github.com/settings/applications/new (the
    URL would be different if you want to create the OAuth app for a github
    organization)
    5. fill in info about your project (OAuth callback URL can be found in
@@ -126,4 +126,6 @@ everyone knowing the github token for `hubbubducky`!
 Some of the tests use the [Cloud Datastore Emulator](https://cloud.google.com/datastore/docs/tools/datastore-emulator)
 to run tests that require Cloud Datastore locally.
 
-[logo]: doc/dev/firebase-auth-github-config-2.png "Github OAuth App Registration"
+[fb-auth]: doc/dev/firebase-auth-github-config-0.png "Firebase Auth Sign-in Method"
+[github-oauth-apps]: doc/dev/firebase-auth-github-config-1.png "Github OAuth Applications Settings"
+[github-register-app]: doc/dev/firebase-auth-github-config-2.png "Github OAuth App Registration"
