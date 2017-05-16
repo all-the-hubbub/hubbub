@@ -19,6 +19,8 @@
   "private": true,
   "devDependencies": {
     "mocha": "^3.3.0",
+    "nock": "^9.0.13",
+    "uuid": "^3.0.1",
     "yakbak": "^2.5.0"
   }
 }
