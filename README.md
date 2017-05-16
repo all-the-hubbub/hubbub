@@ -1,5 +1,5 @@
 # Hubbub
-Ever go to a conference and feel like you haven't connected to the people you would have liked to meet? This app seeks to solve that! Using your public Github data, we might be able to connect you with other people who share your technical interests. Maybe not, but at least you'll have lunch with somebody.
+Ever go to a conference and feel like you haven't connected to the people you would have liked to meet? This app seeks to solve that! Using your public GitHub data, we might be able to connect you with other people who share your technical interests. Maybe not, but at least you'll have lunch with somebody.
 
 This app doesn't do much yet, but it will!
 
@@ -14,7 +14,7 @@ Web and Cloud Functions are in this repo. When code is checked into master branc
 * Staging website: https://hubbub-staging.firebaseapp.com/
 
 ## More details about the app
-You authenticate with Github, which triggers a [Cloud Function](https://cloud.google.com/functions/docs/) that grabs a lot of data from the [Github API](https://developer.github.com/v3/).  The initial data fills out your basic profile (e.g. [languages you code in](https://developer.github.com/v3/repos/#list-languages)) and creates a list of connections based on your pull request history or the other committers on projects that you have contributed to.
+You authenticate with GitHub, which triggers a [Cloud Function](https://cloud.google.com/functions/docs/) that grabs a lot of data from the [GitHub API](https://developer.github.com/v3/).  The initial data fills out your basic profile (e.g. [languages you code in](https://developer.github.com/v3/repos/#list-languages)) and creates a list of connections based on your pull request history or the other committers on projects that you have contributed to.
 
 ## Setting up a dev environment
 
@@ -58,16 +58,16 @@ Function, we need to set up billing for the account.
    `firebase use hubbub-dev-1234`
 4. then run the following command to configure the web app with your project
    info: `./setup.sh`
-5. Now we need to set up OAuth for Github!
+5. Now we need to set up OAuth for GitHub!
    1. In Firebase Console, go to  Authentication (via left nav)
    2. Choose "SIGN-IN METHOD" tab (along the top of the panel) ![Firebase Console shows lists of authentication providers][fb-auth]
-   3. select 'Github' and then turn on 'Enable' in the top right
+   3. Select 'Github' and then turn on 'Enable' in the top right
    4. In another browser tab, go to your settings for OAuth applications, which for an individual account is: https://github.com/settings/applications/new (the
-   URL would be different if you want to create the OAuth app for a github
+   URL would be different if you want to create the OAuth app for a GitHub
    organization)
-   5. fill in info about your project (OAuth callback URL can be found in
+   5. Fill in info about your project (OAuth callback URL can be found in
       Firebase Auth console).  Here's an example: ![Github app registration form][github-register-app]
-   6. submit the form and then github will show you a page with your Client ID
+   6. Submit the form and then GitHub will show you a page with your Client ID
       and Client Secret.
    7. Go back to the Firebase Console and fill that in and click "Save"
 5. then install node modules for web app and functions, build the web app,
@@ -133,7 +133,7 @@ npm run test
 
 TODO: Currently the Cloud Functions tests need a bit more work to be
 open-source-friendly -- we need to make it so the tests will work without
-everyone knowing the github token for `hubbubducky`!
+everyone knowing the GitHub token for `hubbubducky`!
 
 Some of the tests use the [Cloud Datastore Emulator](https://cloud.google.com/datastore/docs/tools/datastore-emulator)
 to run tests that require Cloud Datastore locally.
