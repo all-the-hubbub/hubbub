@@ -8,6 +8,7 @@ const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
 const middleware = require('./middleware')(admin);
+const oauth = require('./oauth');
 const profile = require('./profile');
 const slots = require('./slots')(admin);
 
@@ -71,6 +72,19 @@ exports.updateProfileCron = functions.https.onRequest((req, res) => {
   return profile.cron(admin.database())
     .then(() => {
       res.sendStatus(200);
+    })
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
+exports.githubToken = functions.https.onRequest((req, res) => {
+  const config = functions.config().github;
+  const github = new oauth.GitHub(config.client_id, config.client_secret);
+  return github.getToken(req.body.code)
+    .then(data => {
+      res.send(data);
     })
     .catch(err => {
       console.error(err);
