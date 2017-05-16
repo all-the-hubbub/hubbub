@@ -72,7 +72,8 @@ Function, we need to set up billing for the account.
 and deploy everything!
 
 ```
-yarn
+cd webapp
+yarn            # install the node modules
 npm run test    # all of the webapp tests should pass
 npm run build   # this builds the static artifacts for web app
 cd ..
