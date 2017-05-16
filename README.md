@@ -75,6 +75,15 @@ and deploy everything!
 cd webapp
 yarn            # install the node modules
 npm run test    # all of the webapp tests should pass
+```
+
+By default the tests "watch" files, and will rerun the tests any time
+you change the code.  Once you see the results, you can interrupt this
+with Ctrl-C.
+
+Now we'll build and deploy the site and functions...
+
+```
 npm run build   # this builds the static artifacts for web app
 cd ..
 (cd functions; yarn)
