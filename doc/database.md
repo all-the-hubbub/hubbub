@@ -49,4 +49,4 @@
 * `/requests` - lists of users who have signed up for events, to be used by the matching algorithm.
 * `/events` - all events (past, present, and future). Clients should primarily query this by `startAt`.
 * `/assignments` - assignments made by the matching algorithm.
-* `/updateProfileQueue` - storage for the reliable profile updating mechanism. (TODO: link to doc)
+* `/updateProfileQueue` - storage for the [reliable profile updating mechanism](profile.md).
