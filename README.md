@@ -6,6 +6,8 @@ This app doesn't do much yet, but it will!
 # Development
 [![Build Status](https://travis-ci.org/all-the-hubbub/hubbub.svg?branch=master)](https://travis-ci.org/all-the-hubbub/hubbub)
 
+Join us in the [dev mailing list](https://groups.google.com/d/forum/hubbub-code) to ask questions about the code or if you'd like to contribute!
+
 Web and Cloud Functions are in this repo. When code is checked into master branch, tests are run on Travis CI and if they pass, then the code is deployed.
 
 * Production website: https://hubbub-159904.firebaseapp.com/
