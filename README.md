@@ -4,7 +4,7 @@ Ever go to a conference and feel like you haven't connected to the people you wo
 This app doesn't do much yet, but it will!
 
 # Development
-[![Build Status](https://travis-ci.org/all-the-hubbub/hubbub.svg?branch=master)](https://travis-ci.org/all-the-hubbub/hubbub)
+[![Build Status](https://travis-ci.org/all-the-hubbub/hubbub.svg?branch=staging)](https://travis-ci.org/all-the-hubbub/hubbub)
 
 Join us in the [dev mailing list](https://groups.google.com/d/forum/hubbub-code) to ask questions about the code or if you'd like to contribute!
 
