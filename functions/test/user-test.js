@@ -9,7 +9,11 @@ describe("User", function () {
   , id = "S7osJegfQvWPhpSNSWsBwMroUgo2"; // id of hubbubducky; will need to be updated if this changes
 
   if (!config.isTestDatabase) {
-    console.log("Test requires database; skipping on CI.");
+    console.log("database not configured, skipping test");
+    // TODO: tests shouldn't need a live database
+  } else if (!config.hasOAuthToken) {
+    console.log("OAuth token not configured, skipping test");
+    // TODO: we should have some unit tests for this that don't require access
   } else {
     describe("static", () => {
       describe(".findById", () => {
