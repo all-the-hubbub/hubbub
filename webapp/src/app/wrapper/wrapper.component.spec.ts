@@ -1,21 +1,12 @@
-import {APP_BASE_HREF}                      from '@angular/common';
+import { NO_ERRORS_SCHEMA }                 from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { MdButtonModule, MdCheckboxModule,
          MdDialogModule, MdMenuModule,
          MdSidenavModule, MdToolbarModule } from '@angular/material';
-import { RouterModule, Routes }             from '@angular/router';
 import { Observable }                       from 'rxjs/Observable';
 
 // app dependencies
 import { UserService, AuthStatus }          from '../user.service';
-import { AdminComponent }                   from '../admin/admin.component';
-import { AppComponent }                     from '../app.component'
-import { ProfileComponent }                 from '../profile/profile.component';
-import { LoginComponent }                   from '../login/login.component';
-import { LunchComponent }                   from '../lunch/lunch.component';
-import { UpcomingEventsComponent }          from '../upcoming-events/upcoming-events.component';
-import { Profile }                          from '../types'
-import { routes }                           from '../app.router';
 
 // testing imports
 import { subjectUid, subjectProfileData, UserServiceMock } from '../user.service.mock';
@@ -25,17 +16,11 @@ describe('WrapperComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        WrapperComponent, AdminComponent, ProfileComponent,
-        LoginComponent, LunchComponent,
-        // when I import 'routes' all components of all routes need to be declared
-        // seems like I should be able to do this differently to isolate the
-        // following dependencies
-        AppComponent, UpcomingEventsComponent
+        WrapperComponent,
       ],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
           { provide: UserService, useClass: UserServiceMock },
-          { provide: APP_BASE_HREF, useValue : '/' }
-
       ],
       imports: [
         MdButtonModule,
@@ -44,8 +29,6 @@ describe('WrapperComponent', () => {
         MdMenuModule,
         MdSidenavModule,
         MdToolbarModule,
-        RouterModule,
-        routes
       ]
     }).compileComponents();
   }));
