@@ -27,3 +27,8 @@ if (fs.existsSync(privateKeyFile)) {
   console.log("private key not found");
   config.isTestDatabase = false;
 }
+
+config.hasOAuthToken = false
+if (process.env.GITHUB_OAUTH_TOKEN) {
+  config.hasOAuthToken = true;
+}

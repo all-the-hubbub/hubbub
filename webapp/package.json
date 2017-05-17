@@ -4,11 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --environment=staging",
-    "build": "ng build --environment=staging ",
+    "start": "ng serve",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "deploy": "yarn && ng build && firebase deploy --only hosting",
     "deploy-prod": "yarn && ng build --prod && firebase deploy --only hosting",
     "deploy-staging": "yarn && ng build --environment=staging && firebase deploy --only hosting"
   },

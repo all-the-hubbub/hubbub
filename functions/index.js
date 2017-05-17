@@ -1,15 +1,15 @@
+// allow access from anywhere, since all functions will require authentication
+const cors = require('cors')({origin: true});
+const express = require('express');
 const functions = require('firebase-functions');
+
 // Can only initialize firebase once, so doing here and passing where needed
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-const express = require('express');
-// allow access from anywhere, since all functions will require authentication
-const cors = require('cors')({origin: true});
 const middleware = require('./middleware')(admin);
-
+const profile = require('./profile');
 const slots = require('./slots')(admin);
-const User = require("./user")(admin);
 
 function makeHttpFunction(fn, middlewares) {
   const router = new express.Router();
@@ -24,13 +24,56 @@ function makeHttpFunction(fn, middlewares) {
   });
 }
 
+/*
+ * Slots Functions
+ */
 exports.joinEvent = makeHttpFunction(slots.join, [cors, middleware.userAuthRequired]);
 exports.leaveEvent = makeHttpFunction(slots.leave, [cors, middleware.userAuthRequired]);
 exports.closeEvent = makeHttpFunction(slots.close, [cors, middleware.userAuthRequired, middleware.adminOnly]);
 
-exports.updateProfile = functions.database.ref("/accounts/{userId}/githubToken")
+/*
+ * Profile Functions
+ */
+exports.enqueueUpdateProfileLegacy = functions.database.ref("/accounts/{userId}/githubToken")
   .onWrite(event => {
-    return User.findById(event.params.userId).then( (user) => {
-      return user.updateProfile();
-    });
+    // Ignore deletes
+    if (!event.data.exists()) {
+      return;
+    }
+    return profile.enqueueUpdateLegacy(event.data.ref);
   });
+
+exports.enqueueUpdateProfile = functions.database.ref("/accounts/{userId}/profileNeedsUpdate")
+  .onWrite(event => {
+    // Ignore non-truthy values (either a delete or setting to false)
+    if (!event.data.val()) {
+      return;
+    }
+
+    const db = admin.database();
+    const userId = event.params.userId;
+    return profile.enqueueUpdate(db, userId);
+  });
+
+exports.updateProfile = functions.database.ref("/updateProfileQueue/{userId}")
+  .onWrite(event => {
+    // Ignore deletes
+    if (!event.data.exists()) {
+      return;
+    }
+
+    const db = admin.database();
+    const userId = event.params.userId;
+    return profile.update(db, userId);
+  });
+
+exports.updateProfileCron = functions.https.onRequest((req, res) => {
+  return profile.cron(admin.database())
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+});

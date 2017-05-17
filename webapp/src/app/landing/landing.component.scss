@@ -1,0 +1,111 @@
+div.background {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  line-height: 1.25;
+  margin: 0px;
+  /*background: #6775CB;*/
+  background: #5B69C3;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+}
+
+div#hero {
+  max-width: 1000px;
+  margin: 0px auto;
+  /*border: 1px solid #ddd;*/
+}
+
+div.hero_wrapper {
+  margin: 0px auto 10px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background: #5B69C3;
+}
+
+div.notice {
+  width: 90%;
+  max-width: 600px;
+  min-width: 300px;
+  margin: 20px auto;
+  padding: 20px 22px;
+  border-radius: 4px;
+  background: #6674CF;
+}
+div.notice span.title {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.5;
+}
+div.notice span.description {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+div.notice span.description a {
+  color: #fff;
+  line-height: 1.5;
+}
+
+div#logo_wrapper {
+  text-align: right;
+  max-width: 400px;
+}
+div#logo_wrapper > img.logo {
+  width: 250px;
+  height: 250px;
+}
+div#info {
+  margin-left: 20px;
+}
+div#info span.title {
+  display: block;
+  margin-top: 40px;
+  font-size: 50px;
+  font-weight: bold;
+}
+div#info span.subtitle {
+  display: block;
+  font-size: 22px;
+  font-weight: 200;
+  margin-top: 0px;
+  color: #AAB2E6;
+}
+a.app_store {
+  text-decoration: none;
+}
+
+a.app_store img {
+  margin-top: 30px;
+  text-decoration: none;
+  width: 135px;
+  height: 40px;
+}
+
+
+@media only screen and (max-width: 700px) {
+  div.hero_wrapper {
+    padding-top: 0px;
+    padding-bottom: 10px;
+  }
+  div#logo_wrapper {
+    text-align: center;
+    max-width: 400px;
+  }
+  div#info span.title {
+    margin-top: 0px;
+    font-size: 40px;
+  }
+  div#info span.subtitle {
+    font-size: 20px;
+  }
+  div.notice {
+    margin-top: 10px;
+    width: 80%;
+    padding: 20px 22px;
+  }
+  div.notice span.title {
+    font-size: 20px;
+  }
+}

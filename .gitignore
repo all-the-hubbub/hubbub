@@ -4,6 +4,7 @@
 /webapp/dist
 /tmp
 /out-tsc
+webapp/src/environments/environment.ts
 
 # dependencies
 node_modules
