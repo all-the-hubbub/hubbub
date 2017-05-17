@@ -1,10 +1,12 @@
-body {
-   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+div.background {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   line-height: 1.25;
   margin: 0px;
   /*background: #6775CB;*/
   background: #5B69C3;
   color: #fff;
+  height: 100%;
+  width: 100%;
 }
 
 div#hero {
