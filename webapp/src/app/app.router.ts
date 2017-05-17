@@ -7,6 +7,7 @@ import { AuthGuard } from './auth.guard';
 import { OnlyIfLoggedOut } from './loggedout.guard';
 import { LunchComponent } from './lunch/lunch.component';
 import { LoginComponent } from './login/login.component';
+import { LandingComponent } from './landing/landing.component';
 import { UpcomingEventsComponent } from './upcoming-events/upcoming-events.component';
 
 const appRoutes: Routes = [
@@ -14,7 +15,7 @@ const appRoutes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'request', component: LunchComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [OnlyIfLoggedOut] },
-  { path: '', component: AppComponent, canActivate: [OnlyIfLoggedOut] },
+  { path: '', component: LandingComponent, canActivate: [OnlyIfLoggedOut] },
  ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(appRoutes);
