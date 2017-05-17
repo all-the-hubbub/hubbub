@@ -1,5 +1,5 @@
 div.background {
-   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   line-height: 1.25;
   margin: 0px;
   /*background: #6775CB;*/
@@ -72,14 +72,17 @@ div#info span.subtitle {
   margin-top: 0px;
   color: #AAB2E6;
 }
-a.app_store {
-  text-decoration: none;
-}
-
-a.app_store img {
+a.marketing-badge {
+  display: inline-block;
   margin-top: 30px;
   text-decoration: none;
-  width: 135px;
+}
+a.marketing-badge.google-play img {
+  width: 134px;
+  height: 40px;
+}
+a.marketing-badge.app-store img {
+  width: 134px;
   height: 40px;
 }
 
