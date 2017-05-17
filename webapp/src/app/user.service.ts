@@ -4,7 +4,7 @@ import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/data
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 
-import { Profile } from './types';
+import { Profile, Account } from './types';
 
 import * as firebase from 'firebase/app';
 
@@ -16,6 +16,7 @@ export type AuthStatus = "Unknown"|"LoggedIn"|"LoggedOut";
 export class UserService {
   public loginStatus: AuthStatus = "Unknown";
   public profile$: Observable<Profile | undefined>;
+  public account$: Observable<Account | undefined>;
   public user$: Observable<firebase.User>;
   db: firebase.database.Database;
 
@@ -24,6 +25,13 @@ export class UserService {
     this.db = this.afDB.app.database();
 
     this.user$ = this.afAuth.authState;
+    this.account$ = this.afAuth.authState.mergeMap(user => {
+      if (user) {
+        return afDB.object(`accounts/${user.uid}`);
+      } else {
+        return Observable.of(undefined);
+      }
+    })
     this.profile$ = this.afAuth.authState.do(user => {
         console.log('UserService: user', user);
         if (user) {

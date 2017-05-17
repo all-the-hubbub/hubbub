@@ -46,6 +46,7 @@ export class Profile {
 export class Account {
     $key: string;
     email: string;
+    admin: boolean;
     githubToken: string;
     updatedAt: Object;    // server timestamp
 }

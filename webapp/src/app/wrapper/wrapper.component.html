@@ -15,7 +15,9 @@
       </button>
       <!-- <button md-menu-item [routerLink]="['/about']"> About</button> -->
       <!-- TODO: ONLY SHOW IF USER IS ADMIN -->
-      <button md-menu-item [routerLink]="['/admin']"> Admin Console</button>
+      <button md-menu-item
+         *ngIf="admin"
+         [routerLink]="['/admin']"> Admin Console</button>
     </md-menu>
 
     <!-- PROFILE -->
