@@ -1,6 +1,7 @@
 {
   "rules": {
     "accounts": {
+      ".indexOn": "profileNeedsUpdate",
       "$uid": {
         ".read": "$uid === auth.uid",
         "githubToken": {
@@ -27,6 +28,9 @@
           ".read": "data.child('members/' + auth.uid).exists()"
         }
       }
+    },
+    "updateProfileQueue": {
+      ".indexOn": "updatedAt"
     }
   }
 }
