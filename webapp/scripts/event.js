@@ -59,6 +59,7 @@ var eventTime = timeFromOption(option)
 // note: this script doesn't support creating 2 events at the same time
 var id = moment(eventTime).format("YYYYMMDD-HH");
 event = {
+    "id": id,
     "location": location,
     "name": name,
     "startAt": Number(eventTime)/1000,
