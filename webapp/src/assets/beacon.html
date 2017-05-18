@@ -30,118 +30,12 @@
 
   <div class="canvas">
 
-   <div class="shape shape-circle">
+   <div class="shape shape-">
      <div class="wrapper">
        <div class="arm arm-left"></div>
        <div class="arm arm-right arm-flip"></div>
      </div>
      <div class="body"></div>
-     <div class="wrapper">
-       <div class="face blink">
-         <div class="eye"></div>
-         <div class="mouth"></div>
-         <div class="eye"></div>
-       </div>
-     </div>
-   </div>
-
-    <div class="shape shape-square">
-     <div class="wrapper">
-       <div class="arm arm-left"></div>
-       <div class="arm arm-right arm-flip"></div>
-     </div>
-     <div class="body body-square"></div>
-     <div class="wrapper">
-       <div class="face blink">
-         <div class="eye"></div>
-         <div class="mouth"></div>
-         <div class="eye"></div>
-       </div>
-     </div>
-   </div>
-<div class="hidden">
-   <div class="shape shape-heart">
-     <div class="wrapper">
-       <div class="arm arm-left"></div>
-       <div class="arm arm-right arm-flip"></div>
-     </div>
-     <div class="body body-square"></div>
-     <div class="wrapper">
-       <div class="face blink">
-         <div class="eye"></div>
-         <div class="mouth"></div>
-         <div class="eye"></div>
-       </div>
-     </div>
-   </div>
-
-   <div class="shape shape-triangle">
-     <div class="wrapper">
-       <div class="arm arm-left"></div>
-       <div class="arm arm-right arm-flip"></div>
-     </div>
-     <div class="body body-square"></div>
-     <div class="wrapper">
-       <div class="face blink">
-         <div class="eye"></div>
-         <div class="mouth"></div>
-         <div class="eye"></div>
-       </div>
-     </div>
-   </div>
-
-   <div class="shape shape-diamond">
-     <div class="wrapper">
-       <div class="arm arm-left"></div>
-       <div class="arm arm-right arm-flip"></div>
-     </div>
-     <div class="body body-square"></div>
-     <div class="wrapper">
-       <div class="face blink">
-         <div class="eye"></div>
-         <div class="mouth"></div>
-         <div class="eye"></div>
-       </div>
-     </div>
-   </div>
-
-   <div class="shape shape-pentagon">
-     <div class="wrapper">
-       <div class="arm arm-left"></div>
-       <div class="arm arm-right arm-flip"></div>
-     </div>
-     <div class="body body-square"></div>
-     <div class="wrapper">
-       <div class="face blink">
-         <div class="eye"></div>
-         <div class="mouth"></div>
-         <div class="eye"></div>
-       </div>
-     </div>
-   </div>
-
-    <div class="shape shape-star">
-     <div class="wrapper">
-       <div class="arm arm-left"></div>
-       <div class="arm arm-right arm-flip"></div>
-     </div>
-     <div class="body body-square"></div>
-     <div class="wrapper">
-       <div class="face blink">
-         <div class="eye"></div>
-         <div class="mouth"></div>
-         <div class="eye"></div>
-       </div>
-     </div>
-   </div>
-
-
-   <div class="shape shape-rectangle">
-     <div class="wrapper">
-       <div class="arm arm-left"></div>
-       <div class="arm arm-right arm-flip"></div>
-     </div>
-     <div class="body body-square"></div>
      <div class="wrapper">
        <div class="face blink">
          <div class="eye"></div>
@@ -161,7 +55,16 @@
     }
 
     var topicName = getParameterByName('topicName');
+    var topicId = getParameterByName('topicId');
+    topicId = Number(topicId);
     document.getElementById('topicName').innerHTML = topicName;
+
+    var shape = 'circle'; // default
+    var allShapes = ['circle', 'square', 'heart', 'triangle', 'diamond', 'pentagon', 'star', 'rectangle'];
+    shape = allShapes[topicId % 8];
+
+    var bub = document.getElementsByClassName('shape')[0];
+    bub.className += shape;
   </script>
 </body>
 </html>

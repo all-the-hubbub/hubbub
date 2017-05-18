@@ -4,6 +4,7 @@
 export class Slot {
   $key: string;
   name: string;
+  location: string;
   state: "open" | "closed";
   startAt: Date;
   endAt: Date;

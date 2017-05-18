@@ -189,15 +189,18 @@ function close (req, res) {
 
   function generateTopics(groupSize, uids) {
     const names = _.shuffle([
-      'JavaScript',
-      'Java',
-      'Ruby',
-      'PHP',
-      'Python',
-      'Swift',
-      'TypeScript',
-      'Objective-C',
-      'Go',
+          "Cupcake",
+          "Donut",
+          "Eclair",
+          "FroYo",
+          "Gingerbread",
+          "Honeycomb",
+          "Ice",
+          "Jelly",
+          "KitKat",
+          "Lollipop",
+          "Marshmallow",
+          "Nougat"
     ]);
 
     // Form groups. The last group may be smaller than requested.
@@ -213,7 +216,7 @@ function close (req, res) {
     let topics = {};
     groups.forEach((group, i) => {
       let name = names[i % names.length];
-      let id = name.toLowerCase().replace(' ', '-') + '-' + i;
+      let id = String(i);
 
       topics[id] = {
         data: {

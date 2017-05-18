@@ -20,7 +20,11 @@ export class LunchComponent implements OnInit {
   }
 
   select(slot: SlotWithRSVP) {
-    this.slotService.join(slot);
+    if (slot.requested) {
+      this.slotService.join(slot);
+    } else {
+      this.slotService.leave(slot);
+    }
   }
 
 }

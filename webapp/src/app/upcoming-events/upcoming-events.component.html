@@ -17,15 +17,10 @@
     <!-- TODO: OPEN EVENT DETAIL -->
     <!-- Clicking on an event should open the event detail view -->
       <md-list-item class="event" *ngFor="let item of eventList$ | async">
-        <div class="event-date">
-          <h2>18</h2>
-          <h5>May</h5>
-        </div>
-
-        <div class="event-info">
-          <h3>{{item.name}}</h3>
-          <p class="secondary">Time - Location</p>
-        </div>
+        <event  [startAt]="item.startAt"
+                [name]="item.name"
+                [location]="item.location"
+                class="event-detail"></event>
         <div *ngIf="item.topic">
           <p class="secondary">{{item.topic.name}}</p>
         </div>

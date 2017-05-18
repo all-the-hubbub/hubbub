@@ -50,29 +50,41 @@ export class SlotService {
           state: value.state,
           startAt: value.startAt,
           endAt: value.endAt,
+          location: value.location,
           requested: userSlotList.map(e => e.$key).includes(value.$key)
         }
-        return combinedSlot;
+        return (combinedSlot as SlotWithRSVP);
       })
     })
 
   }
 
-  join(slot: Slot) {
-    console.log('close item:', slot);
+  /*
+   * post `body` to HTTP function with authentication
+   */
+  httpFunctionWithAuth(name, body) {
+    console.log('http:', name, body);
     let token = this.userService.getToken().then(token => {
       let headers = new Headers({
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       });
-      let endpoint = `${environment.config.functionRoot}/joinEvent`;
-      return this.http.post(endpoint, {id: slot.$key, userId: this.uid}, { headers: headers })
-        // Call map on the response observable to get the parsed people object
-        //.map(res => res.json())
-        // Subscribe to the observable to get the parsed people object and attach it to the
-        // component
-        .subscribe(res => console.log('res', res));
+      let endpoint = `${environment.config.functionRoot}/${name}`;
+      return this.http.post(endpoint, body, { headers: headers })
+        .do(res => console.log('res', res));
     })
+
   }
+
+  join(slot: Slot) {
+    return this.httpFunctionWithAuth('joinEvent',
+                              { id: slot.$key, userId: this.uid });
+  }
+
+  leave(slot: Slot) {
+    return this.httpFunctionWithAuth('leaveEvent',
+                              { id: slot.$key, userId: this.uid });
+  }
+
 
 }
