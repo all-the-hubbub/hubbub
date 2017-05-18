@@ -6,11 +6,6 @@
     "public": "webapp/dist",
     "redirects": [
       {
-        "source": "/",
-        "destination": "https://www.hubbub.live",
-        "type": 302
-      },
-      {
         "source": "/privacy",
         "destination": "https://www.iubenda.com/privacy-policy/8115331",
         "type": 302

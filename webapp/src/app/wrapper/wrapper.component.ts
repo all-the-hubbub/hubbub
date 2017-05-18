@@ -21,6 +21,7 @@ import { environment } from '../../environments/environment';
 export class WrapperComponent implements OnInit {
   title = 'Hubbub';
   loggedIn: boolean = false;
+  admin = false;  // start out false, change to true if admin after login
 
   constructor(public userService: UserService, private readonly dialog: MdDialog) {
   }
@@ -32,6 +33,10 @@ export class WrapperComponent implements OnInit {
     this.userService.user$.subscribe(user => {
       this.loggedIn = (user != null);
     })
+    this.userService.account$.subscribe(account => {
+      this.admin = account && account.admin;
+    })
+
   }
 
 }

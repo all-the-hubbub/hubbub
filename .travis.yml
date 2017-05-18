@@ -44,6 +44,7 @@ script:
   - if [ "$TRAVIS_BRANCH" = "staging" ]; then export WEB_ENV=staging; fi
   - if [ "$TRAVIS_BRANCH" = "master" ]; then export WEB_ENV=prod; fi
   - echo "Building with environment=$WEB_ENV"
+  - (cd webapp/src/environments; cp environment.staging.ts environment.ts)
   - (cd webapp; ng test --watch false && ng build --environment=$WEB_ENV)
   - (cd functions; yarn test)
 
