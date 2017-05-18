@@ -8,7 +8,7 @@ import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/switchMap';
 
 import { Profile, Slot, SlotWithRSVP, UpcomingEvent } from './types';
-import { UserService } from './user.service'
+import { UserService } from './user.service';
 import { environment } from '../environments/environment';
 
 // TODO: the following is temporary -- check with deast@

@@ -6,8 +6,10 @@ import { LunchComponent }     from '../lunch/lunch.component';
 import { SlotService }        from '../slot.service';
 import { UpcomingEvent }      from '../types';
 
+import { BubComponent, ShapeService } from '../bub/bub.component';
+
 @Component({
-  selector: 'upcoming-events',
+  selector: 'app-upcoming-events',
   templateUrl: './upcoming-events.component.html',
   styleUrls: ['./upcoming-events.component.scss']
 })
@@ -25,4 +27,3 @@ export class UpcomingEventsComponent implements OnInit {
   }
 
 }
-

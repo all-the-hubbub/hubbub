@@ -16,6 +16,7 @@ const appRoutes: Routes = [
   { path: 'request', component: LunchComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [OnlyIfLoggedOut] },
   { path: '', component: LandingComponent, canActivate: [OnlyIfLoggedOut] },
+  // { path: 'beacon', component: BeaconComponent, canActivate: [AuthGuard] }
  ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(appRoutes);
