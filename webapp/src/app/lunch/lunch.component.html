@@ -23,18 +23,16 @@
 
     <md-list>
       <md-list-item class="event edit" *ngFor="let item of slotList$ | async">
-      <!-- TODO: CHECKBOXES -->
-      <!-- Clicking checboxes doesnt seem to do anything right now -->
-      <!-- Apply on click or have save action to apply changes -->
+
       <md-checkbox (click)="select(item)" [checked]="item.requested" align="before">
        <div class="event-date">
-            <h2>18</h2>
-            <h5>May</h5>
+            <h2>{{item.day}}</h2>
+            <h5>{{item.month}}</h5>
           </div>
 
           <div class="event-info">
             <h3>{{item.name}}</h3>
-            <p class="secondary">Time - Location</p>
+            <p class="secondary">{{item.displayTime}} - {{item.location}}</p>
           </div>
           </md-checkbox>
 
