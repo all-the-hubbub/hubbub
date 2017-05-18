@@ -25,6 +25,17 @@ function update(db, uid) {
       // Fetch and save new profile data from GitHub
       return user.updateProfile();
     })
+    .catch(err => {
+      // If the oauth token was invalid, delete it and allow the queue
+      // entry and profileNeedsUpdate flag to be cleaned up as usual.
+      if (err.code === 401) {
+        console.log(`Invalid githubToken for uid=${uid}`);
+        return db.ref(`/accounts/${uid}/githubToken`).set(null);
+      }
+
+      // All other errors are unexpected
+      throw err;
+    })
     .then(() => {
       // Atomically delete the queue entry and clear profileNeedsUpdate flag
       const updates = {}
