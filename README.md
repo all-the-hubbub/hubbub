@@ -69,7 +69,14 @@ Function, we need to set up billing for the account.
       Firebase Auth console).  Here's an example: ![Github app registration form][github-register-app]
    6. Submit the form and then GitHub will show you a page with your Client ID
       and Client Secret.
-   7. Go back to the Firebase Console and fill that in and click "Save"
+   7. You will need to put those secrets in two place:
+      1. In the Firebase Console, fill the Authentication details for GitHub and click "Save"
+      2. For the mobile clients to work, the github secret also needs to be
+      available as a Cloud Functions server configuration:
+        ```
+        firebase functions:config:set github.client_id="<client_id>" github.client_secret="<client_secret>"
+        ```
+
 5. then install node modules for web app and functions, build the web app,
 and deploy everything!
 
@@ -123,7 +130,7 @@ The Admin Web UI isn't finished, so for the app to work end-to-end we need to
 seed the database with events (which would be nice for open source developers
 and interactive testing anyhow)
 
-### Functions
+### Developing Cloud Functions
 
 Testing Cloud Functions
 ```

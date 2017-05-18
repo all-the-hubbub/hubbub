@@ -8,7 +8,9 @@
     "firebase-admin": "^4.2.1",
     "firebase-functions": "^0.5.5",
     "github": "^9.2.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
   },
   "scripts": {
     "test": "mocha test",
@@ -17,6 +19,8 @@
   "private": true,
   "devDependencies": {
     "mocha": "^3.3.0",
+    "nock": "^9.0.13",
+    "uuid": "^3.0.1",
     "yakbak": "^2.5.0"
   }
 }
