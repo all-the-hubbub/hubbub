@@ -56,11 +56,12 @@
 
     var topicName = getParameterByName('topicName');
     var topicId = getParameterByName('topicId');
-    document.getElementById('topicName').innerHTML = topicName + " - " + topicId;
+    topicId = Number(topicId);
+    document.getElementById('topicName').innerHTML = topicName;
 
     var shape = 'circle'; // default
     var allShapes = ['circle', 'square', 'heart', 'triangle', 'diamond', 'pentagon', 'star', 'rectangle'];
-    if (topicId != undefined) { shape = allShapes[topicId % 8]; }
+    shape = allShapes[topicId % 8];
 
     var bub = document.getElementsByClassName('shape')[0];
     bub.className += shape;

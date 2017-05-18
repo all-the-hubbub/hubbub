@@ -216,7 +216,7 @@ function close (req, res) {
     let topics = {};
     groups.forEach((group, i) => {
       let name = names[i % names.length];
-      let id = i;
+      let id = String(i);
 
       topics[id] = {
         data: {
