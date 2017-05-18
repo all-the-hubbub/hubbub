@@ -1,4 +1,4 @@
-const firebase = require('firebase');
+const firebase = require('firebase-admin');
 
 /**
  * When a reference is in offline mode it will not call any callbacks
@@ -64,7 +64,13 @@ function createOfflineDb(initialData = {},
     appName = 'offline-test') {
 
   stubFirebase();
-  const config = {databaseURL: url};
+
+  const config = {
+    credential: {
+      getAccessToken() { return ''; }
+    },
+    databaseURL: url
+  };
 
   let app;
 

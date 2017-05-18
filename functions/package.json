@@ -16,7 +16,6 @@
   },
   "private": true,
   "devDependencies": {
-    "firebase": "^3.9.0",
     "mocha": "^3.3.0",
     "yakbak": "^2.5.0"
   }
