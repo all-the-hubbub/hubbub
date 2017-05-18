@@ -25,15 +25,11 @@
       <md-list-item class="event edit" *ngFor="let item of slotList$ | async">
 
       <md-checkbox (click)="select(item)" [checked]="item.requested" align="before">
-       <div class="event-date">
-            <h2>{{item.day}}</h2>
-            <h5>{{item.month}}</h5>
-          </div>
+        <event  [startAt]="item.startAt"
+                [name]="item.name"
+                [location]="item.location"
+                class="event-detail"></event>
 
-          <div class="event-info">
-            <h3>{{item.name}}</h3>
-            <p class="secondary">{{item.displayTime}} - {{item.location}}</p>
-          </div>
           </md-checkbox>
 
       </md-list-item>
