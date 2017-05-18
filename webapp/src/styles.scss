@@ -123,10 +123,15 @@ p {
   }
 }
 
+.event-detail {
+  width: 100%;
+}
+
 .event-date {
+  display: inline-block;
+  float: left;
   margin-right: 24px;
   color: #00B8D4;
-
 }
 .event-info {
   flex-grow: 1;
@@ -154,6 +159,12 @@ p {
     }
   }
 }
+
+// this seems to have no effect
+.mat-dialog-container {
+  box-sizing: content-box;
+}
+
 .event-dialog-content.mat-dialog-content {
   padding: 0;
 }

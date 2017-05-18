@@ -53,7 +53,7 @@ export class SlotService {
           location: value.location,
           requested: userSlotList.map(e => e.$key).includes(value.$key)
         }
-        return combinedSlot;
+        return (combinedSlot as SlotWithRSVP);
       })
     })
 

@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA }                 from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule } from '@angular/material';
 
@@ -21,6 +22,7 @@ describe('LunchComponent', () => {
       imports: [
         MdButtonModule, MdCardModule, MdCheckboxModule, MdListModule,
       ],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: SlotService, useClass: MockSlotService },
       ]

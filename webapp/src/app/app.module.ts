@@ -33,6 +33,7 @@ import { WrapperComponent } from './wrapper/wrapper.component';
 
 import { environment } from '../environments/environment';
 import { LandingComponent } from './landing/landing.component';
+import { EventComponent } from './event/event.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LandingComponent } from './landing/landing.component';
     LoginComponent,
     WrapperComponent,
     LandingComponent,
+    EventComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.config),
