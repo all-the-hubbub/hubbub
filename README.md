@@ -55,7 +55,11 @@ Function, we need to set up billing for the account.
    look something like `hubbub-dev-1234`
 3. in your hubbub directory (which you should be in if you followed the steps
    above), type the following command using YOUR project id:
-   `firebase use hubbub-dev-1234`
+
+   ```firebase use hubbub-dev-1234  --alias dev```
+
+   (in the future you can use the alias to switch which project environment
+   to use with the command: `firebase use dev`)
 4. then run the following command to configure the web app with your project
    info: `./setup.sh`
 5. Now we need to set up OAuth for GitHub!
